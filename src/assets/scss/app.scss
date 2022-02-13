@@ -1,5 +1,3 @@
 @import './Foundation';
-
-body {
-  max-width: $siteWidth;
-}
+@import './Layout';
+@import './Object';

@@ -1,0 +1,38 @@
+// font-weight
+.u-fontMedium {
+  font-weight: 500;
+}
+.u-fontBold {
+  font-weight: 700;
+}
+
+// font-size
+.u-fs20 {
+  font-size: 2rem;
+}
+.u-fs12 {
+  font-size: 1.2rem;
+}
+.u-fs16 {
+  font-size: 1.6rem;
+}
+
+// font style
+.u-primaryLink {
+  color: $primaryColor;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+//
+// .u-link {
+//   transition: $transitionBasis;
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// }
+
+// .u-center {
+//   @include contentCenter();
+//   height: 100%;
+// }
