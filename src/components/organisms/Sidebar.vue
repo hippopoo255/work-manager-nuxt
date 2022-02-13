@@ -11,7 +11,7 @@
   </v-navigation-drawer>
 </template>
 <script lang="ts">
-import { ref, defineComponent } from '@vue/composition-api'
+import { ref, defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {

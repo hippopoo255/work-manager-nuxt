@@ -17,6 +17,10 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1, user-scalable=no',
+      },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
@@ -35,12 +39,22 @@ export default {
   env: {
     APP_NAME_EN: process.env.APP_NAME_EN,
     APP_NAME_JA: process.env.APP_NAME_JA,
-    API_URL: process.env.API_URL,
+    API_STAGE_URL: process.env.API_STAGE_URL,
+    API_DIRECT_URL: process.env.API_DIRECT_URL,
+    AWS_COGNITO_REGION: process.env.AWS_COGNITO_REGION,
+    AWS_COGNITO_IDENTITY_POOL_ID: process.env.AWS_COGNITO_IDENTITY_POOL_ID,
+    AWS_COGNITO_USER_POOL_ID: process.env.AWS_COGNITO_USER_POOL_ID,
+    AWS_COGNITO_CLIENT_ID: process.env.AWS_COGNITO_CLIENT_ID,
+    AWS_COGNITO_TEST_ADMIN_NAME: process.env.AWS_COGNITO_TEST_ADMIN_NAME,
+    AWS_COGNITO_TEST_ADMIN_EMAIL: process.env.AWS_COGNITO_TEST_ADMIN_EMAIL,
+    AWS_COGNITO_TEST_ADMIN_PASSWORD:
+      process.env.AWS_COGNITO_TEST_ADMIN_PASSWORD,
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    /* '~/plugins/vuetify' */
+    { src: '~/plugins/custom', ssr: false },
+    { src: '~/plugins/formLength' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -89,17 +103,27 @@ export default {
       font: false,
     },
     customVariables: ['~/assets/scss/Foundation/variables.scss'],
+    options: { customProperties: true },
     theme: {
       // dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          secondary: colors.amber.darken2,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
+          success: colors.green,
+        },
+        light: {
+          primary: colors.lightBlue.lighten2,
+          accent: colors.grey.lighten2,
+          secondary: colors.amber.lighten2,
+          info: colors.teal.lighten3,
+          warning: colors.amber.accent3,
+          error: colors.deepOrange.accent4,
+          success: colors.green,
         },
       },
     },

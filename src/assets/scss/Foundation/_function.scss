@@ -1,0 +1,6 @@
+@function spacing($count) {
+  $spacing: 4px;
+  $calc: $spacing * $count;
+  // @debug $calc; //テスト用のデバッグコード
+  @return $calc;
+}

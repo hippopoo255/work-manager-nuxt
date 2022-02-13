@@ -1,0 +1,59 @@
+:root {
+  .theme--light {
+    // --v-bgColor-basis: #f5f5f5;
+    --v-bgColor-drawer: #333;
+    --v-bgColor-footer: #e5e5e5;
+    --v-fontColor-drawer: #fafafa;
+    --v-fontColor-basis: #444;
+  }
+}
+
+.theme--dark {
+  // background-color: var(--v-bgColor-basis, #121212) !important;
+}
+.theme--light {
+  &.v-application,
+  &.v-card {
+    color: var(--v-fontColor-basis, rgba(0, 0, 0, 0.87)) !important;
+  }
+  &.v-application {
+    background-color: $bgColorBasis;
+    // background-color: var(--v-bgColor-basis, white);
+  }
+  // &.v-app-bar.v-toolbar.v-sheet {
+  //   background-color: var(--v-bgColor-basis, white);
+  // }
+  &.v-navigation-drawer {
+    background-color: var(--v-bgColor-drawer, white) !important;
+  }
+  &.v-list-item {
+    color: var(--v-fontColor-drawer, white) !important;
+    .v-icon {
+      color: var(--v-fontColor-drawer, white) !important;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+    &--active {
+      .v-icon {
+        color: darken(white, 20%) !important;
+      }
+      color: darken(white, 20%) !important;
+    }
+  }
+
+  &.v-footer {
+    background-color: var(--v-bgColor-footer) !important;
+  }
+  .v-btn:not(.v-btn--outlined) {
+    &.primary,
+    &.secondary,
+    &.accent,
+    &.success,
+    &.error,
+    &.warning,
+    &.info {
+      color: var(--v-fontColor-basis, rgba(0, 0, 0, 0.87));
+    }
+  }
+}

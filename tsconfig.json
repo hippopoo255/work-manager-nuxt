@@ -19,8 +19,9 @@
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
-      // "@nuxtjs/vuetify", // 追加
-      "@types/node"
+      "nuxt-i18n",
+      "@types/node",
+      "amazon-cognito-identity-js"
     ]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]

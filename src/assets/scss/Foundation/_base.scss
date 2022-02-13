@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  // background: $whiteGrey;
+}
+
+body {
+  // max-width: $siteWidth;
+  margin: 0 auto;
+}
+a {
+  transition: $transitionBasis;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    opacity: $opacityBasis;
+  }
+}
