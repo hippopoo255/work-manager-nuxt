@@ -5,13 +5,16 @@
       @minusClick="fixed = !fixed"
     />
     <v-main>
-      <v-container>
+      <!-- <p style="max-width: 1000px; margin: 0 auto">こんばんは</p> -->
+      <!-- TODO: パンくずリスト -->
+      <v-container class="fill-height">
         <RouterView />
         <!-- <Nuxt /> -->
       </v-container>
     </v-main>
     <Sidebar :right="right" :right-drawer="rightDrawer" />
     <Footer :fixed="fixed" />
+    <Snackbar />
   </v-app>
 </template>
 

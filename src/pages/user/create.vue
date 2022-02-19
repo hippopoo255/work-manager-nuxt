@@ -1,17 +1,15 @@
 <template>
-  <v-container>
-    <div class="p-form">
-      <SignupForm />
-    </div>
-  </v-container>
+  <div class="text-center p-form">
+    <h2 class="c-page-title">{{ $t('page.title.user.create') }}</h2>
+    <UserForm />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  name: 'Signup',
-  layout: 'GuestLayout',
+  name: 'UserCreate',
   setup() {},
 })
 </script>

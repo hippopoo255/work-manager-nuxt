@@ -45,6 +45,10 @@ export default {
     password: 'パスワード',
     password_confirmation: 'パスワード（確認）',
     verification_code: '検証コード',
+    family_name: '姓',
+    family_name_kana: 'セイ',
+    given_name: '名',
+    given_name_kana: 'メイ',
   },
   link: {
     'password-forgot': 'パスワードをお忘れの方',
@@ -57,6 +61,8 @@ export default {
     signin: 'サインイン',
     signout: 'サインアウト',
     save: '保存',
+    store: '登録',
+    update: '更新',
     sendVerificationCode: '検証コードを送信する',
     testSignin: 'デモユーザとして試す',
   },
@@ -67,6 +73,9 @@ export default {
     title: {
       signin: 'サインイン',
       signup: 'サインアップ',
+      user: {
+        create: '一般ユーザ登録',
+      },
       'password-forgot': 'パスワード再発行フォーム',
       'password-reset': 'パスワードリセット',
     },

@@ -56,6 +56,8 @@ export default {
     signin: 'Sign in',
     signout: 'Sign out',
     save: 'Save',
+    store: 'Create',
+    update: 'Update',
     sendVerificationCode: 'Send verification code',
     resetPassword: 'Send',
     testSignin: 'Sign in as Demo user',
@@ -67,6 +69,9 @@ export default {
     title: {
       signin: 'Sign in',
       signup: 'Sign up',
+      user: {
+        create: 'Customer registration',
+      },
       'password-forgot': 'Password regeneration',
       'password-reset': 'Password reset',
     },

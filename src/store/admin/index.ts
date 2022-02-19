@@ -5,7 +5,7 @@ import {
   ResetForgottenPasswordInputs,
   SigninInputs,
 } from '@/types/inputs'
-import cognitoAuth from '@/lib/auth/cognito/cognitoAuth'
+import { cognitoAuth } from '@/lib/auth/cognito'
 
 // TODO: 分離
 type AdminStateProp = {
@@ -26,6 +26,8 @@ const mutations: MutationTree<AdminState> = {
 
 const getters: GetterTree<AdminState, AdminState> = {
   currentAdmin: (state: AdminStateProp) => state.admin,
+  jwt: (state: AdminStateProp) =>
+    !state.admin ? '' : !state.admin.jwt ? '' : state.admin.jwt,
   isSignin: (state: AdminStateProp) => state.admin !== '',
 }
 

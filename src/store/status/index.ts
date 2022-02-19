@@ -1,6 +1,6 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 
-type Response = {
+export type Response = {
   [k: string]: string[] | string
 }
 type ResponseStateProp = {

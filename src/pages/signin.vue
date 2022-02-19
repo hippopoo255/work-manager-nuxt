@@ -24,7 +24,7 @@ export default defineComponent({
       () => admin.value,
       (current) => {
         // eslint-disable-next-line no-extra-boolean-cast
-        if (!!current.value) {
+        if (!!current) {
           redirect(app.localePath('dashboard'))
         }
       },
@@ -36,5 +36,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>

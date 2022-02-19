@@ -22,7 +22,6 @@ export default defineComponent({
   setup() {
     const { store } = useContext()
     const color = ref('error')
-    // const timeout = ref(5000)
 
     const statusCode = computed(() => store.getters['status/status'])
     const snackbar = computed(() => !!statusCode.value)
@@ -49,7 +48,7 @@ export default defineComponent({
         }
         setTimeout(() => {
           clear()
-        }, 5000)
+        }, 6000)
       },
       { immediate: true }
     )
@@ -68,3 +67,8 @@ export default defineComponent({
   },
 })
 </script>
+<style scoped>
+* {
+  text-transform: none !important;
+}
+</style>

@@ -51,7 +51,7 @@ import {
   useRoute,
   useRouter,
 } from '@nuxtjs/composition-api'
-import { resetForgottenPasswordRule } from '@/config'
+import { resetForgottenPasswordRule } from '@/config/validationRule'
 
 export default defineComponent({
   name: 'ForgotPasswordForm',
@@ -99,5 +99,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>

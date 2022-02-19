@@ -15,18 +15,10 @@
         required
         type="password"
       ></v-text-field>
-      <v-row justify="center" class="mt-4">
-        <v-col cols="12">
-          <v-btn
-            color="primary"
-            type="submit"
-            :loading="loading"
-            :disabled="loading"
-          >
-            {{ $t('submit.signin') }}
-          </v-btn>
-        </v-col>
-        <v-col cols="12" class="mt-2">
+    </template>
+    <template slot="form-bottom">
+      <FormSubmitRow :loading="loading" :submit-value="$t('submit.signin')">
+        <v-col slot="else-rows" cols="12" class="mt-xs-4">
           <NuxtLink :to="localePath('password-forgot')">{{
             $t('link.password-forgot')
           }}</NuxtLink>
@@ -42,7 +34,7 @@
             {{ $t('submit.testSignin') }}
           </v-btn>
         </v-col>
-      </v-row>
+      </FormSubmitRow>
     </template>
   </BaseFormCard>
 </template>
@@ -54,7 +46,7 @@ import {
   useContext,
   useRouter,
 } from '@nuxtjs/composition-api'
-import { signinRule } from '@/config'
+import { signinRule } from '@/config/validationRule'
 
 export default defineComponent({
   name: 'SigninForm',
@@ -99,5 +91,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>

@@ -1,4 +1,5 @@
 import { NuxtI18nInstance } from 'nuxt-i18n'
+import { strPatterns, length } from './util'
 import {
   ForgotPasswordInputs,
   ResetForgottenPasswordInputs,
@@ -6,21 +7,8 @@ import {
   SigninInputs,
 } from '~/types/inputs'
 
-const strPatterns = {
-  // eslint-disable-next-line no-useless-escape
-  password: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[=\w\-\?]{8,64}$/,
-  email: /^[\w\-._]+@[\w\-._]+\.[A-Za-z]+$/,
-  katakana: /^[ァ-ヴーｦ-ﾟ]+$/,
-  confirm: (compare: string) =>
-    new RegExp(`^${compare.replace(/\?/g, '\\?')}$`),
-}
-
-export const length = {
-  login_id: [8, 32],
-  password: [8, 32],
-}
-
 export const signupRule = (i18n: NuxtI18nInstance) => ({
+  // メールアドレス: 必須, メール形式, 最小8文字, 最大255文字
   email: [
     (v: SignupInputs['email']) =>
       !!v ||
@@ -32,7 +20,20 @@ export const signupRule = (i18n: NuxtI18nInstance) => ({
       i18n.t('validation.pattern', {
         attribute: i18n.t('attribute.email'),
       }),
+    (v: SignupInputs['email']) =>
+      v.length <= length.email[0] ||
+      i18n.t('validation.min', {
+        attribute: i18n.t('attribute.email'),
+        length: length.email[0],
+      }),
+    (v: SignupInputs['email']) =>
+      v.length <= length.email[1] ||
+      i18n.t('validation.max', {
+        attribute: i18n.t('attribute.email'),
+        length: length.email[1],
+      }),
   ],
+  // ログインID: 必須, 最小8文字, 最大32文字
   login_id: [
     (v: SignupInputs['login_id']) =>
       !!v ||
@@ -52,6 +53,7 @@ export const signupRule = (i18n: NuxtI18nInstance) => ({
         length: length.login_id[1],
       }),
   ],
+  // パスワード: 必須, 大文字・小文字・数字を含む, 最小8文字, 最大64文字
   password: [
     (v: SignupInputs['password']) =>
       !!v ||
@@ -76,6 +78,7 @@ export const signupRule = (i18n: NuxtI18nInstance) => ({
         attribute: i18n.t('attribute.password'),
       }),
   ],
+  // パスワード: 必須, パスワードと一致
   password_confirmation: (compare: SignupInputs['password']) => [
     (v: SignupInputs['password_confirmation']) =>
       !!v ||

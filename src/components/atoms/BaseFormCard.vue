@@ -8,7 +8,8 @@
     >
       <v-card-text class="pa-4 pa-sm-8">
         <h3 class="c-page-title">{{ title }}</h3>
-        <slot name="form-content"></slot>
+        <slot name="form-content" />
+        <slot name="form-bottom" />
       </v-card-text>
     </v-form>
   </v-card>

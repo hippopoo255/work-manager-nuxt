@@ -1,15 +1,25 @@
 :root {
   .theme--light {
-    // --v-bgColor-basis: #f5f5f5;
+    --v-bgColor-basis: #f5f5f5;
     --v-bgColor-drawer: #333;
     --v-bgColor-footer: #e5e5e5;
     --v-fontColor-drawer: #fafafa;
     --v-fontColor-basis: #444;
   }
+  .theme--dark {
+    --v-bgColor-basis: #444;
+    // --v-bgColor-drawer: #333;
+    // --v-bgColor-footer: #e5e5e5;
+    // --v-fontColor-drawer: #fafafa;
+    // --v-fontColor-basis: #444;
+  }
 }
 
 .theme--dark {
-  // background-color: var(--v-bgColor-basis, #121212) !important;
+  &.v-application {
+    background-color: var(--v-bgColor-basis, #121212) !important;
+    text-transform: none !important;
+  }
 }
 .theme--light {
   &.v-application,
@@ -17,8 +27,7 @@
     color: var(--v-fontColor-basis, rgba(0, 0, 0, 0.87)) !important;
   }
   &.v-application {
-    background-color: $bgColorBasis;
-    // background-color: var(--v-bgColor-basis, white);
+    background-color: var(--v-bgColor-basis, white);
   }
   // &.v-app-bar.v-toolbar.v-sheet {
   //   background-color: var(--v-bgColor-basis, white);
