@@ -1,6 +1,6 @@
 import { NuxtI18nInstance } from 'nuxt-i18n'
 import { strPatterns, length } from './util'
-import { UserInputs } from '~/types/inputs'
+import { UserInputs } from '~/types/ts-axios'
 
 export const userCreateRule = (i18n: NuxtI18nInstance) => ({
   // メールアドレス: 必須, メール形式, 最小8文字, 最大255文字

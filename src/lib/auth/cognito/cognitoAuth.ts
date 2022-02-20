@@ -6,20 +6,21 @@ import { handleError } from './util'
 import { cognitoTestAdmin, amplifyConfigure } from './config'
 import { httpClient, handleIfErrorStatus, getErrorResponse } from '@/lib/axios'
 import { decode64 } from '@/lib/util'
-import { AuthenticatedAdmin, Admin } from '@/types/ts-axios'
-
+import { requestUri } from '@/config'
 import {
   AccountVerificationInputs,
   ForgotPasswordInputs,
+  AuthenticatedAdmin,
+  Admin,
   PasswordResetInputs,
   ResetForgottenPasswordInputs,
   SigninInputs,
   SignupInputs,
-} from '@/types/inputs'
+} from '@/types/ts-axios'
 
 amplifyConfigure()
 
-const currentAdmin = async (currentAdminPath: string = '/current') => {
+const currentAdmin = async (currentAdminPath: string = requestUri.current) => {
   const authResult: '' | CognitoUserSession = await Auth.currentSession().catch(
     () => {
       return ''
@@ -138,14 +139,14 @@ const signout = async () => {
   return 'SUCCESS'
 }
 
-const signup = async ({ email, login_id, password, address }: SignupInputs) => {
+const signup = async ({ email, login_id, password }: SignupInputs) => {
   try {
     const { user }: ISignUpResult = await Auth.signUp({
       username: login_id,
       password,
       attributes: {
         email, // optional
-        address: address || '', // optional - E.164 number convention
+        // address: address || '', // optional - E.164 number convention
         // given_name: '太郎',
         // family_name: 'テスト',
         // other custom attributes

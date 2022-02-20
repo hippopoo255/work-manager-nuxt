@@ -1,5 +1,5 @@
 <template>
-  <BaseFormCard :title="$t('page.title.user.create')" @submit="create">
+  <BaseFormCard :title="$t('page.title.admin.create')" @submit="create">
     <template slot="form-content">
       <v-text-field
         v-model="email"
@@ -41,13 +41,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
-import { userCreateRule } from '@/config/validationRule'
-import { useUser } from '@/hooks'
+import { adminCreateRule } from '@/config/validationRule'
+import { useAdmin } from '@/hooks'
 export default defineComponent({
-  name: 'UserForm',
+  name: 'AdminForm',
   setup() {
     const { app, i18n, redirect } = useContext()
-    const { save } = useUser()
+    const { save } = useAdmin()
     const form = ref<any>(null)
     const email = ref('')
     const family_name = ref('')
@@ -56,10 +56,11 @@ export default defineComponent({
     const given_name_kana = ref('')
     const loading = ref(false)
 
-    const rules = ref(userCreateRule(i18n))
+    const rules = ref(adminCreateRule(i18n))
 
     const create = async () => {
       loading.value = true
+
       const data = {
         email: email.value,
         family_name: family_name.value,
@@ -70,9 +71,8 @@ export default defineComponent({
 
       await save(data)
         .then(() => {
-          // console.log(res)
           setTimeout(() => {
-            redirect(app.localePath('user'))
+            redirect(app.localePath('admin'))
           }, 5000)
         })
         .finally(() => {

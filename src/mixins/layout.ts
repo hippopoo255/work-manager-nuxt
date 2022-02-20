@@ -3,8 +3,8 @@ import { mapGetters } from 'vuex'
 export default Vue.extend({
   data: () => ({
     fixed: false,
-    right: true,
-    rightDrawer: false,
+    drawer: false,
+    miniVariant: false,
   }),
   head() {
     const i18nSeo = this.$nuxtI18nSeo()
@@ -26,6 +26,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       darkMode: 'theme/currentDarkMode',
+      admin: 'admin/currentAdmin',
     }),
   },
   watch: {
@@ -36,6 +37,21 @@ export default Vue.extend({
       },
       immediate: true,
     },
+  },
+  async mounted() {
+    this.$store.dispatch('theme/init')
+    this.$vuetify.theme.dark = await this.$store.getters[
+      'theme/currentDarkMode'
+    ]
+  },
+  async beforeCreate() {
+    await this.$store.dispatch('admin/currentAdmin').then((admin) => {
+      if (!admin) {
+        this.$router.push(this.localePath('signin'))
+      } else if (this.$route.name === this.localeLocation('index')?.name) {
+        this.$router.push(this.localePath('dashboard'))
+      }
+    })
   },
   methods: {
     toggleTheme(isDarkMode: boolean) {

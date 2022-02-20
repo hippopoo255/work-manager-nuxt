@@ -1,13 +1,25 @@
 import { useContext } from '@nuxtjs/composition-api'
-import { UserInputs } from '~/types/inputs'
+import { User, UserInputs } from '~/types/ts-axios'
 import { useAxios } from '@/hooks'
-import { User } from '@/types/ts-axios'
-import requestUri from '~/routes/requestUri'
-
+import { requestUri } from '@/config'
+import { toStrLabel } from '@/lib/util'
 const useUser = () => {
-  const { postRequest } = useAxios()
+  const { postRequest, getRequest } = useAxios()
   const { store } = useContext()
-  const index = () => {}
+  const index = async () => {
+    return await getRequest<User[]>({ path: requestUri.user.index }).then(
+      (users) => {
+        return users.map((u: User) => {
+          u.email_verified_at = u.email_verified_at
+            ? toStrLabel(new Date(u.email_verified_at))
+            : ''
+          u.createdBy = u.created_by?.full_name || ''
+          u.created_at = u.created_at ? toStrLabel(new Date(u.created_at)) : ''
+          return u
+        })
+      }
+    )
+  }
   const show = () => {}
 
   const create = async (data: UserInputs) => {

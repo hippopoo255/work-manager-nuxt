@@ -3,10 +3,9 @@ import { strPatterns, length } from './util'
 import {
   ForgotPasswordInputs,
   ResetForgottenPasswordInputs,
-  SignupInputs,
   SigninInputs,
-} from '~/types/inputs'
-
+  SignupInputs,
+} from '~/types/ts-axios'
 export const signupRule = (i18n: NuxtI18nInstance) => ({
   // メールアドレス: 必須, メール形式, 最小8文字, 最大255文字
   email: [

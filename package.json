@@ -15,7 +15,7 @@
     "check-yml": "prettier --check './openapi.yaml'",
     "format-yml": "prettier --write './openapi.yaml'",
     "validate-schema": "openapi-generator validate -i ./openapi.yaml",
-    "generate-client": "openapi-generator generate -g typescript-axios -i ./openapi.yaml -o ./src/types/ts-axios"
+    "generate-client": "openapi-generator generate -g typescript-axios -i ./openapi.admin.yaml -o ./src/types/ts-axios"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",

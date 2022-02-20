@@ -11,13 +11,15 @@ import {
   watch,
   computed,
   useContext,
+  useRouter,
 } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'Signin',
   layout: 'GuestLayout',
   setup() {
-    const { app, store, redirect } = useContext()
+    const { app, store } = useContext()
+    const router = useRouter()
 
     const admin = computed(() => store.getters['admin/currentAdmin'])
     watch(
@@ -25,7 +27,7 @@ export default defineComponent({
       (current) => {
         // eslint-disable-next-line no-extra-boolean-cast
         if (!!current) {
-          redirect(app.localePath('dashboard'))
+          router.push(app.localePath('dashboard'))
         }
       },
       { immediate: true }

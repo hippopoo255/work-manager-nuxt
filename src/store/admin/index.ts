@@ -1,13 +1,12 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { AuthenticatedAdmin } from '@/types/ts-axios'
 import {
+  AuthenticatedAdmin,
   ForgotPasswordInputs,
   ResetForgottenPasswordInputs,
   SigninInputs,
-} from '@/types/inputs'
+} from '@/types/ts-axios'
 import { cognitoAuth } from '@/lib/auth/cognito'
 
-// TODO: 分離
 type AdminStateProp = {
   admin: AuthenticatedAdmin | ''
 }

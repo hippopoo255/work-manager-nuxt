@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="accent" @click="changeLocale">
+  <v-btn color="info" @click="changeLocale">
     {{ nextLocaleText }}
   </v-btn>
 </template>

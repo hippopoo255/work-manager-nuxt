@@ -17,6 +17,7 @@ export default {
         '再設定に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
       verify:
         '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
+      admin: '管理者アカウントを保存しました。',
     },
     error: {
       signin: 'サインインに失敗しました。',
@@ -24,11 +25,47 @@ export default {
   },
   layout: {
     sidebar: {
-      home: 'HOME',
-      signin: 'Sign in',
-      signup: 'Sign up',
-      'password-reset': 'Password reset',
-      'password-forgot': 'Forget password?',
+      dashboard: 'Dashboard',
+      user: {
+        top: 'User Account',
+        index: 'List',
+        create: 'Add',
+      },
+      admin: {
+        top: 'Admin Account',
+        index: 'List',
+        create: 'Add',
+      },
+      blog: {
+        top: 'Blog',
+        index: 'List',
+        report: 'Report',
+      },
+      chat: {
+        top: 'Chat',
+        report: 'Report',
+      },
+      setting: {
+        top: 'Settings',
+        index: 'index',
+        organization: 'Organization',
+        master: 'Master',
+      },
+    },
+    table: {
+      header: {
+        user: {
+          index: {
+            id: 'ID',
+            full_name: 'Name',
+            full_name_kana: 'Name kana',
+            email: 'Email',
+            email_verified_at: 'Verified Date',
+            created_by: 'Created by',
+            created_at: 'Created at',
+          },
+        },
+      },
     },
   },
   validation: {
@@ -48,6 +85,7 @@ export default {
   },
   link: {
     'password-forgot': 'Forget your password?',
+    profile: 'プロフィール',
   },
   placeholder: {
     email: 'sample@example.com',
@@ -56,7 +94,7 @@ export default {
     signin: 'Sign in',
     signout: 'Sign out',
     save: 'Save',
-    store: 'Create',
+    create: 'Create',
     update: 'Update',
     sendVerificationCode: 'Send verification code',
     resetPassword: 'Send',
@@ -74,6 +112,7 @@ export default {
       },
       'password-forgot': 'Password regeneration',
       'password-reset': 'Password reset',
+      'account-verification': 'Account Verification',
     },
   },
 }

@@ -10,13 +10,14 @@ export default {
   },
   alert: {
     success: {
-      signin: 'インデックスページです',
+      signin: 'サインインに成功しました',
       signup:
         'ご登録いただいているメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
       resetPassword:
         '再設定に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
       verify:
         '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
+      admin: '管理者アカウントを保存しました。',
     },
     error: {
       signin: 'サインインに失敗しました。',
@@ -24,11 +25,47 @@ export default {
   },
   layout: {
     sidebar: {
-      home: 'ホーム',
-      signin: 'サインイン',
-      signup: 'サインアップ',
-      'password-reset': 'パスワードをリセットする',
-      'password-forgot': 'パスワードをお忘れの方',
+      dashboard: 'ダッシュボード',
+      user: {
+        top: '一般ユーザー',
+        index: '一覧',
+        create: '追加',
+      },
+      admin: {
+        top: '管理ユーザー',
+        index: '一覧',
+        create: '追加',
+      },
+      blog: {
+        top: 'ブログ',
+        index: '一覧',
+        report: '通報',
+      },
+      chat: {
+        top: 'チャット',
+        report: '通報',
+      },
+      setting: {
+        index: '一般',
+        master: 'マスター',
+        organization: '組織情報',
+        top: '設定',
+      },
+    },
+    table: {
+      header: {
+        user: {
+          index: {
+            id: 'ID',
+            full_name: '氏名',
+            full_name_kana: '氏名カナ',
+            email: 'メールアドレス',
+            email_verified_at: '検証完了日時',
+            createdBy: '作成者',
+            created_at: '作成日',
+          },
+        },
+      },
     },
   },
   validation: {
@@ -52,6 +89,7 @@ export default {
   },
   link: {
     'password-forgot': 'パスワードをお忘れの方',
+    profile: 'プロフィール',
   },
   placeholder: {
     email: 'sample@example.com',
@@ -61,7 +99,7 @@ export default {
     signin: 'サインイン',
     signout: 'サインアウト',
     save: '保存',
-    store: '登録',
+    create: '登録',
     update: '更新',
     sendVerificationCode: '検証コードを送信する',
     testSignin: 'デモユーザとして試す',
@@ -71,13 +109,37 @@ export default {
       message: 'インデックスページです',
     },
     title: {
+      admin: {
+        index: '管理アカウント一覧',
+        create: '管理アカウント登録',
+        id: '管理アカウント詳細',
+      },
+      blog: {
+        index: 'ブログ一覧',
+        report: 'ブログ通報',
+      },
+      chat: {
+        report: 'チャット通報',
+      },
+      master: {
+        index: 'マスター',
+      },
+      organization: {
+        index: '組織情報',
+      },
       signin: 'サインイン',
       signup: 'サインアップ',
+      setting: {
+        index: '設定',
+      },
       user: {
-        create: '一般ユーザ登録',
+        index: '一般アカウント一覧',
+        create: '一般アカウント登録',
+        id: '一般アカウント詳細',
       },
       'password-forgot': 'パスワード再発行フォーム',
       'password-reset': 'パスワードリセット',
+      'account-verification': 'アカウント検証',
     },
   },
 }
