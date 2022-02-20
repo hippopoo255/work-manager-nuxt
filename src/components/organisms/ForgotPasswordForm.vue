@@ -37,7 +37,7 @@ import {
   useContext,
   useRouter,
 } from '@nuxtjs/composition-api'
-import { forgotPasswordRule } from '@/config'
+import { forgotPasswordRule } from '@/config/validationRule'
 import { encode64 } from '@/lib/util'
 
 export default defineComponent({
@@ -80,5 +80,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>

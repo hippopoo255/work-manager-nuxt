@@ -1,5 +1,5 @@
 <template>
-  <div><VButton /></div>
+  <div></div>
 </template>
 <script lang="ts">
 import Vue from 'vue'

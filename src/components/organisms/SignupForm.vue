@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
-import { signupRule } from '@/config'
+import { signupRule } from '@/config/validationRule'
 export default defineComponent({
   name: 'SignupForm',
   setup() {
@@ -61,5 +61,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>

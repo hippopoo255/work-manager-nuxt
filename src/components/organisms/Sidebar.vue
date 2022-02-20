@@ -1,26 +1,91 @@
 <template>
-  <v-navigation-drawer :value="rightDrawer" :right="right" temporary fixed>
+  <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" fixed app>
     <v-list>
-      <v-list-item @click.native="right = !right">
-        <v-list-item-action>
-          <v-icon light> mdi-repeat </v-icon>
-        </v-list-item-action>
-        <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-      </v-list-item>
+      <div v-for="(item, index) in menuList" :key="`menu_${index}`">
+        <v-list-item
+          v-if="isSingle(item)"
+          :to="localePath(item.to)"
+          router
+          exact
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+        <!-- 子メニューがある場合 -->
+        <v-list-group v-else :value="index === 1" :prepend-icon="item.icon">
+          <template #activator>
+            <v-list-item-title v-text="item.title"></v-list-item-title>
+            <!-- <v-list-item-content>
+            </v-list-item-content> -->
+          </template>
+
+          <v-list-item
+            v-for="(child, i) in item.children"
+            :key="`child_${i}`"
+            route
+            exact
+            dense
+            :to="localePath(child.to)"
+          >
+            <v-list-item-icon>
+              <v-icon small>{{ child.icon || 'mdi-pencil-outline' }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-subtitle>{{ child.title }}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+      </div>
     </v-list>
   </v-navigation-drawer>
 </template>
 <script lang="ts">
-import { ref, defineComponent } from '@nuxtjs/composition-api'
+import {
+  ref,
+  defineComponent,
+  watch,
+  useContext,
+  computed,
+} from '@nuxtjs/composition-api'
+import { menus } from '@/config'
+
+type SidebarItem = {
+  icon?: string
+  title: string
+  to?: string
+  children?: SidebarItem[]
+}
 
 export default defineComponent({
   props: {
-    rightDrawer: { type: Boolean, default: false },
+    d: { type: Boolean, default: false },
+    miniVariant: { type: Boolean, default: false },
   },
-  setup(_props) {
-    const right = ref(false)
+  setup(props) {
+    watch(
+      () => props.d,
+      () => {
+        drawer.value = true
+      }
+    )
+    const { i18n } = useContext()
+    const drawer = ref(false)
+    const menuList = computed(() => menus(i18n))
+    const setDrawer = () => {
+      drawer.value = !drawer.value
+    }
+    const isSingle = (item: SidebarItem) => {
+      return !item.children
+    }
     return {
-      right,
+      drawer,
+      setDrawer,
+      menuList,
+      isSingle,
     }
   },
 })

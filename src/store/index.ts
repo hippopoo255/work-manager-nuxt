@@ -1,5 +1,5 @@
 import { ActionTree, ActionContext } from 'vuex'
-import cognitoAuth from '@/lib/auth/cognito/cognitoAuth'
+import { cognitoAuth } from '@/lib/auth/cognito'
 
 type RootState = ReturnType<any>
 

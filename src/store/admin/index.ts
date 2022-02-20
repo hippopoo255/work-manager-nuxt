@@ -1,13 +1,12 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { AuthenticatedAdmin } from '@/types/ts-axios'
 import {
+  AuthenticatedAdmin,
   ForgotPasswordInputs,
   ResetForgottenPasswordInputs,
   SigninInputs,
-} from '@/types/inputs'
-import cognitoAuth from '@/lib/auth/cognito/cognitoAuth'
+} from '@/types/ts-axios'
+import { cognitoAuth } from '@/lib/auth/cognito'
 
-// TODO: 分離
 type AdminStateProp = {
   admin: AuthenticatedAdmin | ''
 }
@@ -26,6 +25,8 @@ const mutations: MutationTree<AdminState> = {
 
 const getters: GetterTree<AdminState, AdminState> = {
   currentAdmin: (state: AdminStateProp) => state.admin,
+  jwt: (state: AdminStateProp) =>
+    !state.admin ? '' : !state.admin.jwt ? '' : state.admin.jwt,
   isSignin: (state: AdminStateProp) => state.admin !== '',
 }
 

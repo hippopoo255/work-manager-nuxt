@@ -1,7 +1,9 @@
 <template>
   <div>
     <h2>ダッシュボード</h2>
-    <div>{{ admin.full_name }}さん、こんにちは</div>
+    <div>
+      <p>{{ admin.full_name }}さん、こんにちは</p>
+    </div>
   </div>
 </template>
 

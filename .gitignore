@@ -92,3 +92,5 @@ sw.*
 
 # OAS
 openapi.y*
+openapi.a*
+openapi_*

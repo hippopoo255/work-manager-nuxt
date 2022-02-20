@@ -36,11 +36,7 @@ const errorKeys = {
   default: 'login_id',
 }
 
-export const handleError = (
-  error: any,
-  logPrefix: string = 'sign in failed'
-) => {
-  console.error(`${logPrefix}`)
+export const handleError = (error: any) => {
   const status = 400
   if (error.code === undefined) {
     throw error

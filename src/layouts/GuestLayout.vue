@@ -1,15 +1,17 @@
 <template>
   <v-app>
     <Header
-      @rightMenuClick="rightDrawer = !rightDrawer"
+      :mini-variant="miniVariant"
+      @menuClick="drawer = !drawer"
       @minusClick="fixed = !fixed"
+      @onMiniVariant="miniVariant = !miniVariant"
     />
     <v-main>
       <v-container class="fill-height">
         <RouterView />
       </v-container>
     </v-main>
-    <Sidebar :right="right" :right-drawer="rightDrawer" />
+    <Sidebar :d="drawer" :mini-variant="miniVariant" />
     <Footer :fixed="fixed" />
     <Snackbar />
   </v-app>
@@ -22,10 +24,5 @@ import layout from '@/mixins/layout'
 export default Vue.extend({
   name: 'GuestLayout',
   mixins: [layout],
-  async mounted() {
-    this.$store.dispatch('theme/init')
-    this.$vuetify.theme.dark = this.$store.getters['theme/currentDarkMode']
-    await this.$store.dispatch('admin/currentAdmin')
-  },
 })
 </script>

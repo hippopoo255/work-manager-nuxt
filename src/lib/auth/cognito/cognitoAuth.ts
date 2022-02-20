@@ -1,27 +1,26 @@
 // import userPool from './userPool'
 import { Auth } from 'aws-amplify'
 import { ISignUpResult, CognitoUserSession } from 'amazon-cognito-identity-js'
-import { AxiosRequestConfig } from 'axios'
+import { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { handleError } from './util'
 import { cognitoTestAdmin, amplifyConfigure } from './config'
-import { getRequest } from '@/lib/axios'
-
-// import { requestUri, getRequest } from '@/api'
+import { httpClient, handleIfErrorStatus, getErrorResponse } from '@/lib/axios'
 import { decode64 } from '@/lib/util'
-import { AuthenticatedAdmin, Admin } from '@/types/ts-axios'
-
+import { requestUri } from '@/config'
 import {
   AccountVerificationInputs,
   ForgotPasswordInputs,
+  AuthenticatedAdmin,
+  Admin,
   PasswordResetInputs,
   ResetForgottenPasswordInputs,
   SigninInputs,
   SignupInputs,
-} from '@/types/inputs'
+} from '@/types/ts-axios'
 
 amplifyConfigure()
 
-const currentAdmin = async (currentAdminPath: string = '/admin/current') => {
+const currentAdmin = async (currentAdminPath: string = requestUri.current) => {
   const authResult: '' | CognitoUserSession = await Auth.currentSession().catch(
     () => {
       return ''
@@ -39,16 +38,15 @@ const currentAdmin = async (currentAdminPath: string = '/admin/current') => {
     },
   }
 
-  const admin: Admin | '' = await getRequest<Admin | ''>({
-    path: currentAdminPath,
-    config,
-  }).catch((err) => {
-    throw err
-  })
+  const response: AxiosResponse<Admin> = await httpClient()
+    .get<Admin>(currentAdminPath, config)
+    .then((res) => {
+      return res
+    })
+    .catch((err) => getErrorResponse<Admin>(err))
 
-  if (admin === '') {
-    return admin
-  }
+  handleIfErrorStatus(response)
+  const admin = response.data
 
   return {
     ...admin,
@@ -58,7 +56,7 @@ const currentAdmin = async (currentAdminPath: string = '/admin/current') => {
 
 const forgotPassword = async ({ login_id }: ForgotPasswordInputs) => {
   const response = await Auth.forgotPassword(login_id).catch((error) => {
-    handleError(error, 'reset password error')
+    handleError(error)
     return ''
   })
   const key = response !== '' ? 'SUCCESS' : 'FAILED'
@@ -84,7 +82,7 @@ const resetForgottenPassword = async ({
     verification_code,
     password
   ).catch((error) => {
-    handleError(error, 'reset password error')
+    handleError(error)
     return ''
   })
   if (result === 'SUCCESS') {
@@ -121,7 +119,7 @@ const resetPassword = async ({
       return data
     })
     .catch((error) => {
-      handleError(error, 'incorrect password')
+      handleError(error)
       return {}
     })
   return response
@@ -136,20 +134,19 @@ const signin = async ({ login_id, password }: SigninInputs) => {
 
 const signout = async () => {
   await Auth.signOut().catch((error) => {
-    handleError(error, 'logout failed')
+    handleError(error)
   })
-  console.log('logout succeeded')
   return 'SUCCESS'
 }
 
-const signup = async ({ email, login_id, password, address }: SignupInputs) => {
+const signup = async ({ email, login_id, password }: SignupInputs) => {
   try {
     const { user }: ISignUpResult = await Auth.signUp({
       username: login_id,
       password,
       attributes: {
         email, // optional
-        address: address || '', // optional - E.164 number convention
+        // address: address || '', // optional - E.164 number convention
         // given_name: '太郎',
         // family_name: 'テスト',
         // other custom attributes
@@ -160,7 +157,6 @@ const signup = async ({ email, login_id, password, address }: SignupInputs) => {
         // 'custom:department_code': '5',
       },
     })
-    console.log('signup succeeded')
     // router.push({
     //   name: app.localePath('account_verification'),
     //   query: {
@@ -169,7 +165,7 @@ const signup = async ({ email, login_id, password, address }: SignupInputs) => {
     // })
     return user
   } catch (error) {
-    handleError(error, 'sign up failed')
+    handleError(error)
   }
 }
 
@@ -187,7 +183,7 @@ const verifyAdmin = async ({
 }: AccountVerificationInputs) => {
   const result = await Auth.confirmSignUp(login_id, verification_code).catch(
     (error) => {
-      handleError(error, 'confirmation error')
+      handleError(error)
     }
   )
   if (result === 'SUCCESS') {
@@ -195,7 +191,6 @@ const verifyAdmin = async ({
     // alert(
     //   '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください'
     // )
-    // router.push({ name: app.localePath('signin') })
   }
 }
 
