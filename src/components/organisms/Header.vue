@@ -2,7 +2,7 @@
   <div>
     <v-app-bar :clipped-left="clipped" color="primary" fixed app>
       <!-- <v-btn icon @click.stop="$emit('menuClick')" class="d-block d-lg-none"> -->
-      <v-btn icon @click.stop="$emit('menuClick')">
+      <v-btn v-if="isSignin" icon @click.stop="$emit('menuClick')">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
       <v-btn

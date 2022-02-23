@@ -192,6 +192,12 @@ export interface Admin {
    * @type {string}
    * @memberof Admin
    */
+  email?: string
+  /**
+   *
+   * @type {string}
+   * @memberof Admin
+   */
   email_verified_at?: string
   /**
    *
@@ -211,6 +217,12 @@ export interface Admin {
    * @memberof Admin
    */
   organization_name?: string
+  /**
+   *
+   * @type {Organization}
+   * @memberof Admin
+   */
+  organization?: Organization
 }
 /**
  * 管理者投稿フォーム
@@ -1650,6 +1662,12 @@ export interface Organization {
    * @memberof Organization
    */
   updated_at: string
+  /**
+   *
+   * @type {string}
+   * @memberof Organization
+   */
+  file_path?: string
 }
 /**
  * 組織情報登録時のフォーム
@@ -2505,10 +2523,10 @@ export interface User {
   is_initialized?: boolean
   /**
    *
-   * @type {number}
+   * @type {string}
    * @memberof User
    */
-  organization_id?: number
+  email?: string
   /**
    *
    * @type {string}
@@ -2527,6 +2545,18 @@ export interface User {
    * @memberof User
    */
   created_by?: User
+  /**
+   *
+   * @type {number}
+   * @memberof User
+   */
+  organization_id?: number
+  /**
+   *
+   * @type {Organization}
+   * @memberof User
+   */
+  organization?: Organization
 }
 /**
  * ユーザー投稿フォーム
@@ -2575,8 +2605,8 @@ export const DefaultApiAxiosParamCreator = function (
 ) {
   return {
     /**
-     * delete schedule
-     * @summary /schedule/{id}-DELETE
+     * delete admin
+     * @summary /admin/{id}-DELETE
      * @param {string} id
      * @param {string} [authorization]
      * @param {string} [origin]
@@ -2584,7 +2614,7 @@ export const DefaultApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteScheduleId: async (
+    deleteAdminId: async (
       id: string,
       authorization?: string,
       origin?: string,
@@ -2592,8 +2622,8 @@ export const DefaultApiAxiosParamCreator = function (
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('deleteScheduleId', 'id', id)
-      const localVarPath = `/schedule/{id}`.replace(
+      assertParamExists('deleteAdminId', 'id', id)
+      const localVarPath = `/admin/{id}`.replace(
         `{${'id'}}`,
         encodeURIComponent(String(id))
       )
@@ -2700,6 +2730,73 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
+     * delete user
+     * @summary /user/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteUserId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('deleteUserId', 'id', id)
+      const localVarPath = `/user/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
      * 会議の参加者を入力するドロップダウンリスト等に使用
      * @summary /admin-GET
      * @param {string} [authorization]
@@ -2752,6 +2849,64 @@ export const DefaultApiAxiosParamCreator = function (
       if (slim !== undefined) {
         localVarQueryParameter['slim'] = slim
       }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * return admin by id
+     * @summary /admin/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getAdminId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getAdminId', 'id', id)
+      const localVarPath = `/admin/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -2877,64 +3032,6 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
-     * return schedule by id
-     * @summary /schedule/{id}-GET
-     * @param {string} id
-     * @param {string} [authorization]
-     * @param {string} [origin]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getScheduleId: async (
-      id: string,
-      authorization?: string,
-      origin?: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('getScheduleId', 'id', id)
-      const localVarPath = `/schedule/{id}`.replace(
-        `{${'id'}}`,
-        encodeURIComponent(String(id))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      if (authorization !== undefined && authorization !== null) {
-        localVarHeaderParameter['Authorization'] = String(authorization)
-      }
-
-      if (origin !== undefined && origin !== null) {
-        localVarHeaderParameter['Origin'] = String(origin)
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
      * 会議の参加者を入力するドロップダウンリスト等に使用
      * @summary /user-GET
      * @param {string} [authorization]
@@ -2987,6 +3084,64 @@ export const DefaultApiAxiosParamCreator = function (
       if (slim !== undefined) {
         localVarQueryParameter['slim'] = slim
       }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * return user by id
+     * @summary /user/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getUserId', 'id', id)
+      const localVarPath = `/user/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -3136,6 +3291,52 @@ export const DefaultApiAxiosParamCreator = function (
     },
     /**
      *
+     * @summary /admin/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsAdminId: async (
+      id: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('optionsAdminId', 'id', id)
+      const localVarPath = `/admin/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
      * @summary /admin/current-OPTIONS
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3213,18 +3414,18 @@ export const DefaultApiAxiosParamCreator = function (
     },
     /**
      *
-     * @summary /document_folder/{id}-OPTIONS
+     * @summary /user/{id}-OPTIONS
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    optionsScheduleId: async (
+    optionsUserId: async (
       id: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('optionsScheduleId', 'id', id)
-      const localVarPath = `/schedule/{id}`.replace(
+      assertParamExists('optionsUserId', 'id', id)
+      const localVarPath = `/user/{id}`.replace(
         `{${'id'}}`,
         encodeURIComponent(String(id))
       )
@@ -3378,27 +3579,27 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
-     * update schedule
-     * @summary /schedule/{id}-PUT
+     * update admin
+     * @summary /admin/{id}-PUT
      * @param {string} id
      * @param {string} [origin]
      * @param {string} [authorization]
      * @param {string} [xHTTPMethodOverride]
-     * @param {ScheduleInputs} [scheduleInputs]
+     * @param {AdminInputs} [adminInputs]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    putScheduleId: async (
+    putAdminId: async (
       id: string,
       origin?: string,
       authorization?: string,
       xHTTPMethodOverride?: string,
-      scheduleInputs?: ScheduleInputs,
+      adminInputs?: AdminInputs,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('putScheduleId', 'id', id)
-      const localVarPath = `/schedule/{id}`.replace(
+      assertParamExists('putAdminId', 'id', id)
+      const localVarPath = `/admin/{id}`.replace(
         `{${'id'}}`,
         encodeURIComponent(String(id))
       )
@@ -3441,7 +3642,7 @@ export const DefaultApiAxiosParamCreator = function (
         ...options.headers,
       }
       localVarRequestOptions.data = serializeDataIfNeeded(
-        scheduleInputs,
+        adminInputs,
         localVarRequestOptions,
         configuration
       )
@@ -3452,7 +3653,7 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
-     * update task
+     * update Task
      * @summary /task/{id}-PUT
      * @param {string} id
      * @param {string} [authorization]
@@ -3525,6 +3726,80 @@ export const DefaultApiAxiosParamCreator = function (
         options: localVarRequestOptions,
       }
     },
+    /**
+     * update user
+     * @summary /user/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {UserInputs} [userInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putUserId: async (
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      userInputs?: UserInputs,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('putUserId', 'id', id)
+      const localVarPath = `/user/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (xHTTPMethodOverride !== undefined && xHTTPMethodOverride !== null) {
+        localVarHeaderParameter['X-HTTP-Method-Override'] =
+          String(xHTTPMethodOverride)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        userInputs,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
   }
 }
 
@@ -3536,8 +3811,8 @@ export const DefaultApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
   return {
     /**
-     * delete schedule
-     * @summary /schedule/{id}-DELETE
+     * delete admin
+     * @summary /admin/{id}-DELETE
      * @param {string} id
      * @param {string} [authorization]
      * @param {string} [origin]
@@ -3545,23 +3820,22 @@ export const DefaultApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async deleteScheduleId(
+    async deleteAdminId(
       id: string,
       authorization?: string,
       origin?: string,
       body?: object,
       options?: AxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Schedule>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Admin>
     > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.deleteScheduleId(
-          id,
-          authorization,
-          origin,
-          body,
-          options
-        )
+      const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAdminId(
+        id,
+        authorization,
+        origin,
+        body,
+        options
+      )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
@@ -3600,6 +3874,39 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
+     * delete user
+     * @summary /user/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async deleteUserId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUserId(
+        id,
+        authorization,
+        origin,
+        body,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
      * 会議の参加者を入力するドロップダウンリスト等に使用
      * @summary /admin-GET
      * @param {string} [authorization]
@@ -3626,6 +3933,36 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         email,
         likely,
         slim,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * return admin by id
+     * @summary /admin/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getAdminId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Admin>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getAdminId(
+        id,
+        authorization,
+        origin,
         options
       )
       return createRequestFunction(
@@ -3689,39 +4026,6 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
-     * return schedule by id
-     * @summary /schedule/{id}-GET
-     * @param {string} id
-     * @param {string} [authorization]
-     * @param {string} [origin]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getScheduleId(
-      id: string,
-      authorization?: string,
-      origin?: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<Array<Schedule>>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getScheduleId(
-        id,
-        authorization,
-        origin,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
      * 会議の参加者を入力するドロップダウンリスト等に使用
      * @summary /user-GET
      * @param {string} [authorization]
@@ -3748,6 +4052,36 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         email,
         likely,
         slim,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * return user by id
+     * @summary /user/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getUserId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getUserId(
+        id,
+        authorization,
+        origin,
         options
       )
       return createRequestFunction(
@@ -3825,6 +4159,30 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @summary /admin/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionsAdminId(
+      id: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.optionsAdminId(
+        id,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
      * @summary /admin/current-OPTIONS
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3865,19 +4223,21 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @summary /document_folder/{id}-OPTIONS
+     * @summary /user/{id}-OPTIONS
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async optionsScheduleId(
+    async optionsUserId(
       id: string,
       options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.optionsScheduleId(id, options)
+      const localVarAxiosArgs = await localVarAxiosParamCreator.optionsUserId(
+        id,
+        options
+      )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
@@ -3946,32 +4306,32 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
-     * update schedule
-     * @summary /schedule/{id}-PUT
+     * update admin
+     * @summary /admin/{id}-PUT
      * @param {string} id
      * @param {string} [origin]
      * @param {string} [authorization]
      * @param {string} [xHTTPMethodOverride]
-     * @param {ScheduleInputs} [scheduleInputs]
+     * @param {AdminInputs} [adminInputs]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async putScheduleId(
+    async putAdminId(
       id: string,
       origin?: string,
       authorization?: string,
       xHTTPMethodOverride?: string,
-      scheduleInputs?: ScheduleInputs,
+      adminInputs?: AdminInputs,
       options?: AxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Schedule>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Admin>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.putScheduleId(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.putAdminId(
         id,
         origin,
         authorization,
         xHTTPMethodOverride,
-        scheduleInputs,
+        adminInputs,
         options
       )
       return createRequestFunction(
@@ -3982,7 +4342,7 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
-     * update task
+     * update Task
      * @summary /task/{id}-PUT
      * @param {string} id
      * @param {string} [authorization]
@@ -4017,6 +4377,42 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         configuration
       )
     },
+    /**
+     * update user
+     * @summary /user/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {UserInputs} [userInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async putUserId(
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      userInputs?: UserInputs,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.putUserId(
+        id,
+        origin,
+        authorization,
+        xHTTPMethodOverride,
+        userInputs,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
   }
 }
 
@@ -4032,8 +4428,8 @@ export const DefaultApiFactory = function (
   const localVarFp = DefaultApiFp(configuration)
   return {
     /**
-     * delete schedule
-     * @summary /schedule/{id}-DELETE
+     * delete admin
+     * @summary /admin/{id}-DELETE
      * @param {string} id
      * @param {string} [authorization]
      * @param {string} [origin]
@@ -4041,15 +4437,15 @@ export const DefaultApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteScheduleId(
+    deleteAdminId(
       id: string,
       authorization?: string,
       origin?: string,
       body?: object,
       options?: any
-    ): AxiosPromise<Schedule> {
+    ): AxiosPromise<Admin> {
       return localVarFp
-        .deleteScheduleId(id, authorization, origin, body, options)
+        .deleteAdminId(id, authorization, origin, body, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -4069,6 +4465,27 @@ export const DefaultApiFactory = function (
     ): AxiosPromise<TaskPage> {
       return localVarFp
         .deleteTaskId(id, authorization, origin, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * delete user
+     * @summary /user/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteUserId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options?: any
+    ): AxiosPromise<User> {
+      return localVarFp
+        .deleteUserId(id, authorization, origin, body, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -4092,6 +4509,25 @@ export const DefaultApiFactory = function (
     ): AxiosPromise<Array<Admin>> {
       return localVarFp
         .getAdmin(authorization, origin, email, likely, slim, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * return admin by id
+     * @summary /admin/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getAdminId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: any
+    ): AxiosPromise<Array<Admin>> {
+      return localVarFp
+        .getAdminId(id, authorization, origin, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -4128,25 +4564,6 @@ export const DefaultApiFactory = function (
         .then((request) => request(axios, basePath))
     },
     /**
-     * return schedule by id
-     * @summary /schedule/{id}-GET
-     * @param {string} id
-     * @param {string} [authorization]
-     * @param {string} [origin]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getScheduleId(
-      id: string,
-      authorization?: string,
-      origin?: string,
-      options?: any
-    ): AxiosPromise<Array<Schedule>> {
-      return localVarFp
-        .getScheduleId(id, authorization, origin, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
      * 会議の参加者を入力するドロップダウンリスト等に使用
      * @summary /user-GET
      * @param {string} [authorization]
@@ -4167,6 +4584,25 @@ export const DefaultApiFactory = function (
     ): AxiosPromise<Array<User>> {
       return localVarFp
         .getUser(authorization, origin, email, likely, slim, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * return user by id
+     * @summary /user/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: any
+    ): AxiosPromise<Array<User>> {
+      return localVarFp
+        .getUserId(id, authorization, origin, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -4205,6 +4641,18 @@ export const DefaultApiFactory = function (
     },
     /**
      *
+     * @summary /admin/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsAdminId(id: string, options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionsAdminId(id, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
      * @summary /admin/current-OPTIONS
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4226,14 +4674,14 @@ export const DefaultApiFactory = function (
     },
     /**
      *
-     * @summary /document_folder/{id}-OPTIONS
+     * @summary /user/{id}-OPTIONS
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    optionsScheduleId(id: string, options?: any): AxiosPromise<object> {
+    optionsUserId(id: string, options?: any): AxiosPromise<object> {
       return localVarFp
-        .optionsScheduleId(id, options)
+        .optionsUserId(id, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -4275,37 +4723,37 @@ export const DefaultApiFactory = function (
         .then((request) => request(axios, basePath))
     },
     /**
-     * update schedule
-     * @summary /schedule/{id}-PUT
+     * update admin
+     * @summary /admin/{id}-PUT
      * @param {string} id
      * @param {string} [origin]
      * @param {string} [authorization]
      * @param {string} [xHTTPMethodOverride]
-     * @param {ScheduleInputs} [scheduleInputs]
+     * @param {AdminInputs} [adminInputs]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    putScheduleId(
+    putAdminId(
       id: string,
       origin?: string,
       authorization?: string,
       xHTTPMethodOverride?: string,
-      scheduleInputs?: ScheduleInputs,
+      adminInputs?: AdminInputs,
       options?: any
-    ): AxiosPromise<Schedule> {
+    ): AxiosPromise<Admin> {
       return localVarFp
-        .putScheduleId(
+        .putAdminId(
           id,
           origin,
           authorization,
           xHTTPMethodOverride,
-          scheduleInputs,
+          adminInputs,
           options
         )
         .then((request) => request(axios, basePath))
     },
     /**
-     * update task
+     * update Task
      * @summary /task/{id}-PUT
      * @param {string} id
      * @param {string} [authorization]
@@ -4334,6 +4782,36 @@ export const DefaultApiFactory = function (
         )
         .then((request) => request(axios, basePath))
     },
+    /**
+     * update user
+     * @summary /user/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {UserInputs} [userInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putUserId(
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      userInputs?: UserInputs,
+      options?: any
+    ): AxiosPromise<User> {
+      return localVarFp
+        .putUserId(
+          id,
+          origin,
+          authorization,
+          xHTTPMethodOverride,
+          userInputs,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
   }
 }
 
@@ -4345,8 +4823,8 @@ export const DefaultApiFactory = function (
  */
 export class DefaultApi extends BaseAPI {
   /**
-   * delete schedule
-   * @summary /schedule/{id}-DELETE
+   * delete admin
+   * @summary /admin/{id}-DELETE
    * @param {string} id
    * @param {string} [authorization]
    * @param {string} [origin]
@@ -4355,7 +4833,7 @@ export class DefaultApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public deleteScheduleId(
+  public deleteAdminId(
     id: string,
     authorization?: string,
     origin?: string,
@@ -4363,7 +4841,7 @@ export class DefaultApi extends BaseAPI {
     options?: AxiosRequestConfig
   ) {
     return DefaultApiFp(this.configuration)
-      .deleteScheduleId(id, authorization, origin, body, options)
+      .deleteAdminId(id, authorization, origin, body, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -4389,6 +4867,29 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
+   * delete user
+   * @summary /user/{id}-DELETE
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {object} [body]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public deleteUserId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    body?: object,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .deleteUserId(id, authorization, origin, body, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
    * 会議の参加者を入力するドロップダウンリスト等に使用
    * @summary /admin-GET
    * @param {string} [authorization]
@@ -4410,6 +4911,27 @@ export class DefaultApi extends BaseAPI {
   ) {
     return DefaultApiFp(this.configuration)
       .getAdmin(authorization, origin, email, likely, slim, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * return admin by id
+   * @summary /admin/{id}-GET
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getAdminId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getAdminId(id, authorization, origin, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -4451,27 +4973,6 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
-   * return schedule by id
-   * @summary /schedule/{id}-GET
-   * @param {string} id
-   * @param {string} [authorization]
-   * @param {string} [origin]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public getScheduleId(
-    id: string,
-    authorization?: string,
-    origin?: string,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .getScheduleId(id, authorization, origin, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
-
-  /**
    * 会議の参加者を入力するドロップダウンリスト等に使用
    * @summary /user-GET
    * @param {string} [authorization]
@@ -4493,6 +4994,27 @@ export class DefaultApi extends BaseAPI {
   ) {
     return DefaultApiFp(this.configuration)
       .getUser(authorization, origin, email, likely, slim, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * return user by id
+   * @summary /user/{id}-GET
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getUserId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getUserId(id, authorization, origin, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -4538,6 +5060,20 @@ export class DefaultApi extends BaseAPI {
 
   /**
    *
+   * @summary /admin/{id}-OPTIONS
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionsAdminId(id: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionsAdminId(id, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
    * @summary /admin/current-OPTIONS
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -4563,15 +5099,15 @@ export class DefaultApi extends BaseAPI {
 
   /**
    *
-   * @summary /document_folder/{id}-OPTIONS
+   * @summary /user/{id}-OPTIONS
    * @param {string} id
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public optionsScheduleId(id: string, options?: AxiosRequestConfig) {
+  public optionsUserId(id: string, options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
-      .optionsScheduleId(id, options)
+      .optionsUserId(id, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -4618,39 +5154,39 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
-   * update schedule
-   * @summary /schedule/{id}-PUT
+   * update admin
+   * @summary /admin/{id}-PUT
    * @param {string} id
    * @param {string} [origin]
    * @param {string} [authorization]
    * @param {string} [xHTTPMethodOverride]
-   * @param {ScheduleInputs} [scheduleInputs]
+   * @param {AdminInputs} [adminInputs]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public putScheduleId(
+  public putAdminId(
     id: string,
     origin?: string,
     authorization?: string,
     xHTTPMethodOverride?: string,
-    scheduleInputs?: ScheduleInputs,
+    adminInputs?: AdminInputs,
     options?: AxiosRequestConfig
   ) {
     return DefaultApiFp(this.configuration)
-      .putScheduleId(
+      .putAdminId(
         id,
         origin,
         authorization,
         xHTTPMethodOverride,
-        scheduleInputs,
+        adminInputs,
         options
       )
       .then((request) => request(this.axios, this.basePath))
   }
 
   /**
-   * update task
+   * update Task
    * @summary /task/{id}-PUT
    * @param {string} id
    * @param {string} [authorization]
@@ -4676,6 +5212,38 @@ export class DefaultApi extends BaseAPI {
         origin,
         xHTTPMethodOverride,
         taskInputs,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * update user
+   * @summary /user/{id}-PUT
+   * @param {string} id
+   * @param {string} [origin]
+   * @param {string} [authorization]
+   * @param {string} [xHTTPMethodOverride]
+   * @param {UserInputs} [userInputs]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public putUserId(
+    id: string,
+    origin?: string,
+    authorization?: string,
+    xHTTPMethodOverride?: string,
+    userInputs?: UserInputs,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .putUserId(
+        id,
+        origin,
+        authorization,
+        xHTTPMethodOverride,
+        userInputs,
         options
       )
       .then((request) => request(this.axios, this.basePath))

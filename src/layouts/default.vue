@@ -27,10 +27,5 @@ export default Vue.extend({
   name: 'DefaultLayout',
   // middleware: 'authentication',
   mixins: [layout],
-  // async mounted() {
-  //   if (!this.$store.getters['admin/currentAdmin']) {
-  //     await this.$router.push(this.localePath('signin'))
-  //   }
-  // },
 })
 </script>

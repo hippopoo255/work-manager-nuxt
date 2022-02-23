@@ -1,5 +1,5 @@
 <template>
-  <BaseFormCard :title="$t('page.title.signin')" @submit="signin">
+  <BaseFormCard :title="$t('page.title.signin')" @submit="signIn">
     <template slot="form-content">
       <v-text-field
         v-model="login_id"
@@ -29,7 +29,7 @@
             color="primary"
             :loading="loading"
             :disabled="loading"
-            @click="testSignin"
+            @click="testSignIn"
           >
             {{ $t('submit.testSignin') }}
           </v-btn>
@@ -40,42 +40,35 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-  useContext,
-  useRouter,
-} from '@nuxtjs/composition-api'
+import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
 import { signinRule } from '@/config/validationRule'
+import { useAuth } from '~/hooks'
 
 export default defineComponent({
   name: 'SigninForm',
   setup() {
-    const { i18n, store, app } = useContext()
-    const router = useRouter()
+    const { i18n } = useContext()
+    const { signin, testSignin } = useAuth()
     const login_id = ref('')
     const password = ref('')
     const loading = ref(false)
     const rules = ref(signinRule(i18n))
 
-    const signin = async () => {
+    const signIn = async () => {
       loading.value = true
-      const loggedInAdmin = await store.dispatch('admin/signin', {
+      await signin({
         login_id: login_id.value,
         password: password.value,
+      }).finally(() => {
+        loading.value = false
       })
-      loading.value = false
-      if (loggedInAdmin) {
-        router.push(app.localePath('dashboard'))
-      }
     }
-    const testSignin = async () => {
+
+    const testSignIn = async () => {
       loading.value = true
-      const loggedInAdmin = await store.dispatch('admin/testSignin')
-      loading.value = false
-      if (loggedInAdmin) {
-        router.push(app.localePath('dashboard'))
-      }
+      await testSignin().finally(() => {
+        loading.value = false
+      })
     }
 
     return {
@@ -84,8 +77,8 @@ export default defineComponent({
       loading,
       password,
       rules,
-      signin,
-      testSignin,
+      signIn,
+      testSignIn,
       // valid,
     }
   },

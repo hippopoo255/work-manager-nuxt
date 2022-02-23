@@ -12,15 +12,36 @@ export default {
     success: {
       signin: 'サインインに成功しました',
       signup:
-        'ご登録いただいているメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
+        'ご入力いただいたメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
+      forgotPassword:
+        'ご入力いただいたメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
       resetPassword:
         '再設定に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
       verify:
         '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
-      admin: '管理者アカウントを保存しました。',
+      admin:
+        '管理者アカウントを保存しました。\n相手の方には初期設定のご案内メールが送信されます',
+      user: 'ユーザーアカウントを保存しました。',
     },
     error: {
       signin: 'サインインに失敗しました。',
+      signup: 'サインアップに失敗しました。',
+      cognito: {
+        UserNotFoundException: 'アカウントが存在しません',
+        NotAuthorizedException: 'ユーザー名またはパスワードが違います',
+        UserNotConfirmedException: 'アカウントの検証が完了していません',
+        UsernameExistsException: '同じ名前のユーザーが既に登録されています',
+        CodeMismatchException: '検証コードに誤りがあります',
+        InvalidParameterException: '入力項目が正しくありません',
+        InvalidPasswordException: 'パスワードの形式が正しくありません',
+        LimitExceededException:
+          'パスワードが試行回数を超えました。しばらくしてからもう一度お試しください',
+        PasswordResetRequiredException:
+          'パスワードリセットが必要なアカウントです',
+        ExpiredCodeException:
+          '既に検証済みのアカウントか、有効期限切れの可能性があります',
+        default: '検証に失敗しました',
+      },
     },
   },
   layout: {
@@ -95,14 +116,16 @@ export default {
     email: 'sample@example.com',
   },
   submit: {
+    create: '登録',
+    inviteAdmin: '管理システムに招待する',
     resetPassword: '送信',
+    save: '保存',
+    sendVerificationCode: '検証コードを送信する',
     signin: 'サインイン',
     signout: 'サインアウト',
-    save: '保存',
-    create: '登録',
-    update: '更新',
-    sendVerificationCode: '検証コードを送信する',
+    signup: 'アカウント作成',
     testSignin: 'デモユーザとして試す',
+    update: '更新',
   },
   page: {
     index: {
@@ -127,11 +150,11 @@ export default {
       organization: {
         index: '組織情報',
       },
-      signin: 'サインイン',
-      signup: 'サインアップ',
       setting: {
         index: '設定',
       },
+      signin: 'サインイン',
+      signup: 'アカウントセットアップ',
       user: {
         index: '一般アカウント一覧',
         create: '一般アカウント登録',

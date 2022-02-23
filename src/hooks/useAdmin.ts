@@ -7,37 +7,41 @@ import { toStrLabel } from '@/lib/util'
 const useAdmin = () => {
   const { postRequest, getRequest } = useAxios()
   const { store, i18n } = useContext()
+
   const index = async () => {
-    return await getRequest<Admin[]>({ path: requestUri.admin.index }).then(
-      (admins) => {
-        return admins.map((admin: Admin) => {
-          admin.email_verified_at = admin.email_verified_at
-            ? toStrLabel(new Date(admin.email_verified_at))
-            : ''
-          admin.createdBy = admin.created_by?.full_name || ''
-          admin.created_at = admin.created_at
-            ? toStrLabel(new Date(admin.created_at))
-            : ''
-          return admin
-        })
-      }
+    return await getRequest<Admin[]>(requestUri.admin.index).then((admins) => {
+      return admins.map((admin: Admin) => {
+        admin.email_verified_at = admin.email_verified_at
+          ? toStrLabel(new Date(admin.email_verified_at))
+          : ''
+        admin.createdBy = admin.created_by?.full_name || ''
+        admin.created_at = admin.created_at
+          ? toStrLabel(new Date(admin.created_at))
+          : ''
+        return admin
+      })
+    })
+  }
+
+  const show = async (id: number) => {
+    return await getRequest<Admin>(
+      requestUri.admin.show.replace('{id}', String(id))
     )
   }
-  const show = () => {}
 
   const create = async (data: AdminInputs) => {
-    const path = requestUri.admin.create
-    return await postRequest<Admin, AdminInputs>({ path, data }).then(
-      (user) => {
-        store.dispatch('status/updateResponse', {
-          status: 201,
-          message: {
-            success: i18n.t('alert.success.admin'),
-          },
-        })
-        return user
-      }
-    )
+    return await postRequest<Admin, AdminInputs>(
+      requestUri.admin.create,
+      data
+    ).then((user) => {
+      store.dispatch('status/updateResponse', {
+        status: 201,
+        message: {
+          success: i18n.t('alert.success.admin'),
+        },
+      })
+      return user
+    })
   }
   const update = (data: AdminInputs, id: number) => {
     return { data, id }

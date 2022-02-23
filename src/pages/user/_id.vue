@@ -1,7 +1,7 @@
 <template>
   <div class="text-center p-form">
     <h2 class="c-page-title">{{ $t('page.title.user.id') }}</h2>
-    <UserForm />
+    <UserDetailList />
   </div>
 </template>
 

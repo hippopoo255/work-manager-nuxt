@@ -19,9 +19,11 @@
               {{ admin.email }}
             </p>
             <v-divider class="my-3"></v-divider>
-            <v-btn depressed rounded text>{{ $t('link.profile') }}</v-btn>
+            <v-btn depressed tile text style="width: 100%">{{
+              $t('link.profile')
+            }}</v-btn>
             <v-divider class="my-3"></v-divider>
-            <v-btn depressed rounded text @click="signout">
+            <v-btn depressed tile text style="width: 100%" @click="signout">
               {{ $t('submit.signout') }}
             </v-btn>
           </div>
@@ -32,15 +34,10 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  computed,
-  useContext,
-  useRouter,
-  PropType,
-} from '@nuxtjs/composition-api'
+import { defineComponent, computed, PropType } from '@nuxtjs/composition-api'
 
 import { Admin } from '@/types/ts-axios'
+import { useAuth } from '~/hooks'
 
 export default defineComponent({
   name: 'AuthMenuAvatar',
@@ -56,22 +53,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { store, app } = useContext()
-    const router = useRouter()
-    // const admin = computed(() => ({
-    //   initials: 'JD',
-    //   fullName: 'John Doe',
-    //   email: 'john.doe@doe.com',
-    // }))
-
     const initials = computed(() => props.admin.family_name[0] || '')
 
-    const signout = async () => {
-      const responseMsg = await store.dispatch('admin/signout')
-      if (responseMsg === 'SUCCESS') {
-        router.push(app.localePath('signin'))
-      }
-    }
+    const { signout } = useAuth()
     return { initials, signout }
   },
 })

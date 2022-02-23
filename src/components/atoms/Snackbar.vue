@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <v-snackbar v-model="snackbar" :color="color" multi-line>
-      {{ message }}
+      <span class="multi-rows">{{ message }}</span>
       <template #action="{ attrs }">
         <v-btn color="white" text v-bind="attrs" @click="clear"> Close </v-btn>
       </template>
@@ -22,9 +22,17 @@ export default defineComponent({
   setup() {
     const { store } = useContext()
     const color = ref('error')
-
+    const snackbar = ref(false)
     const statusCode = computed(() => store.getters['status/status'])
-    const snackbar = computed(() => !!statusCode.value)
+
+    watch(
+      () => statusCode.value,
+      (code) => {
+        snackbar.value = !!code
+      },
+      { immediate: true }
+    )
+
     const message = computed(() => {
       const messages = store.getters['status/message']
       if (messages) {

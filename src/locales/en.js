@@ -12,7 +12,9 @@ export default {
     success: {
       signin: 'インデックスページです',
       signup:
-        'ご登録いただいているメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
+        'ご入力いただいたメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
+      forgotPassword:
+        'ご入力いただいたメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
       resetPassword:
         '再設定に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
       verify:
@@ -21,6 +23,21 @@ export default {
     },
     error: {
       signin: 'サインインに失敗しました。',
+      signup: 'サインアップに失敗しました。',
+      cognito: {
+        UserNotFoundException: 'アカウントが存在しません',
+        NotAuthorizedException: 'ユーザー名またはパスワードが違います',
+        UserNotConfirmedException: 'アカウントの検証が完了していません',
+        UsernameExistsException: '同じ名前のユーザーが既に登録されています',
+        CodeMismatchException: '検証コードに誤りがあります',
+        InvalidParameterException: '入力項目が正しくありません',
+        InvalidPasswordException: 'パスワードの形式が正しくありません',
+        LimitExceededException:
+          'パスワードが試行回数を超えました。しばらくしてからもう一度お試しください',
+        ExpiredCodeException:
+          '既に検証済みのアカウントか、有効期限切れの可能性があります',
+        default: '検証に失敗しました',
+      },
     },
   },
   layout: {
@@ -91,24 +108,49 @@ export default {
     email: 'sample@example.com',
   },
   submit: {
+    create: 'Create',
+    inviteAdmin: 'Invite as an Admin',
+    resetPassword: 'Send',
+    save: 'Save',
+    sendVerificationCode: 'Send verification code',
     signin: 'Sign in',
     signout: 'Sign out',
-    save: 'Save',
-    create: 'Create',
-    update: 'Update',
-    sendVerificationCode: 'Send verification code',
-    resetPassword: 'Send',
+    signup: 'Sign up',
     testSignin: 'Sign in as Demo user',
+    update: 'Update',
   },
   page: {
     index: {
       message: 'This is the Index Page!!!',
     },
     title: {
+      admin: {
+        index: 'Admin List',
+        create: 'Admin Registration',
+        id: 'Admin Detail',
+      },
+      blog: {
+        index: 'Blog List',
+        report: 'Blog Report',
+      },
+      chat: {
+        report: 'Chat Report',
+      },
+      master: {
+        index: 'Master',
+      },
+      organization: {
+        index: 'Organization',
+      },
+      setting: {
+        index: 'Setting',
+      },
       signin: 'Sign in',
       signup: 'Sign up',
       user: {
-        create: 'Customer registration',
+        index: 'User List',
+        create: 'User registration',
+        id: 'User Detail',
       },
       'password-forgot': 'Password regeneration',
       'password-reset': 'Password reset',

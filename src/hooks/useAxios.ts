@@ -3,9 +3,7 @@ import { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios'
 import {
   httpClient,
   getErrorResponse,
-  handleIfErrorStatus,
-  RequestArgs,
-  InputArg,
+  RequestOptions,
   ResponseErrorBody,
 } from '@/lib/axios'
 
@@ -29,6 +27,16 @@ const useAxios = () => {
         ...config?.headers,
         Authorization: jwt.value,
       },
+    }
+  }
+
+  const handleIfErrorStatus = (
+    response: AxiosResponse,
+    onError?: (err: AxiosResponse) => AxiosResponse | void
+  ) => {
+    if (response.status >= 400) {
+      // eslint-disable-next-line no-extra-boolean-cast
+      !!onError ? onError(response) : defaultErrorHandler(response)
     }
   }
 
@@ -80,11 +88,10 @@ const useAxios = () => {
     }
   }
 
-  const getRequest = async <T = string>({
-    path,
-    config = undefined,
-    baseURL = API_STAGE_URL,
-  }: RequestArgs) => {
+  const getRequest = async <T = string>(
+    path: string,
+    { config = undefined, baseURL = API_STAGE_URL }: RequestOptions = {}
+  ) => {
     const response = await httpClient(baseURL)
       .get<T>(path, mergedConfig(config))
       .then((res: AxiosResponse<T>) => {
@@ -97,12 +104,11 @@ const useAxios = () => {
     return response.data
   }
 
-  const postRequest = async <T, U>({
-    path,
-    data,
-    config,
-    baseURL = API_STAGE_URL,
-  }: RequestArgs & InputArg<U>): Promise<T> => {
+  const postRequest = async <T, U>(
+    path: string,
+    data: U,
+    { config, baseURL = API_STAGE_URL }: RequestOptions = {}
+  ): Promise<T> => {
     const response = await httpClient(baseURL)
       .post(path, data, mergedConfig(config))
       .catch((err: AxiosError) => getErrorResponse<T>(err))
@@ -112,12 +118,11 @@ const useAxios = () => {
     return response.data
   }
 
-  const putRequest = async <T, U>({
-    path,
-    data,
-    config,
-    baseURL = API_STAGE_URL,
-  }: RequestArgs & InputArg<U>): Promise<T> => {
+  const putRequest = async <T, U>(
+    path: string,
+    data: U,
+    { config, baseURL = API_STAGE_URL }: RequestOptions = {}
+  ): Promise<T> => {
     if (config !== undefined) {
       const headers = {
         ...config.headers,
@@ -130,16 +135,13 @@ const useAxios = () => {
       }
     }
 
-    // return mergedConfig(config)
-
-    return await postRequest<T, U>({ path, data, config, baseURL })
+    return await postRequest<T, U>(path, data, { config, baseURL })
   }
 
-  const deleteRequest = async <T = null>({
-    path,
-    config,
-    baseURL = API_STAGE_URL,
-  }: RequestArgs): Promise<T> => {
+  const deleteRequest = async <T = null>(
+    path: string,
+    { config, baseURL = API_STAGE_URL }: RequestOptions = {}
+  ): Promise<T> => {
     const response = await httpClient(baseURL)
       .delete(path, mergedConfig(config))
       .catch((err: AxiosError) => getErrorResponse<T>(err))

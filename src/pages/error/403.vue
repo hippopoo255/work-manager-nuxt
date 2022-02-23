@@ -1,17 +1,11 @@
 <template>
-  <v-container>
-    <div class="p-form">
-      <SignupForm />
-    </div>
-  </v-container>
+  <div>403</div>
 </template>
-
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  name: 'Signup',
-  layout: 'GuestLayout',
+  name: 'Forbidden',
   setup() {},
 })
 </script>

@@ -21,7 +21,8 @@
       "@nuxtjs/axios",
       "nuxt-i18n",
       "@types/node",
-      "amazon-cognito-identity-js"
+      "amazon-cognito-identity-js",
+      "@nuxt/image"
     ]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
