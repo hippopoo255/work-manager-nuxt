@@ -1,6 +1,9 @@
 <template>
-  <div class="text-center p-form">
-    <h2 class="c-page-title">{{ $t('page.title.setting.index') }}</h2>
+  <div class="p-form">
+    <h2 class="c-page-title text-center">
+      {{ $t('page.title.setting.index') }}
+    </h2>
+    <SettingForm />
   </div>
 </template>
 

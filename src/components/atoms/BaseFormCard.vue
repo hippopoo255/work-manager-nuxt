@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :elevation="elevation">
     <v-form
       ref="form"
       v-model="valid"
@@ -21,6 +21,7 @@ export default defineComponent({
   name: 'BaseFormCard',
   props: {
     title: { type: String as PropType<string>, required: true },
+    elevation: { type: Number as PropType<number>, default: 2 },
   },
   setup(_props, context) {
     const form = ref<any>(null)

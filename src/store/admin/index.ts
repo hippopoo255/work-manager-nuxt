@@ -1,12 +1,7 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import {
-  AuthenticatedAdmin,
-  ForgotPasswordInputs,
-  ResetForgottenPasswordInputs,
-  SigninInputs,
-} from '@/types/ts-axios'
+import { AuthenticatedAdmin } from '@/types/ts-axios'
 import { cognitoAuth } from '@/lib/auth/cognito'
-
+import { INTERNAL_SERVER_ERROR } from '@/config'
 type AdminStateProp = {
   admin: AuthenticatedAdmin | ''
 }
@@ -31,104 +26,38 @@ const getters: GetterTree<AdminState, AdminState> = {
 }
 
 const actions: ActionTree<AdminState, AdminState> = {
-  signin: async ({ commit, dispatch }, inputs: SigninInputs) => {
-    const loggedInAdmin = await cognitoAuth
-      .signin(inputs)
-      .catch(({ status, data }) => {
-        dispatch('handleCognitoResponse', {
-          status,
-          message: data.message,
-        })
-        return ''
-      })
-    if (loggedInAdmin !== '') {
-      commit('setAdmin', loggedInAdmin)
-    }
-    return loggedInAdmin
+  signin: ({ commit }, admin) => {
+    commit('setAdmin', admin)
   },
-  testSignin: async ({ commit, dispatch }) => {
-    const testAdmin = await cognitoAuth
-      .testSignin()
-      .catch(({ status, data }) => {
-        dispatch('handleCognitoResponse', {
-          status,
-          message: data.message,
-        })
-        return ''
-      })
-    if (testAdmin) {
-      commit('setAdmin', testAdmin)
-    }
-    return testAdmin
-  },
-  signout: async ({ commit, dispatch }) => {
-    const response = await cognitoAuth.signout().catch(({ status, data }) => {
-      dispatch('handleCognitoResponse', {
-        status,
-        message: data.message,
-      })
-      return ''
-    })
-    if (response === 'SUCCESS') {
-      commit('setAdmin', '')
-    }
-    return response
-  },
-  signup: async () => {
-    // ...
-  },
+
   currentAdmin: async ({ commit, dispatch }) => {
     const admin = await cognitoAuth.currentAdmin().catch(({ status, data }) => {
-      dispatch('handleCognitoResponse', {
-        status,
-        message: data.message,
-      })
+      if (status === INTERNAL_SERVER_ERROR) {
+        // Laravel Errorの場合
+        dispatch('status/updateResponse', {
+          status,
+          message: data.message,
+        })
+      } else {
+        // Cognito Errorの場合
+        const [key, errType] = data.message.split('.')
+        const message = { [key]: errType }
+        dispatch('status/updateResponse', {
+          status,
+          message,
+        })
+      }
+
       return ''
     })
     commit('setAdmin', admin)
     return admin
   },
-  forgotPassword: async ({ dispatch }, inputs: ForgotPasswordInputs) => {
-    const msg = await cognitoAuth
-      .forgotPassword(inputs)
-      .then(({ status, data }) => {
-        dispatch('handleCognitoResponse', {
-          status,
-          message: data.message,
-        })
-        return Object.keys(data.message)[0]
-      })
-      .catch(({ status, data }) => {
-        dispatch('handleCognitoResponse', {
-          status,
-          message: data.message,
-        })
-        return ''
-      })
-    return msg
+
+  signout: ({ commit }) => {
+    commit('setAdmin', '')
   },
-  resetForgottenPassword: async (
-    { dispatch },
-    inputs: ResetForgottenPasswordInputs
-  ) => {
-    const response = await cognitoAuth
-      .resetForgottenPassword(inputs)
-      .then(({ data, status }) => {
-        dispatch('handleCognitoResponse', {
-          status,
-          message: data.message,
-        })
-        return Object.keys(data.message)[0]
-      })
-      .catch(({ status, data }) => {
-        dispatch('handleCognitoResponse', {
-          status,
-          message: data.message,
-        })
-        return ''
-      })
-    return response
-  },
+
   handleCognitoResponse: ({ dispatch }, { message, status }) => {
     dispatch(
       'status/updateResponse',

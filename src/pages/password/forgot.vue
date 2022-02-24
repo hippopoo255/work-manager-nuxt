@@ -10,33 +10,11 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  watch,
-  computed,
-  useContext,
-} from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'PasswordForgot',
   layout: 'GuestLayout',
-  setup() {
-    const { app, store, redirect } = useContext()
-
-    const admin = computed(() => store.getters['admin/currentAdmin'])
-    watch(
-      () => admin.value,
-      (current) => {
-        // eslint-disable-next-line no-extra-boolean-cast
-        if (!!current.value) {
-          redirect(app.localePath('dashboard'))
-        }
-      },
-      { immediate: true }
-    )
-    return {
-      admin,
-    }
-  },
+  setup() {},
 })
 </script>

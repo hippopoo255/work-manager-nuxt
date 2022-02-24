@@ -1,0 +1,18 @@
+/*
+==================
+Light Mode
+==================
+*/
+.theme--light {
+  &.v-footer {
+    background-color: var(--v-bgColor-footer) !important;
+  }
+}
+/*
+==================
+Dark Mode
+==================
+*/
+.theme--dark {
+  //
+}

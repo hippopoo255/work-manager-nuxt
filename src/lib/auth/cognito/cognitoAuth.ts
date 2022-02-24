@@ -1,6 +1,6 @@
 // import userPool from './userPool'
 import { Auth } from 'aws-amplify'
-import { ISignUpResult, CognitoUserSession } from 'amazon-cognito-identity-js'
+import { ISignUpResult } from 'amazon-cognito-identity-js'
 import { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { handleError } from './util'
 import { cognitoTestAdmin, amplifyConfigure } from './config'
@@ -21,50 +21,49 @@ import {
 amplifyConfigure()
 
 const currentAdmin = async (currentAdminPath: string = requestUri.current) => {
-  const authResult: '' | CognitoUserSession = await Auth.currentSession().catch(
-    () => {
+  const authResult = await Auth.currentSession().catch((err) => {
+    if (err === 'No current user') {
       return ''
     }
-  )
-  if (authResult === '') {
-    return authResult
-  }
+    throw handleError(err)
+  })
+
   // eslint-disable-next-line no-extra-boolean-cast
-  const result = authResult.getIdToken()
-  const jwt = result.getJwtToken()
-  const config: AxiosRequestConfig = {
-    headers: {
-      Authorization: jwt || '',
-    },
+  if (typeof authResult !== 'string') {
+    const result = authResult.getIdToken()
+    const jwt = result.getJwtToken()
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: jwt || '',
+      },
+    }
+    const response: AxiosResponse<Admin> = await httpClient()
+      .get<Admin>(currentAdminPath, config)
+      .then((res) => {
+        return res
+      })
+      .catch((err) => getErrorResponse<Admin>(err))
+
+    handleIfErrorStatus(response)
+    const admin = response.data
+
+    return {
+      ...admin,
+      jwt,
+    } as AuthenticatedAdmin
   }
-
-  const response: AxiosResponse<Admin> = await httpClient()
-    .get<Admin>(currentAdminPath, config)
-    .then((res) => {
-      return res
-    })
-    .catch((err) => getErrorResponse<Admin>(err))
-
-  handleIfErrorStatus(response)
-  const admin = response.data
-
-  return {
-    ...admin,
-    jwt,
-  } as AuthenticatedAdmin
+  return authResult
 }
 
 const forgotPassword = async ({ login_id }: ForgotPasswordInputs) => {
-  const response = await Auth.forgotPassword(login_id).catch((error) => {
-    handleError(error)
-    return ''
+  const response = await Auth.forgotPassword(login_id).catch((err) => {
+    handleError(err)
   })
-  const key = response !== '' ? 'SUCCESS' : 'FAILED'
+  const key = response
   return {
     data: {
       message: {
-        [key]:
-          'メールアドレスに検証用コードを送信しました。\n次の画面で検証コードと新しいパスワードを入力してください。',
+        [key]: key,
       },
     },
     status: 200,
@@ -77,33 +76,18 @@ const resetForgottenPassword = async ({
   password,
 }: ResetForgottenPasswordInputs) => {
   const username = decode64(login_id)
-  const result = await Auth.forgotPasswordSubmit(
-    username,
-    verification_code,
-    password
-  ).catch((error) => {
-    handleError(error)
-    return ''
-  })
-  if (result === 'SUCCESS') {
-    return {
-      data: {
-        message: {
-          SUCCESS:
-            '再設定に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
-        },
-      },
-      status: 200,
+  await Auth.forgotPasswordSubmit(username, verification_code, password).catch(
+    (error) => {
+      handleError(error)
     }
-  } else {
-    return {
-      data: {
-        message: {
-          FAILED: '再設定に失敗しました',
-        },
+  )
+  return {
+    data: {
+      message: {
+        SUCCESS: 'SUCCESS',
       },
-      status: 400,
-    }
+    },
+    status: 200,
   }
 }
 
@@ -111,7 +95,7 @@ const resetPassword = async ({
   old_password,
   password,
 }: PasswordResetInputs) => {
-  const response = await Auth.currentAuthenticatedUser()
+  return await Auth.currentAuthenticatedUser()
     .then((user) => {
       return Auth.changePassword(user, old_password, password)
     })
@@ -120,9 +104,7 @@ const resetPassword = async ({
     })
     .catch((error) => {
       handleError(error)
-      return {}
     })
-  return response
 }
 
 const signin = async ({ login_id, password }: SigninInputs) => {
@@ -139,30 +121,32 @@ const signout = async () => {
   return 'SUCCESS'
 }
 
-const signup = async ({ email, login_id, password }: SignupInputs) => {
+const signup = async ({
+  email,
+  login_id,
+  password,
+  // address,
+  family_name,
+  family_name_kana,
+  given_name,
+  given_name_kana,
+}: SignupInputs) => {
   try {
     const { user }: ISignUpResult = await Auth.signUp({
       username: login_id,
       password,
       attributes: {
-        email, // optional
-        // address: address || '', // optional - E.164 number convention
-        // given_name: '太郎',
-        // family_name: 'テスト',
+        email,
+        given_name,
+        family_name,
         // other custom attributes
         'custom:login_id': login_id,
-        // 'custom:given_name_kana': '太郎',
-        // 'custom:family_name_kana': 'テスト',
+        'custom:given_name_kana': given_name_kana,
+        'custom:family_name_kana': family_name_kana,
         // 'custom:role_id': '2',
         // 'custom:department_code': '5',
       },
     })
-    // router.push({
-    //   name: app.localePath('account_verification'),
-    //   query: {
-    //     n: encode64(login_id),
-    //   },
-    // })
     return user
   } catch (error) {
     handleError(error)
@@ -181,17 +165,20 @@ const verifyAdmin = async ({
   login_id,
   verification_code,
 }: AccountVerificationInputs) => {
-  const result = await Auth.confirmSignUp(login_id, verification_code).catch(
-    (error) => {
-      handleError(error)
-    }
-  )
-  if (result === 'SUCCESS') {
-    // console.log('confirmation success:', result)
-    // alert(
-    //   '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください'
-    // )
+  await Auth.confirmSignUp(login_id, verification_code).catch((error) => {
+    handleError(error)
+  })
+  return {
+    data: {
+      message: {
+        SUCCESS: 'SUCCESS',
+      },
+    },
+    status: 200,
   }
+  // alert(
+  //   '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください'
+  // )
 }
 
 const cognitoAuth = {

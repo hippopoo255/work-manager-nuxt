@@ -1,8 +1,7 @@
 <template>
   <div class="text-center p-form">
     <h2 class="c-page-title">{{ $t('page.title.account-verification') }}</h2>
-
-    <!-- <SigninForm /> -->
+    <AccountVerificationForm />
   </div>
 </template>
 <script lang="ts">

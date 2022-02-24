@@ -1,8 +1,8 @@
 import { AxiosRequestConfig } from 'axios'
 import { Response } from '@/store/status'
 
-export type RequestArgs = {
-  path: string
+export type RequestOptions = {
+  // path: string
   config?: AxiosRequestConfig
   baseURL?: string
 }

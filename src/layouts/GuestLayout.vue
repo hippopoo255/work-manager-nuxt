@@ -11,7 +11,7 @@
         <RouterView />
       </v-container>
     </v-main>
-    <Sidebar :d="drawer" :mini-variant="miniVariant" />
+    <!-- <Sidebar :d="drawer" :mini-variant="miniVariant" /> -->
     <Footer :fixed="fixed" />
     <Snackbar />
   </v-app>

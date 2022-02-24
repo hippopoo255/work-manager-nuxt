@@ -25,19 +25,12 @@
         type="password"
         required
       ></v-text-field>
-      <v-row justify="center">
-        <v-col cols="12">
-          <v-btn
-            class="mt-4"
-            color="primary"
-            type="submit"
-            :loading="loading"
-            :disabled="loading"
-          >
-            {{ $t('submit.resetPassword') }}
-          </v-btn>
-        </v-col>
-      </v-row>
+    </template>
+    <template slot="form-bottom">
+      <FormSubmitRow
+        :loading="loading"
+        :submit-value="$t('submit.resetPassword')"
+      />
     </template>
   </BaseFormCard>
 </template>
@@ -49,15 +42,14 @@ import {
   ref,
   useContext,
   useRoute,
-  useRouter,
 } from '@nuxtjs/composition-api'
 import { resetForgottenPasswordRule } from '@/config/validationRule'
+import { useAuth } from '~/hooks'
 
 export default defineComponent({
   name: 'ForgotPasswordForm',
   setup() {
-    const { i18n, store, app } = useContext()
-    const router = useRouter()
+    const { i18n } = useContext()
     const route = useRoute()
     const login_id = ref<string>('')
     const password = ref<string>('')
@@ -65,6 +57,7 @@ export default defineComponent({
     const verification_code = ref<string>('')
     const loading = ref(false)
     const rules = ref(resetForgottenPasswordRule(i18n))
+    const { resetForgottenPassword } = useAuth()
 
     onMounted(() => {
       const r = route.value
@@ -76,15 +69,14 @@ export default defineComponent({
 
     const resetPassword = async () => {
       loading.value = true
-      const responseMsg = await store.dispatch('admin/resetForgottenPassword', {
+      await resetForgottenPassword({
         login_id: login_id.value,
         password: password.value,
+        password_confirmation: password_confirmation.value,
         verification_code: verification_code.value,
+      }).finally(() => {
+        loading.value = false
       })
-      loading.value = false
-      if (responseMsg === 'SUCCESS') {
-        router.push(app.localePath('signin'))
-      }
     }
 
     return {

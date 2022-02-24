@@ -1,6 +1,8 @@
 export default {
   app: {
     name: process.env.APP_NAME_JA,
+    locale: '言語',
+    theme: 'テーマ',
   },
   tooltip: {
     theme: {
@@ -12,15 +14,44 @@ export default {
     success: {
       signin: 'サインインに成功しました',
       signup:
-        'ご登録いただいているメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
+        'ご入力いただいたメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
+      forgotPassword:
+        'ご入力いただいたメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
       resetPassword:
         '再設定に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
       verify:
         '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
-      admin: '管理者アカウントを保存しました。',
+      admin:
+        '管理者アカウントを保存しました。\n相手の方には初期設定のご案内メールが送信されます',
+      user: 'ユーザーアカウントを保存しました。',
+      profile: 'プロフィールを更新しました。',
     },
     error: {
       signin: 'サインインに失敗しました。',
+      signup: 'サインアップに失敗しました。',
+      cognito: {
+        UserNotFoundException: 'アカウントが存在しません',
+        NotAuthorizedException: 'ユーザー名またはパスワードが違います',
+        UserNotConfirmedException: 'アカウントの検証が完了していません',
+        UsernameExistsException: '同じ名前のユーザーが既に登録されています',
+        CodeMismatchException: '検証コードに誤りがあります',
+        InvalidParameterException: '入力項目が正しくありません',
+        InvalidPasswordException: 'パスワードの形式が正しくありません',
+        LimitExceededException:
+          'パスワードが試行回数を超えました。しばらくしてからもう一度お試しください',
+        PasswordResetRequiredException:
+          'パスワードリセットが必要なアカウントです',
+        ExpiredCodeException:
+          '既に検証済みのアカウントか、有効期限切れの可能性があります',
+        default: '検証に失敗しました',
+      },
+    },
+  },
+  tab: {
+    setting: {
+      common: '一般',
+      notification: '通知',
+      changePassword: 'パスワード',
     },
   },
   layout: {
@@ -79,8 +110,11 @@ export default {
     email: 'メールアドレス',
     login_id: 'ログインID',
     both: 'ログインIDまたはメールアドレス',
+    old_password: '現在のパスワード',
     password: 'パスワード',
     password_confirmation: 'パスワード（確認）',
+    new_password: '新しいパスワード',
+    new_password_confirmation: '新しいパスワード（確認）',
     verification_code: '検証コード',
     family_name: '姓',
     family_name_kana: 'セイ',
@@ -95,14 +129,18 @@ export default {
     email: 'sample@example.com',
   },
   submit: {
+    create: '登録',
+    inviteAdmin: '管理システムに招待する',
     resetPassword: '送信',
+    save: '保存',
+    sendVerificationCode: '検証コードを送信する',
     signin: 'サインイン',
     signout: 'サインアウト',
-    save: '保存',
-    create: '登録',
-    update: '更新',
-    sendVerificationCode: '検証コードを送信する',
+    signup: 'アカウント作成',
+    theme: 'ダークモードにする',
     testSignin: 'デモユーザとして試す',
+    update: '更新',
+    changePassword: 'パスワード変更',
   },
   page: {
     index: {
@@ -127,11 +165,15 @@ export default {
       organization: {
         index: '組織情報',
       },
-      signin: 'サインイン',
-      signup: 'サインアップ',
+      profile: 'プロフィール',
       setting: {
         index: '設定',
+        common: '一般',
+        password: 'パスワード変更',
+        notification: '通知設定',
       },
+      signin: 'サインイン',
+      signup: 'アカウントセットアップ',
       user: {
         index: '一般アカウント一覧',
         create: '一般アカウント登録',
