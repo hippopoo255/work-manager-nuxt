@@ -2523,6 +2523,12 @@ export interface User {
   is_initialized?: boolean
   /**
    *
+   * @type {boolean}
+   * @memberof User
+   */
+  is_invited: boolean
+  /**
+   *
    * @type {string}
    * @memberof User
    */
@@ -2642,6 +2648,13 @@ export const DefaultApiAxiosParamCreator = function (
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
 
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
       }
@@ -2707,6 +2720,13 @@ export const DefaultApiAxiosParamCreator = function (
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
 
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
       }
@@ -2766,6 +2786,13 @@ export const DefaultApiAxiosParamCreator = function (
       }
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -2907,6 +2934,13 @@ export const DefaultApiAxiosParamCreator = function (
       }
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -3142,6 +3176,13 @@ export const DefaultApiAxiosParamCreator = function (
       }
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -3489,6 +3530,13 @@ export const DefaultApiAxiosParamCreator = function (
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
 
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
       }
@@ -3548,6 +3596,13 @@ export const DefaultApiAxiosParamCreator = function (
       }
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -3617,6 +3672,13 @@ export const DefaultApiAxiosParamCreator = function (
       }
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
 
       if (origin !== undefined && origin !== null) {
         localVarHeaderParameter['Origin'] = String(origin)
@@ -3692,6 +3754,13 @@ export const DefaultApiAxiosParamCreator = function (
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
 
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
       }
@@ -3765,6 +3834,13 @@ export const DefaultApiAxiosParamCreator = function (
       }
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
 
       if (origin !== undefined && origin !== null) {
         localVarHeaderParameter['Origin'] = String(origin)

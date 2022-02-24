@@ -101,6 +101,7 @@ export default {
     confirmation: '{attribute} is not match with confimation attribute.',
     min: '{attribute} is at least {length} chars.',
     max: '{attribute} is equal or less than {length} chars',
+    imageSize: '{attribute} size should be less than {size} MB',
   },
   attribute: {
     email: 'Email',
@@ -112,6 +113,7 @@ export default {
     new_password: 'New password',
     new_password_confirmation: 'New password（confirm）',
     verification_code: 'Verificaction code',
+    image: 'Image',
   },
   link: {
     'password-forgot': 'Forget your password?',
@@ -119,6 +121,9 @@ export default {
   },
   placeholder: {
     email: 'sample@example.com',
+  },
+  status: {
+    inviteAdmin: '管理システムに招待済み',
   },
   submit: {
     changePassword: 'Change password',
@@ -133,6 +138,8 @@ export default {
     theme: 'On Dark mode',
     testSignin: 'Sign in as a Demo user',
     update: 'Update',
+    upload: 'Upload image',
+    clearUpload: 'Clear image',
   },
   page: {
     index: {

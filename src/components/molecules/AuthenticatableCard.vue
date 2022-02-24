@@ -58,8 +58,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Admin, User } from '~/types/ts-axios'
-import { APP_STORAGE_URL } from '@/config'
-import { getRandomColorPair } from '@/lib/util'
+import { getRandomColorPair, faceUrl } from '@/lib/util'
 type Menu = {
   btnText: string
   handle: Function
@@ -83,14 +82,16 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const facePath = computed(() => {
-      return APP_STORAGE_URL + `/${props.authenticatable.file_path}`
-    })
-    const bgPath = computed(() => {
-      return props.authenticatable.organization?.file_path
-        ? APP_STORAGE_URL + `/${props.authenticatable.organization.file_path}`
+    const facePath = computed(() =>
+      props.authenticatable.file_path
+        ? faceUrl(props.authenticatable.file_path)
+        : ''
+    )
+    const bgPath = computed(() =>
+      props.authenticatable.organization?.file_path
+        ? faceUrl(props.authenticatable.organization?.file_path)
         : 'https://cdn.vuetifyjs.com/images/cards/server-room.jpg'
-    })
+    )
 
     const initialChar = computed(
       () => props.authenticatable.family_name[0] || ''

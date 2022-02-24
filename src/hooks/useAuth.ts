@@ -11,7 +11,6 @@ import {
   Admin,
   ForgotPasswordInputs,
   PasswordResetInputs,
-  ProfileInputs,
   ResetForgottenPasswordInputs,
   SigninInputs,
   SignupInputs,
@@ -178,11 +177,17 @@ const useAuth = () => {
     }
   }
 
-  const updateProfile = async (data: ProfileInputs, id: number) => {
-    return await putRequest<Admin, ProfileInputs>(
+  const updateProfile = async (data: FormData, id: number) => {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    const baseURL = API_DIRECT_URL
+    return await putRequest<Admin, FormData>(
       requestUri.admin.profile.replace('{id}', String(id)),
       data,
-      { baseURL: API_DIRECT_URL }
+      { baseURL, config }
     ).then((admin) => {
       store.dispatch('admin/signin', admin)
       store.dispatch('status/updateResponse', {

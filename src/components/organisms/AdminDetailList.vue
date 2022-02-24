@@ -1,8 +1,8 @@
 <template>
-  <v-card max-width="400" class="mx-auto">
+  <v-card v-if="admin" max-width="400" class="mx-auto">
     <v-container>
       <v-row dense>
-        <v-col v-if="admin" cols="12">
+        <v-col cols="12">
           <AuthenticatableCard :authenticatable="admin" :menus="menus" />
         </v-col>
         <v-col cols="12">
@@ -24,7 +24,7 @@ import {
 } from '@nuxtjs/composition-api'
 import { useAdmin } from '@/hooks'
 import { Admin } from '~/types/ts-axios'
-import { APP_STORAGE_URL } from '@/config'
+import { faceUrl } from '@/lib/util'
 
 export default defineComponent({
   name: 'AdminDetailList',
@@ -35,14 +35,15 @@ export default defineComponent({
     const loading = ref(false)
     const admin = ref<Admin | null>(null)
     const isSignin = computed(() => store.getters['admin/isSignin'])
-    const facePath = computed(() => {
-      return APP_STORAGE_URL + `/${admin.value?.file_path}`
-    })
-    const bgPath = computed(() => {
-      return admin.value?.organization?.file_path
-        ? APP_STORAGE_URL + `/${admin.value.organization.file_path}`
+    const facePath = computed(() =>
+      admin.value?.file_path ? faceUrl(admin.value?.file_path) : ''
+    )
+
+    const bgPath = computed(() =>
+      admin.value?.organization?.file_path
+        ? faceUrl(admin.value?.organization?.file_path)
         : 'https://cdn.vuetifyjs.com/images/cards/server-room.jpg'
-    })
+    )
 
     const menus = computed(() => [
       // {

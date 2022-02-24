@@ -26,18 +26,22 @@ const getters: GetterTree<AdminState, AdminState> = {
 }
 
 const actions: ActionTree<AdminState, AdminState> = {
-  signin: ({ commit }, admin) => {
-    commit('setAdmin', admin)
+  signin: ({ commit, getters }, admin) => {
+    commit('setAdmin', { ...admin, jwt: getters.jwt })
   },
 
   currentAdmin: async ({ commit, dispatch }) => {
     const admin = await cognitoAuth.currentAdmin().catch(({ status, data }) => {
       if (status === INTERNAL_SERVER_ERROR) {
         // Laravel Errorの場合
-        dispatch('status/updateResponse', {
-          status,
-          message: data.message,
-        })
+        dispatch(
+          'status/updateResponse',
+          {
+            status,
+            message: data.message,
+          },
+          { root: true }
+        )
       } else {
         // Cognito Errorの場合
         const [key, errType] = data.message.split('.')

@@ -13,3 +13,5 @@ export const length = {
   email: [8, 255],
   default: [2, 128],
 }
+
+export const MAX_IMAGE_SIZE = 5000000 // 5MB
