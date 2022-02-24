@@ -1,4 +1,4 @@
-import { colorPairs } from '~/config'
+import { APP_STORAGE_URL, colorPairs } from '~/config'
 export const encode64 = (str: string) => Buffer.from(str).toString('base64')
 export const decode64 = (str: string) => Buffer.from(str, 'base64').toString()
 
@@ -74,3 +74,5 @@ export const getRandomColorPair = (key?: number) => {
     key === undefined ? Math.floor(Math.random() * colorPairs.length) : key
   return colorPairs[i]
 }
+
+export const faceUrl = (path: string) => APP_STORAGE_URL + `/${path}`

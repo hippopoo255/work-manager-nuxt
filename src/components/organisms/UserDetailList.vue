@@ -1,7 +1,7 @@
 <template>
-  <v-card max-width="400" class="mx-auto">
+  <v-card v-if="user" max-width="400" class="mx-auto">
     <v-container>
-      <v-row v-if="user" dense>
+      <v-row dense>
         <v-col cols="12">
           <AuthenticatableCard :authenticatable="user" :menus="menus" />
         </v-col>
@@ -24,7 +24,8 @@ import {
 } from '@nuxtjs/composition-api'
 import { useAdmin, useUser } from '@/hooks'
 import { User } from '~/types/ts-axios'
-import { APP_STORAGE_URL } from '@/config'
+import { faceUrl } from '~/lib/util'
+
 export default defineComponent({
   name: 'UserDetailList',
   setup() {
@@ -35,19 +36,24 @@ export default defineComponent({
     const loading = ref(false)
     const user = ref<User | null>(null)
     const isSignin = computed(() => store.getters['admin/isSignin'])
-    const facePath = computed(() => {
-      return APP_STORAGE_URL + `/${user.value?.file_path}`
-    })
+    const facePath = computed(() =>
+      user.value?.file_path ? faceUrl(user.value?.file_path) : ''
+    )
     const bgPath = computed(() => {
       return user.value?.organization?.file_path
-        ? APP_STORAGE_URL + `/${user.value.organization.file_path}`
+        ? faceUrl(user.value.organization.file_path)
         : 'https://cdn.vuetifyjs.com/images/cards/server-room.jpg'
     })
 
-    const alert = async () => {
+    const handleAlert = async () => {
+      if (user.value && user.value.is_invited) {
+        alert('このユーザは既に管理者として登録されています。')
+        return false
+      }
       if (
         confirm('このユーザーにメールが送信されます。招待しますか？') &&
-        user.value
+        user.value &&
+        !user.value.is_invited
       ) {
         loading.value = true
         const inputs = {
@@ -65,10 +71,13 @@ export default defineComponent({
 
     const menus = computed(() => [
       {
-        btnText: i18n.t('submit.inviteAdmin'),
-        handle: () => alert(),
+        btnText:
+          user.value && user.value.is_invited
+            ? i18n.t('status.inviteAdmin')
+            : i18n.t('submit.inviteAdmin'),
+        handle: () => handleAlert(),
         color: 'primary',
-        disabled: loading.value,
+        disabled: loading.value || (user.value && user.value.is_invited),
       },
     ])
 
@@ -85,7 +94,6 @@ export default defineComponent({
       { immediate: true }
     )
     return {
-      alert,
       bgPath,
       facePath,
       loading,

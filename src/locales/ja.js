@@ -105,6 +105,7 @@ export default {
     confirmation: '{attribute}が一致しません',
     min: '{attribute}は{length}文字以上で指定してください',
     max: '{attribute}は{length}文字以下で指定してください',
+    imageSize: '{attribute}は{size}MB以下を指定してください',
   },
   attribute: {
     email: 'メールアドレス',
@@ -120,6 +121,7 @@ export default {
     family_name_kana: 'セイ',
     given_name: '名',
     given_name_kana: 'メイ',
+    image: '画像',
   },
   link: {
     'password-forgot': 'パスワードをお忘れの方',
@@ -127,6 +129,9 @@ export default {
   },
   placeholder: {
     email: 'sample@example.com',
+  },
+  status: {
+    inviteAdmin: '管理システムに招待済み',
   },
   submit: {
     create: '登録',
@@ -141,6 +146,8 @@ export default {
     testSignin: 'デモユーザとして試す',
     update: '更新',
     changePassword: 'パスワード変更',
+    upload: '画像をアップロード',
+    clearUpload: '画像をクリア',
   },
   page: {
     index: {

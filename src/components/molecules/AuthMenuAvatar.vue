@@ -4,7 +4,8 @@
       <template #activator="{ on }">
         <v-btn icon x-large v-on="on">
           <v-avatar color="brown" size="36">
-            <span class="white--text">{{ initials }}</span>
+            <v-img v-if="admin.file_path" :src="facePath"></v-img>
+            <span v-else class="white--text">{{ initials }}</span>
           </v-avatar>
         </v-btn>
       </template>
@@ -50,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from '@nuxtjs/composition-api'
-
+import { faceUrl } from '@/lib/util'
 import { Admin } from '@/types/ts-axios'
 import { useAuth } from '~/hooks'
 
@@ -69,9 +70,11 @@ export default defineComponent({
   },
   setup(props) {
     const initials = computed(() => props.admin.family_name[0] || '')
-
+    const facePath = computed(() =>
+      props.admin.file_path ? faceUrl(props.admin.file_path) : ''
+    )
     const { signout } = useAuth()
-    return { initials, signout }
+    return { facePath, initials, signout }
   },
 })
 </script>
