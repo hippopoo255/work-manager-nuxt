@@ -3,10 +3,12 @@ import { strPatterns, length } from './util'
 import {
   AccountVerificationInputs,
   ForgotPasswordInputs,
+  PasswordResetInputs,
   ResetForgottenPasswordInputs,
   SigninInputs,
   SignupInputs,
 } from '~/types/ts-axios'
+
 export const signupRule = (i18n: NuxtI18nInstance) => ({
   // メールアドレス: 必須, メール形式, 最小8文字, 最大255文字
   email: [
@@ -254,6 +256,52 @@ export const accountVerificationRule = (i18n: NuxtI18nInstance) => ({
       !!v ||
       i18n.t('validation.required', {
         attribute: i18n.t('attribute.verification_code'),
+      }),
+  ],
+})
+
+export const resetPasswordRule = (i18n: NuxtI18nInstance) => ({
+  old_password: [
+    (v: PasswordResetInputs['old_password']) =>
+      !!v ||
+      i18n.t('validation.required', {
+        attribute: i18n.t('attribute.old_password'),
+      }),
+  ],
+  password: [
+    (v: PasswordResetInputs['password']) =>
+      !!v ||
+      i18n.t('validation.required', {
+        attribute: i18n.t('attribute.new_password'),
+      }),
+    (v: PasswordResetInputs['password']) =>
+      v.length >= length.password[0] ||
+      i18n.t('validation.min', {
+        attribute: i18n.t('attribute.new_password'),
+        length: length.password[0],
+      }),
+    (v: PasswordResetInputs['password']) =>
+      v.length <= length.password[1] ||
+      i18n.t('validation.max', {
+        attribute: i18n.t('attribute.new_password'),
+        length: length.password[1],
+      }),
+    (v: PasswordResetInputs['password']) =>
+      strPatterns.password.test(v) ||
+      i18n.t('validation.pattern', {
+        attribute: i18n.t('attribute.new_password'),
+      }),
+  ],
+  password_confirmation: (compare: PasswordResetInputs['password']) => [
+    (v: PasswordResetInputs['password_confirmation']) =>
+      !!v ||
+      i18n.t('validation.required', {
+        attribute: i18n.t('attribute.new_password_confirmation'),
+      }),
+    (v: PasswordResetInputs['password_confirmation']) =>
+      strPatterns.confirm(compare).test(v) ||
+      i18n.t('validation.confirmation', {
+        attribute: i18n.t('attribute.new_password_confirmation'),
       }),
   ],
 })

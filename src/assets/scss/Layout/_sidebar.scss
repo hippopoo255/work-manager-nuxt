@@ -1,0 +1,41 @@
+.v-navigation-drawer {
+  .v-list-item {
+    color: var(--v-fontColor-drawer, white) !important;
+    .v-icon {
+      color: var(--v-fontColor-drawer, white) !important;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .v-list-group__items .v-list-item {
+    padding: 0 16px 0 72px;
+    .v-list-item__icon:first-child {
+      margin-right: 16px;
+    }
+    .v-list-item__subtitle,
+    .v-icon {
+      color: darken(white, 20%) !important;
+    }
+    &--active {
+      pointer-events: none;
+      .v-list-item__subtitle {
+        color: darken(white, 40%) !important;
+      }
+      .v-icon {
+        color: darken(white, 40%) !important;
+      }
+    }
+  }
+}
+
+/*
+==================
+Light Mode
+==================
+*/
+.theme--light {
+  &.v-navigation-drawer {
+    background-color: var(--v-bgColor-drawer, #121212) !important;
+  }
+}

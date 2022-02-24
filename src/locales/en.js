@@ -1,6 +1,8 @@
 export default {
   app: {
     name: process.env.APP_NAME_EN,
+    locale: 'Locale',
+    theme: 'Theme',
   },
   tooltip: {
     theme: {
@@ -20,6 +22,7 @@ export default {
       verify:
         '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
       admin: '管理者アカウントを保存しました。',
+      profile: 'プロフィールを更新しました。',
     },
     error: {
       signin: 'サインインに失敗しました。',
@@ -38,6 +41,13 @@ export default {
           '既に検証済みのアカウントか、有効期限切れの可能性があります',
         default: '検証に失敗しました',
       },
+    },
+  },
+  tab: {
+    setting: {
+      common: 'Common',
+      notification: 'Notification',
+      changePassword: 'Password',
     },
   },
   layout: {
@@ -96,18 +106,22 @@ export default {
     email: 'Email',
     login_id: 'Login ID',
     both: 'Login ID or Email',
+    old_password: 'Current password',
     password: 'Password',
     password_confirmation: 'Password（confirm）',
+    new_password: 'New password',
+    new_password_confirmation: 'New password（confirm）',
     verification_code: 'Verificaction code',
   },
   link: {
     'password-forgot': 'Forget your password?',
-    profile: 'プロフィール',
+    profile: 'Profile',
   },
   placeholder: {
     email: 'sample@example.com',
   },
   submit: {
+    changePassword: 'Change password',
     create: 'Create',
     inviteAdmin: 'Invite as an Admin',
     resetPassword: 'Send',
@@ -116,7 +130,8 @@ export default {
     signin: 'Sign in',
     signout: 'Sign out',
     signup: 'Sign up',
-    testSignin: 'Sign in as Demo user',
+    theme: 'On Dark mode',
+    testSignin: 'Sign in as a Demo user',
     update: 'Update',
   },
   page: {
@@ -144,6 +159,9 @@ export default {
       },
       setting: {
         index: 'Setting',
+        common: 'Common',
+        password: 'Change Password',
+        notification: 'Notification',
       },
       signin: 'Sign in',
       signup: 'Sign up',

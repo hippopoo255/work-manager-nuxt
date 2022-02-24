@@ -5,7 +5,7 @@ import { requestUri } from '@/config'
 import { toStrLabel } from '@/lib/util'
 
 const useAdmin = () => {
-  const { postRequest, getRequest } = useAxios()
+  const { postRequest, getRequest, putRequest } = useAxios()
   const { store, i18n } = useContext()
 
   const index = async () => {
@@ -43,9 +43,17 @@ const useAdmin = () => {
       return user
     })
   }
-  const update = (data: AdminInputs, id: number) => {
-    return { data, id }
+
+  const update = async (data: AdminInputs, id: number) => {
+    return await putRequest<Admin, AdminInputs>(
+      requestUri.admin.update.replace('{id}', String(id)),
+      data
+    ).then((admin) => {
+      store.dispatch('admin/signin', admin)
+      return admin
+    })
   }
+
   const save = async (data: AdminInputs, id?: number) => {
     if (id !== undefined) {
       return await update(data, id)

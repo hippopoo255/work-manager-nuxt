@@ -95,7 +95,7 @@ const resetPassword = async ({
   old_password,
   password,
 }: PasswordResetInputs) => {
-  await Auth.currentAuthenticatedUser()
+  return await Auth.currentAuthenticatedUser()
     .then((user) => {
       return Auth.changePassword(user, old_password, password)
     })

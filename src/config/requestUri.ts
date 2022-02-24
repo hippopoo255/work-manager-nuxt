@@ -12,5 +12,6 @@ export default {
     create: '/admin',
     show: '/admin/{id}',
     update: '/admin/{id}',
+    profile: '/admin/{id}/profile',
   },
 }

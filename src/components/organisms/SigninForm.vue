@@ -72,14 +72,12 @@ export default defineComponent({
     }
 
     return {
-      // form,
       login_id,
       loading,
       password,
       rules,
       signIn,
       testSignIn,
-      // valid,
     }
   },
 })

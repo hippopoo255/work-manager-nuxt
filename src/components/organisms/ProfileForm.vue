@@ -1,13 +1,6 @@
 <template>
-  <BaseFormCard :title="title" @submit="create">
+  <BaseFormCard :title="title" @submit="update">
     <template slot="form-content">
-      <v-text-field
-        v-model="email"
-        :rules="rules.email"
-        :label="$t('attribute.email')"
-        required
-        autofocus
-      ></v-text-field>
       <v-row dense>
         <v-col cols="6">
           <v-text-field
@@ -15,6 +8,7 @@
             :rules="rules.family_name"
             :label="$t('attribute.family_name')"
             required
+            autofocus
           ></v-text-field>
         </v-col>
         <v-col cols="6">
@@ -61,18 +55,18 @@ import {
   watch,
 } from '@nuxtjs/composition-api'
 import { adminCreateRule } from '@/config/validationRule'
-import { useAdmin } from '@/hooks'
+import { useAuth } from '@/hooks'
 import { Admin } from '@/types/ts-axios'
 
 export default defineComponent({
-  name: 'AdminForm',
+  name: 'ProfileForm',
   props: {
     admin: { type: [Object, String] as PropType<Admin | ''>, default: '' },
     title: { type: String as PropType<string>, default: 'Form' },
   },
   setup(props) {
-    const { app, i18n, redirect } = useContext()
-    const { save } = useAdmin()
+    const { i18n } = useContext()
+    const { updateProfile } = useAuth()
     const id = ref<number | undefined>(undefined)
     const email = ref('')
     const family_name = ref('')
@@ -103,30 +97,25 @@ export default defineComponent({
       { immediate: true }
     )
 
-    const create = async () => {
-      loading.value = true
+    const update = async () => {
+      if (id.value !== undefined) {
+        loading.value = true
 
-      const data = {
-        email: email.value,
-        family_name: family_name.value,
-        family_name_kana: family_name_kana.value,
-        given_name: given_name.value,
-        given_name_kana: given_name_kana.value,
-      }
+        const data = {
+          family_name: family_name.value,
+          family_name_kana: family_name_kana.value,
+          given_name: given_name.value,
+          given_name_kana: given_name_kana.value,
+          // delete_flag
+          // file
+        }
 
-      await save(data, id.value)
-        .then(() => {
-          setTimeout(() => {
-            redirect(app.localePath('admin'))
-          }, 5000)
-        })
-        .finally(() => {
+        await updateProfile(data, id.value).finally(() => {
           loading.value = false
         })
+      }
     }
     return {
-      create,
-      email,
       family_name,
       family_name_kana,
       given_name,
@@ -134,6 +123,7 @@ export default defineComponent({
       loading,
       rules,
       submitText,
+      update,
     }
   },
 })

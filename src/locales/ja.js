@@ -1,6 +1,8 @@
 export default {
   app: {
     name: process.env.APP_NAME_JA,
+    locale: '言語',
+    theme: 'テーマ',
   },
   tooltip: {
     theme: {
@@ -22,6 +24,7 @@ export default {
       admin:
         '管理者アカウントを保存しました。\n相手の方には初期設定のご案内メールが送信されます',
       user: 'ユーザーアカウントを保存しました。',
+      profile: 'プロフィールを更新しました。',
     },
     error: {
       signin: 'サインインに失敗しました。',
@@ -42,6 +45,13 @@ export default {
           '既に検証済みのアカウントか、有効期限切れの可能性があります',
         default: '検証に失敗しました',
       },
+    },
+  },
+  tab: {
+    setting: {
+      common: '一般',
+      notification: '通知',
+      changePassword: 'パスワード',
     },
   },
   layout: {
@@ -100,8 +110,11 @@ export default {
     email: 'メールアドレス',
     login_id: 'ログインID',
     both: 'ログインIDまたはメールアドレス',
+    old_password: '現在のパスワード',
     password: 'パスワード',
     password_confirmation: 'パスワード（確認）',
+    new_password: '新しいパスワード',
+    new_password_confirmation: '新しいパスワード（確認）',
     verification_code: '検証コード',
     family_name: '姓',
     family_name_kana: 'セイ',
@@ -124,8 +137,10 @@ export default {
     signin: 'サインイン',
     signout: 'サインアウト',
     signup: 'アカウント作成',
+    theme: 'ダークモードにする',
     testSignin: 'デモユーザとして試す',
     update: '更新',
+    changePassword: 'パスワード変更',
   },
   page: {
     index: {
@@ -150,8 +165,12 @@ export default {
       organization: {
         index: '組織情報',
       },
+      profile: 'プロフィール',
       setting: {
         index: '設定',
+        common: '一般',
+        password: 'パスワード変更',
+        notification: '通知設定',
       },
       signin: 'サインイン',
       signup: 'アカウントセットアップ',

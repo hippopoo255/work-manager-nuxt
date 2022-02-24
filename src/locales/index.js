@@ -17,7 +17,7 @@ const detectBrowserLanguage = [
 const locales = {
   // 使用する言語
   locales: [
-    { code: 'ja', name: 'Japanese', iso: 'ja_JP', file: 'ja.js' },
+    { code: 'ja', name: '日本語', iso: 'ja_JP', file: 'ja.js' },
     { code: 'en', name: 'English', iso: 'en-US', file: 'en.js' },
     // ...
   ],

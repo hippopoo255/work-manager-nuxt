@@ -14,8 +14,8 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <ToggleThemeButton />
-      <ToggleLocaleButton />
+      <!-- <ToggleThemeButton /> -->
+      <!-- <ToggleLocaleButton /> -->
       <AuthMenuAvatar v-if="isSignin" :admin="admin" class="ml-4" />
     </v-app-bar>
   </div>

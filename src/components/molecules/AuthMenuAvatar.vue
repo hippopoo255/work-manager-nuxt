@@ -9,7 +9,7 @@
         </v-btn>
       </template>
       <v-card>
-        <v-list-item-content class="justify-center">
+        <v-list-item-content class="justify-center pb-0">
           <div class="mx-auto text-center">
             <v-avatar color="brown">
               <span class="white--text text-h5">{{ initials }}</span>
@@ -18,12 +18,27 @@
             <p class="text-caption mt-1">
               {{ admin.email }}
             </p>
-            <v-divider class="my-3"></v-divider>
-            <v-btn depressed tile text style="width: 100%">{{
-              $t('link.profile')
-            }}</v-btn>
-            <v-divider class="my-3"></v-divider>
-            <v-btn depressed tile text style="width: 100%" @click="signout">
+            <v-divider></v-divider>
+            <v-btn
+              depressed
+              tile
+              text
+              style="width: 100%"
+              router
+              exact
+              x-large
+              :to="localePath('profile')"
+              >{{ $t('link.profile') }}</v-btn
+            >
+            <v-divider></v-divider>
+            <v-btn
+              depressed
+              tile
+              text
+              x-large
+              style="width: 100%"
+              @click="signout"
+            >
               {{ $t('submit.signout') }}
             </v-btn>
           </div>
