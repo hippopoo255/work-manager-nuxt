@@ -20,7 +20,7 @@
       <FormSubmitRow :loading="loading" :submit-value="$t('submit.signin')">
         <v-col slot="else-rows" cols="12" class="mt-xs-4">
           <NuxtLink :to="localePath('password-forgot')">{{
-            $t('link.password-forgot')
+            $t('link.password.forgot')
           }}</NuxtLink>
           <v-btn
             class="ml-2"

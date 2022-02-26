@@ -43,6 +43,52 @@ export default {
       },
     },
   },
+  breadcrumb: {
+    dashboard: 'Dashboard',
+    user: {
+      id: '{id}',
+      index: 'User List',
+      create: 'User registration',
+    },
+    admin: {
+      index: 'Admin List',
+      create: 'Admin registration',
+      id: '{id}',
+    },
+    blog: {
+      index: 'Blogs',
+      report: 'Blog Report',
+      id: '{id}',
+      comment: {
+        index: 'Blog Comments',
+        commentId: '{commentId}',
+      },
+    },
+    chat: {
+      index: 'Chat list',
+      report: 'Chat Report',
+    },
+    master: {
+      index: 'Master',
+    },
+    organization: {
+      index: 'Organization',
+    },
+    profile: 'Profile',
+    setting: {
+      index: 'Setting',
+      common: 'Common',
+      password: 'Password',
+      notification: 'Notification',
+    },
+    signin: 'Sign in',
+    signup: 'Account Setup',
+    password: {
+      forgot: 'Password regeneration',
+      reset: 'Password reset',
+    },
+    account_verification: 'Account Verification',
+  },
   tab: {
     setting: {
       common: 'Common',
@@ -116,7 +162,9 @@ export default {
     image: 'Image',
   },
   link: {
-    'password-forgot': 'Forget your password?',
+    password: {
+      forgot: 'Forget your password?',
+    },
     profile: 'Profile',
   },
   placeholder: {
@@ -156,6 +204,7 @@ export default {
         report: 'Blog Report',
       },
       chat: {
+        index: 'Chat list',
         report: 'Chat Report',
       },
       master: {
@@ -177,9 +226,11 @@ export default {
         create: 'User registration',
         id: 'User Detail',
       },
-      'password-forgot': 'Password regeneration',
-      'password-reset': 'Password reset',
-      'account-verification': 'Account Verification',
+      password: {
+        forgot: 'Password regeneration',
+        reset: 'Password reset',
+      },
+      account_verification: 'Account Verification',
     },
   },
 }

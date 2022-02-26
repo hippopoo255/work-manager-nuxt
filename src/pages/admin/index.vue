@@ -1,7 +1,8 @@
 <template>
   <div>
     <h2 class="c-page-title text-center">{{ $t('page.title.admin.index') }}</h2>
-    <CustomTable :headers="headers" :items="admins" />
+    <Loader v-if="loading" />
+    <CustomTable v-else :headers="headers" :items="admins" />
   </div>
 </template>
 
@@ -23,15 +24,20 @@ export default defineComponent({
   setup() {
     const { index } = useAdmin()
     const { i18n, store } = useContext()
+    const loading = ref(true)
     const admins = ref<Admin[]>([])
     const isSignin = computed(() => store.getters['admin/isSignin'])
     watch(
       () => isSignin.value,
       async (isSignin) => {
         if (isSignin) {
-          await index().then((ads) => {
-            admins.value = ads
-          })
+          await index()
+            .then((ads) => {
+              admins.value = ads
+            })
+            .finally(() => {
+              loading.value = false
+            })
         }
       },
       { immediate: true }
@@ -40,6 +46,7 @@ export default defineComponent({
     return {
       admins,
       headers,
+      loading,
     }
   },
 })

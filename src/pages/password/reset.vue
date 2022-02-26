@@ -1,6 +1,6 @@
 <template>
   <div class="text-center p-form">
-    <h2 class="c-page-title">{{ $t('page.title.password-reset') }}</h2>
+    <h2 class="c-page-title">{{ $t('page.title.password.reset') }}</h2>
     <ResetForgottenPasswordForm />
   </div>
   <!-- <v-row align="center">
