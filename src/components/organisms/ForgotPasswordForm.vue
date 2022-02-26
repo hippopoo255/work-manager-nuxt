@@ -1,6 +1,6 @@
 <template>
   <BaseFormCard
-    :title="$t('page.title.password-forgot')"
+    :title="$t('page.title.password.forgot')"
     @submit="sendVerificationCode"
   >
     <template slot="form-content">

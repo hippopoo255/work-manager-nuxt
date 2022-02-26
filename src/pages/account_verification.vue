@@ -1,6 +1,6 @@
 <template>
   <div class="text-center p-form">
-    <h2 class="c-page-title">{{ $t('page.title.account-verification') }}</h2>
+    <h2 class="c-page-title">{{ $t('page.title.account_verification') }}</h2>
     <AccountVerificationForm />
   </div>
 </template>

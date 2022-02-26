@@ -1,5 +1,5 @@
 <template>
-  <BaseFormCard :title="$t('page.title.account-verification')" @submit="verify">
+  <BaseFormCard :title="$t('page.title.account_verification')" @submit="verify">
     <template slot="form-content">
       <v-text-field
         v-model="verification_code"

@@ -2,7 +2,7 @@
   <v-row align="center">
     <v-col cols="12">
       <div class="text-center p-form">
-        <h2 class="c-page-title">{{ $t('page.title.password-forgot') }}</h2>
+        <h2 class="c-page-title">{{ $t('page.title.password.forgot') }}</h2>
         <ForgotPasswordForm />
       </div>
     </v-col>

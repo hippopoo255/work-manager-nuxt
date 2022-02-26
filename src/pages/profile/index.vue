@@ -1,7 +1,8 @@
 <template>
   <div class="text-center p-form">
     <h2 class="c-page-title">{{ $t('page.title.profile') }}</h2>
-    <ProfileForm :admin="me" :title="$t('page.title.profile')" />
+    <Loader v-if="loader" />
+    <ProfileForm v-else :admin="me" :title="$t('page.title.profile')" />
   </div>
 </template>
 
@@ -13,7 +14,8 @@ export default defineComponent({
   setup() {
     const { store } = useContext()
     const me = computed(() => store.getters['admin/currentAdmin'])
-    return { me }
+    const loader = computed(() => me.value === '')
+    return { me, loader }
   },
 })
 </script>

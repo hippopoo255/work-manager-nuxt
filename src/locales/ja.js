@@ -47,6 +47,54 @@ export default {
       },
     },
   },
+  breadcrumb: {
+    dashboard: 'ダッシュボード',
+    user: {
+      id: '{id}',
+      index: '一般アカウント一覧',
+      create: '一般アカウント登録',
+    },
+    admin: {
+      id: '{id}',
+      index: '管理アカウント一覧',
+      create: '管理アカウント登録',
+    },
+    blog: {
+      index: 'ブログ一覧',
+      report: 'ブログ通報',
+      id: {
+        index: '{id}',
+        comment: {
+          index: 'コメント一覧',
+          commentId: '{commentId}',
+        },
+      },
+    },
+    chat: {
+      index: 'チャット一覧',
+      report: 'チャット通報',
+    },
+    master: {
+      index: 'マスター',
+    },
+    organization: {
+      index: '組織情報',
+    },
+    profile: 'プロフィール',
+    setting: {
+      index: '設定',
+      common: '一般',
+      password: 'パスワード変更',
+      notification: '通知設定',
+    },
+    signin: 'サインイン',
+    signup: 'アカウントセットアップ',
+    password: {
+      forgot: 'パスワード再発行フォーム',
+      reset: 'パスワードリセットフォーム',
+    },
+    account_verification: 'アカウント検証',
+  },
   tab: {
     setting: {
       common: '一般',
@@ -124,7 +172,9 @@ export default {
     image: '画像',
   },
   link: {
-    'password-forgot': 'パスワードをお忘れの方',
+    password: {
+      forgot: 'パスワードをお忘れの方',
+    },
     profile: 'プロフィール',
   },
   placeholder: {
@@ -164,6 +214,7 @@ export default {
         report: 'ブログ通報',
       },
       chat: {
+        index: 'チャット一覧',
         report: 'チャット通報',
       },
       master: {
@@ -186,9 +237,11 @@ export default {
         create: '一般アカウント登録',
         id: '一般アカウント詳細',
       },
-      'password-forgot': 'パスワード再発行フォーム',
-      'password-reset': 'パスワードリセット',
-      'account-verification': 'アカウント検証',
+      password: {
+        forgot: 'パスワード再発行フォーム',
+        reset: 'パスワードリセット',
+      },
+      account_verification: 'アカウント検証',
     },
   },
 }

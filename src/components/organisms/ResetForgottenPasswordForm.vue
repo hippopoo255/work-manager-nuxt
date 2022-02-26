@@ -1,6 +1,6 @@
 <template>
   <BaseFormCard
-    :title="$t('page.title.password-reset')"
+    :title="$t('page.title.password.reset')"
     @submit="resetPassword"
   >
     <template slot="form-content">

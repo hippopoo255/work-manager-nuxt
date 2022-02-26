@@ -3,7 +3,8 @@
     <h2 class="c-page-title text-center">
       {{ $t('page.title.user.index') }}
     </h2>
-    <CustomTable :headers="headers" :items="users" />
+    <Loader v-if="loading" />
+    <CustomTable v-else :headers="headers" :items="users" />
   </div>
 </template>
 
@@ -24,6 +25,8 @@ export default defineComponent({
   setup() {
     const { index } = useUser()
     const { i18n, store } = useContext()
+    const loading = ref(true)
+
     const users = ref<User[]>([])
     const isSignin = computed(() => store.getters['admin/isSignin'])
 
@@ -31,17 +34,22 @@ export default defineComponent({
       () => isSignin.value,
       async (isSignin) => {
         if (isSignin) {
-          await index().then((u) => {
-            users.value = u
-          })
+          await index()
+            .then((u) => {
+              users.value = u
+            })
+            .finally(() => {
+              loading.value = false
+            })
         }
       },
       { immediate: true }
     )
     const headers = computed(() => userTableHeaders.index(i18n))
     return {
-      users,
       headers,
+      loading,
+      users,
     }
   },
 })

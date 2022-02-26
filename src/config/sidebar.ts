@@ -1,11 +1,13 @@
 import { NuxtI18nInstance } from 'nuxt-i18n'
 
 export const menus = (i18n: NuxtI18nInstance) => [
+  // ダッシュボード
   {
     icon: 'mdi-apps',
     title: i18n.t('layout.sidebar.dashboard'),
     to: 'dashboard',
   },
+  // 一般アカウント
   {
     icon: 'mdi-account-multiple-outline',
     title: i18n.t('layout.sidebar.user.top'),
@@ -22,6 +24,7 @@ export const menus = (i18n: NuxtI18nInstance) => [
       },
     ],
   },
+  // 管理者アカウント
   {
     icon: 'mdi-account-lock-outline',
     title: i18n.t('layout.sidebar.admin.top'),
@@ -31,13 +34,15 @@ export const menus = (i18n: NuxtI18nInstance) => [
         title: i18n.t('layout.sidebar.admin.index'),
         to: 'admin',
       },
-      {
-        icon: 'mdi-plus-circle-outline',
-        title: i18n.t('layout.sidebar.admin.create'),
-        to: 'admin-create',
-      },
+      //  管理者アカウントの追加は一般アカウントからの招待のみにする
+      // {
+      //   icon: 'mdi-plus-circle-outline',
+      //   title: i18n.t('layout.sidebar.admin.create'),
+      //   to: 'admin-create',
+      // },
     ],
   },
+  // ブログ
   {
     icon: 'mdi-post-outline',
     title: i18n.t('layout.sidebar.blog.top'),
@@ -54,6 +59,7 @@ export const menus = (i18n: NuxtI18nInstance) => [
       },
     ],
   },
+  // チャット
   {
     icon: 'mdi-chat-outline',
     title: i18n.t('layout.sidebar.chat.top'),
@@ -65,6 +71,7 @@ export const menus = (i18n: NuxtI18nInstance) => [
       },
     ],
   },
+  // 設定(一般 / 組織情報 / マスター)
   {
     icon: 'mdi-cog-outline',
     title: i18n.t('layout.sidebar.setting.top'),
