@@ -2,7 +2,12 @@
   <div>
     <h2 class="c-page-title text-center">{{ $t('page.title.admin.index') }}</h2>
     <Loader v-if="loading" />
-    <CustomTable v-else :headers="headers" :items="admins" />
+    <AuthenticatableTable
+      v-else
+      :headers="headers"
+      :items="admins"
+      model="admin"
+    />
   </div>
 </template>
 

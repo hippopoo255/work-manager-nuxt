@@ -60,6 +60,7 @@ const useAxios = () => {
             forbidden: err.data.message,
           },
         }
+        store.dispatch('status/updateResponse', status)
         router.push(app.localePath('forbidden'))
         throw err
       case NOTFOUND:
@@ -69,6 +70,7 @@ const useAxios = () => {
             notfound: err.data.message,
           },
         }
+        store.dispatch('status/updateResponse', status)
         router.push(app.localePath('not-found'))
         throw err
       case UNPROCESSABLE:
@@ -82,7 +84,9 @@ const useAxios = () => {
       default:
         store.dispatch('status/updateResponse', {
           status: err.status,
-          message: err.data.message,
+          message: {
+            server: err.data.message,
+          },
         })
         throw err
     }

@@ -121,7 +121,7 @@ export default {
     defaultAssets: {
       font: false,
     },
-    customVariables: ['~/assets/scss/Foundation/variables.scss'],
+    customVariables: ['~/assets/scss/Foundation/variable.scss'],
     options: { customProperties: true },
     theme: {
       // dark: true,

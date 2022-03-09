@@ -3,7 +3,7 @@
     <v-menu bottom min-width="200px" rounded offset-y>
       <template #activator="{ on }">
         <v-btn icon x-large v-on="on">
-          <v-avatar color="brown" size="36">
+          <v-avatar color="orange" size="36">
             <v-img v-if="admin.file_path" :src="facePath"></v-img>
             <span v-else class="white--text">{{ initials }}</span>
           </v-avatar>
@@ -12,7 +12,7 @@
       <v-card>
         <v-list-item-content class="justify-center pb-0">
           <div class="mx-auto text-center">
-            <v-avatar color="brown">
+            <v-avatar color="orange">
               <span class="white--text text-h5">{{ initials }}</span>
             </v-avatar>
             <h3 class="mt-3">{{ admin.full_name }}</h3>

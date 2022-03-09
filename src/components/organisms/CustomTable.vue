@@ -4,13 +4,13 @@
     :items="items"
     :footer-props="footerProps"
     class="elevation-1"
-  ></v-data-table>
+  >
+  </v-data-table>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { DataTableHeader } from 'vuetify'
-// import { useTable } from '~/hooks'
 
 export default defineComponent({
   name: '',

@@ -1,0 +1,29 @@
+@mixin media($breakPoint: 'sm') {
+  @media #{map-get($breakPoints, $breakPoint)} {
+    @content;
+  }
+}
+
+@mixin colorModifierByResource($prop: 'border-color') {
+  @each $resourceName, $colorName in $resourceColor {
+    &.--#{$resourceName} {
+      #{$prop}: map-get($customColor, $colorName);
+    }
+  }
+}
+
+@mixin colorModifierByActivity($prop: 'border-color') {
+  @each $activityKey, $colorName in $activityColor {
+    &.--#{$activityKey} {
+      #{$prop}: map-get($customColor, $colorName);
+    }
+  }
+}
+
+@mixin colorModifierByColorName($prop: 'border-color') {
+  @each $colorName, $colorValue in $customColor {
+    &.--#{$colorName} {
+      #{$prop}: $colorValue;
+    }
+  }
+}

@@ -1,16 +1,19 @@
 <template>
-  <v-card v-if="user" max-width="400" class="mx-auto">
-    <v-container>
-      <v-row dense>
-        <v-col cols="12">
-          <AuthenticatableCard :authenticatable="user" :menus="menus" />
-        </v-col>
-        <v-col cols="12">
-          <!-- TODO: ActivityList -->
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+  <div class="l-authenticatable">
+    <AuthenticatableCard v-if="user" :authenticatable="user" :menus="menus">
+      <template slot="authenticatable-content">
+        <div class="mt-8 mt-md-12">
+          <v-row justify="center">
+            <v-col cols="12" md="6">
+              <h3 class="c-title u-mb-4">アクティビティ</h3>
+              <ActivityList :activities="activityList" />
+            </v-col>
+          </v-row>
+        </div>
+      </template>
+    </AuthenticatableCard>
+    <Loader v-else />
+  </div>
 </template>
 
 <script lang="ts">
@@ -25,6 +28,7 @@ import {
 import { useAdmin, useUser } from '@/hooks'
 import { User } from '~/types/ts-axios'
 import { faceUrl } from '~/lib/util'
+import { activities } from '@/mock'
 
 export default defineComponent({
   name: 'UserDetailList',
@@ -35,6 +39,7 @@ export default defineComponent({
     const route = useRoute()
     const loading = ref(false)
     const user = ref<User | null>(null)
+    const activityList = ref(activities)
     const isSignin = computed(() => store.getters['admin/isSignin'])
     const facePath = computed(() =>
       user.value?.file_path ? faceUrl(user.value?.file_path) : ''
@@ -93,12 +98,14 @@ export default defineComponent({
       },
       { immediate: true }
     )
+
     return {
       bgPath,
       facePath,
       loading,
       menus,
       user,
+      activityList,
     }
   },
 })

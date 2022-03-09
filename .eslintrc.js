@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     // "2語以上"のルールを完全にオフ
     'vue/multi-word-component-names': 'off',
+    'vue/valid-v-slot': 'off',
     // DBのカラム名(スネークケース)に合わせることもあるのでオフ
     camelcase: [OFF, 'always'],
   },

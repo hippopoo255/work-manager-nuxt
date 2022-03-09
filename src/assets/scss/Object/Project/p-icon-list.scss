@@ -1,0 +1,18 @@
+.p-icon-list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: -8px;
+  max-width: $iconWidth * 2 + 32px;
+  margin: -8px auto;
+  &__item {
+    margin: 8px;
+  }
+
+  @include media('sm') {
+    justify-content: center;
+    max-width: initial;
+    margin: -8px;
+  }
+}
