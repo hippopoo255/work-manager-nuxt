@@ -23,6 +23,7 @@ export default {
         '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
       admin: '管理者アカウントを保存しました。',
       profile: 'プロフィールを更新しました。',
+      delete: 'データを削除しました。',
     },
     error: {
       signin: 'サインインに失敗しました。',
@@ -70,6 +71,15 @@ export default {
     },
     master: {
       index: 'Master',
+      meeting_room: {
+        index: 'Meeting room',
+      },
+      progress: {
+        index: 'Progress',
+      },
+      department: {
+        index: 'Department',
+      },
     },
     organization: {
       index: 'Organization',
@@ -127,6 +137,7 @@ export default {
     },
     table: {
       header: {
+        actions: 'Actions',
         user: {
           index: {
             id: 'ID',
@@ -134,6 +145,19 @@ export default {
             full_name_kana: 'Name kana',
             email: 'Email',
             email_verified_at: 'Verified Date',
+            createdBy: 'Created by',
+            created_by: 'Created by',
+            created_at: 'Created at',
+          },
+        },
+        admin: {
+          index: {
+            id: 'ID',
+            full_name: 'Name',
+            full_name_kana: 'Name kana',
+            email: 'Email',
+            email_verified_at: 'Verified Date',
+            createdBy: 'Created by',
             created_by: 'Created by',
             created_at: 'Created at',
           },
@@ -159,7 +183,21 @@ export default {
     new_password: 'New password',
     new_password_confirmation: 'New password（confirm）',
     verification_code: 'Verificaction code',
+    family_name: 'Family name',
+    family_name_kana: 'Family name kana',
+    given_name: 'Given name',
+    given_name_kana: 'Given name kana',
     image: 'Image',
+    department_code: 'Department code',
+    color: 'Color',
+    name: {
+      department: 'Department name',
+      progress: 'Progress name',
+      meeting_room: 'Meeting room name',
+    },
+    value: {
+      progress: 'priority',
+    },
   },
   link: {
     password: {
@@ -169,13 +207,16 @@ export default {
   },
   placeholder: {
     email: 'sample@example.com',
+    department_code: 'Alper numeric',
   },
   status: {
     inviteAdmin: '管理システムに招待済み',
   },
+  confirm:
+    'Once deleted, it cannot be restored. Are you sure you want to delete it?',
   submit: {
     changePassword: 'Change password',
-    create: 'Create',
+    create: 'Register',
     inviteAdmin: 'Invite as an Admin',
     resetPassword: 'Send',
     save: 'Save',

@@ -29,6 +29,12 @@ export default defineComponent({
       () => statusCode.value,
       (code) => {
         snackbar.value = !!code
+        if (code) {
+          color.value = code < 400 ? 'success' : 'error'
+        }
+        setTimeout(() => {
+          clear()
+        }, 6000)
       },
       { immediate: true }
     )
@@ -47,19 +53,6 @@ export default defineComponent({
         return ''
       }
     })
-
-    watch(
-      () => statusCode.value,
-      (code) => {
-        if (code) {
-          color.value = code < 400 ? 'success' : 'error'
-        }
-        setTimeout(() => {
-          clear()
-        }, 6000)
-      },
-      { immediate: true }
-    )
 
     const clear = () => {
       store.dispatch('status/clearResponse')

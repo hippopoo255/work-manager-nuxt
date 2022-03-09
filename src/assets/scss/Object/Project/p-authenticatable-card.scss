@@ -1,0 +1,54 @@
+.p-authenticatable-card {
+  border-radius: 0 !important;
+  &__overlay {
+    aspect-ratio: 16 / 9;
+    background: map-get($customColor, 'navy');
+    color: $white;
+    position: relative;
+    @include colorModifierByColorName('background');
+  }
+  &__avatar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate3d(-50%, 50%, 0);
+    border: 4px solid $white;
+    border-radius: $radiusFull;
+  }
+  &__avatar-inner {
+    background: map-get($customColor, 'orange');
+  }
+  &__overlay-main {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    margin-bottom: 60px;
+  }
+  &__action {
+    position: absolute;
+    top: 16px;
+    right: 4px;
+  }
+  &__bottom {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    padding: 50px 16px 20px;
+    // background: $lightGrey2;
+  }
+
+  @include media('sm') {
+    &__overlay {
+      aspect-ratio: 2 / 1;
+    }
+  }
+  @include media('md') {
+    &__overlay {
+      aspect-ratio: 3 / 1;
+    }
+  }
+
+  @include media('lg') {
+    border-radius: $radiusBasis !important;
+  }
+}

@@ -1,0 +1,8 @@
+.u-full-round {
+  @include colorModifierByColorName('background');
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: $radiusFull;
+  background: map-get($customColor, 'navy');
+}

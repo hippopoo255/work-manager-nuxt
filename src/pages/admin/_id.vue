@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <h2 class="c-page-title text-center">{{ $t('page.title.admin.id') }}</h2>
     <AdminDetailList />
   </div>

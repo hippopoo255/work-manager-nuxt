@@ -1,0 +1,14 @@
+.u-list {
+  &__item {
+    &:not(:first-of-type) {
+      margin-top: 4px;
+    }
+  }
+  @for $i from 1 through 20 {
+    &.--space-#{$i} {
+      .u-list__item:not(:first-of-type) {
+        margin-top: $i * $spaceBasis;
+      }
+    }
+  }
+}

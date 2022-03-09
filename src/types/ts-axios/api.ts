@@ -61,6 +61,61 @@ export interface AccountVerificationInputs {
   verification_code: string
 }
 /**
+ * アクションタイプ
+ * @export
+ * @interface ActionType
+ */
+export interface ActionType {
+  /**
+   *
+   * @type {number}
+   * @memberof ActionType
+   */
+  id: number
+  /**
+   *
+   * @type {string}
+   * @memberof ActionType
+   */
+  key: string
+  /**
+   *
+   * @type {string}
+   * @memberof ActionType
+   */
+  label_name: string
+  /**
+   *
+   * @type {string}
+   * @memberof ActionType
+   */
+  template_message: string
+  /**
+   *
+   * @type {boolean}
+   * @memberof ActionType
+   */
+  is_notify: boolean
+  /**
+   *
+   * @type {string}
+   * @memberof ActionType
+   */
+  link: string
+  /**
+   *
+   * @type {string}
+   * @memberof ActionType
+   */
+  created_at: string
+  /**
+   *
+   * @type {string}
+   * @memberof ActionType
+   */
+  updated_at: string
+}
+/**
  * 通知
  * @export
  * @interface Activity
@@ -80,10 +135,16 @@ export interface Activity {
   user_id: number
   /**
    *
-   * @type {number}
+   * @type {User}
    * @memberof Activity
    */
-  action_type_id: number
+  created_by: User
+  /**
+   *
+   * @type {ActionType}
+   * @memberof Activity
+   */
+  action_type: ActionType
   /**
    *
    * @type {boolean}
@@ -101,7 +162,7 @@ export interface Activity {
    * @type {string}
    * @memberof Activity
    */
-  content?: string
+  content: string
   /**
    *
    * @type {string}
@@ -223,6 +284,12 @@ export interface Admin {
    * @memberof Admin
    */
   organization?: Organization
+  /**
+   *
+   * @type {Department}
+   * @memberof Admin
+   */
+  department?: Department
 }
 /**
  * 管理者投稿フォーム
@@ -895,6 +962,80 @@ export interface DefaultError {
   message?: string
 }
 /**
+ * 部署マスター
+ * @export
+ * @interface Department
+ */
+export interface Department {
+  /**
+   *
+   * @type {number}
+   * @memberof Department
+   */
+  id: number
+  /**
+   *
+   * @type {string}
+   * @memberof Department
+   */
+  name: string
+  /**
+   *
+   * @type {string}
+   * @memberof Department
+   */
+  department_code: string
+  /**
+   *
+   * @type {string}
+   * @memberof Department
+   */
+  color?: string
+  /**
+   *
+   * @type {string}
+   * @memberof Department
+   */
+  created_at: string
+  /**
+   *
+   * @type {string}
+   * @memberof Department
+   */
+  updated_at: string
+  /**
+   *
+   * @type {User}
+   * @memberof Department
+   */
+  created_by: User
+}
+/**
+ * 部署投稿フォーム
+ * @export
+ * @interface DepartmentInputs
+ */
+export interface DepartmentInputs {
+  /**
+   *
+   * @type {string}
+   * @memberof DepartmentInputs
+   */
+  name: string
+  /**
+   *
+   * @type {string}
+   * @memberof DepartmentInputs
+   */
+  department_code?: string
+  /**
+   *
+   * @type {string}
+   * @memberof DepartmentInputs
+   */
+  color?: string
+}
+/**
  * ドキュメントファイル
  * @export
  * @interface DocumentFile
@@ -1338,6 +1479,25 @@ export interface MeetingPlace {
    * @memberof MeetingPlace
    */
   updated_at: string
+  /**
+   *
+   * @type {User}
+   * @memberof MeetingPlace
+   */
+  created_by: User
+}
+/**
+ * 会議室投稿フォーム
+ * @export
+ * @interface MeetingPlaceInputs
+ */
+export interface MeetingPlaceInputs {
+  /**
+   *
+   * @type {string}
+   * @memberof MeetingPlaceInputs
+   */
+  name: string
 }
 /**
  * ミーティングレコード
@@ -1902,6 +2062,31 @@ export interface Progress {
    * @memberof Progress
    */
   updated_at: string
+  /**
+   *
+   * @type {User}
+   * @memberof Progress
+   */
+  created_by: User
+}
+/**
+ * 進捗度投稿フォーム
+ * @export
+ * @interface ProgressInputs
+ */
+export interface ProgressInputs {
+  /**
+   *
+   * @type {string}
+   * @memberof ProgressInputs
+   */
+  name: string
+  /**
+   *
+   * @type {string}
+   * @memberof ProgressInputs
+   */
+  value?: string
 }
 /**
  * リアクション
@@ -2563,6 +2748,12 @@ export interface User {
    * @memberof User
    */
   organization?: Organization
+  /**
+   *
+   * @type {Department}
+   * @memberof User
+   */
+  department?: Department
 }
 /**
  * ユーザー投稿フォーム
@@ -2630,6 +2821,228 @@ export const DefaultApiAxiosParamCreator = function (
       // verify required parameter 'id' is not null or undefined
       assertParamExists('deleteAdminId', 'id', id)
       const localVarPath = `/admin/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * delete department
+     * @summary /department/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteDepartmentId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('deleteDepartmentId', 'id', id)
+      const localVarPath = `/department/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * delete meeting place
+     * @summary /meeting_place/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteMeetingPlaceId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('deleteMeetingPlaceId', 'id', id)
+      const localVarPath = `/meeting_place/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * delete progress
+     * @summary /progress/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteProgressId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('deleteProgressId', 'id', id)
+      const localVarPath = `/progress/{id}`.replace(
         `{${'id'}}`,
         encodeURIComponent(String(id))
       )
@@ -3016,6 +3429,423 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
+     * 部署一覧
+     * @summary /department-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {string} [departmentCode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDepartment: async (
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      departmentCode?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/department`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (name !== undefined) {
+        localVarQueryParameter['name'] = name
+      }
+
+      if (likely !== undefined) {
+        localVarQueryParameter['likely'] = likely
+      }
+
+      if (departmentCode !== undefined) {
+        localVarQueryParameter['department_code'] = departmentCode
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * return department by id
+     * @summary /department/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDepartmentId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getDepartmentId', 'id', id)
+      const localVarPath = `/department/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * 会議室一覧
+     * @summary /meeting_place-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMeetingPlace: async (
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/meeting_place`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (name !== undefined) {
+        localVarQueryParameter['name'] = name
+      }
+
+      if (likely !== undefined) {
+        localVarQueryParameter['likely'] = likely
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * return meeting place by id
+     * @summary /meeting_place/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMeetingPlaceId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getMeetingPlaceId', 'id', id)
+      const localVarPath = `/meeting_place/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * 進捗度一覧
+     * @summary /progress-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {string} [value]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProgress: async (
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      value?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/progress`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (name !== undefined) {
+        localVarQueryParameter['name'] = name
+      }
+
+      if (likely !== undefined) {
+        localVarQueryParameter['likely'] = likely
+      }
+
+      if (value !== undefined) {
+        localVarQueryParameter['value'] = value
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * return progress by id
+     * @summary /progress/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProgressId: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getProgressId', 'id', id)
+      const localVarPath = `/progress/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
      *
      * @param {string} [authorization]
      * @param {string} [origin]
@@ -3246,6 +4076,123 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
+     *
+     * @summary /department-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionDepartment: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/department`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /meeting_place-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionMeetingPlace: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/meeting_place`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /progress-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionProgress: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/progress`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
      * preflight
      * @summary /task/{id}-OPTIONS
      * @param {string} id
@@ -3386,6 +4333,144 @@ export const DefaultApiAxiosParamCreator = function (
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/current`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /user/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsDepartmentId: async (
+      id: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('optionsDepartmentId', 'id', id)
+      const localVarPath = `/department/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /meeting_place/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsMeetingPlaceId: async (
+      id: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('optionsMeetingPlaceId', 'id', id)
+      const localVarPath = `/meeting_place/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /progress/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsProgressId: async (
+      id: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('optionsProgressId', 'id', id)
+      const localVarPath = `/progress/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
       let baseOptions
@@ -3567,6 +4652,207 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
+     * post department
+     * @summary /department-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {DepartmentInputs} [departmentInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postDepartment: async (
+      authorization?: string,
+      origin?: string,
+      departmentInputs?: DepartmentInputs,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/department`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        departmentInputs,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * post meeting place
+     * @summary /meeting_place-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {MeetingPlaceInputs} [meetingPlaceInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postMeetingPlace: async (
+      authorization?: string,
+      origin?: string,
+      meetingPlaceInputs?: MeetingPlaceInputs,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/meeting_place`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        meetingPlaceInputs,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * post progress
+     * @summary /progress-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {ProgressInputs} [progressInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postProgress: async (
+      authorization?: string,
+      origin?: string,
+      progressInputs?: ProgressInputs,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/progress`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        progressInputs,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
      * post user
      * @summary /user-POST
      * @param {string} [authorization]
@@ -3705,6 +4991,249 @@ export const DefaultApiAxiosParamCreator = function (
       }
       localVarRequestOptions.data = serializeDataIfNeeded(
         adminInputs,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * update department
+     * @summary /department/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {DepartmentInputs} [departmentInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putDepartmentId: async (
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      departmentInputs?: DepartmentInputs,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('putDepartmentId', 'id', id)
+      const localVarPath = `/department/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (xHTTPMethodOverride !== undefined && xHTTPMethodOverride !== null) {
+        localVarHeaderParameter['X-HTTP-Method-Override'] =
+          String(xHTTPMethodOverride)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        departmentInputs,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * update meeting place
+     * @summary /meeting_place/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {MeetingPlaceInputs} [meetingPlaceInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putMeetingPlaceId: async (
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      meetingPlaceInputs?: MeetingPlaceInputs,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('putMeetingPlaceId', 'id', id)
+      const localVarPath = `/meeting_place/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (xHTTPMethodOverride !== undefined && xHTTPMethodOverride !== null) {
+        localVarHeaderParameter['X-HTTP-Method-Override'] =
+          String(xHTTPMethodOverride)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        meetingPlaceInputs,
+        localVarRequestOptions,
+        configuration
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * update progress
+     * @summary /progress/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {ProgressInputs} [progressInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putProgressId: async (
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      progressInputs?: ProgressInputs,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('putProgressId', 'id', id)
+      const localVarPath = `/progress/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (xHTTPMethodOverride !== undefined && xHTTPMethodOverride !== null) {
+        localVarHeaderParameter['X-HTTP-Method-Override'] =
+          String(xHTTPMethodOverride)
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        progressInputs,
         localVarRequestOptions,
         configuration
       )
@@ -3920,6 +5449,108 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
+     * delete department
+     * @summary /department/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async deleteDepartmentId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.deleteDepartmentId(
+          id,
+          authorization,
+          origin,
+          body,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * delete meeting place
+     * @summary /meeting_place/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async deleteMeetingPlaceId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.deleteMeetingPlaceId(
+          id,
+          authorization,
+          origin,
+          body,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * delete progress
+     * @summary /progress/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async deleteProgressId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.deleteProgressId(
+          id,
+          authorization,
+          origin,
+          body,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
      * delete meeting record
      * @summary /task/{id}-DELETE
      * @param {string} id
@@ -4076,6 +5707,211 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
+     * 部署一覧
+     * @summary /department-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {string} [departmentCode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getDepartment(
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      departmentCode?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<Department>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getDepartment(
+        authorization,
+        origin,
+        name,
+        likely,
+        departmentCode,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * return department by id
+     * @summary /department/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getDepartmentId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Department>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getDepartmentId(
+        id,
+        authorization,
+        origin,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * 会議室一覧
+     * @summary /meeting_place-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getMeetingPlace(
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<MeetingPlace>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getMeetingPlace(
+        authorization,
+        origin,
+        name,
+        likely,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * return meeting place by id
+     * @summary /meeting_place/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getMeetingPlaceId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeetingPlace>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getMeetingPlaceId(
+          id,
+          authorization,
+          origin,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * 進捗度一覧
+     * @summary /progress-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {string} [value]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getProgress(
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      value?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<Progress>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getProgress(
+        authorization,
+        origin,
+        name,
+        likely,
+        value,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * return progress by id
+     * @summary /progress/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getProgressId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Progress>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getProgressId(
+        id,
+        authorization,
+        origin,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
      *
      * @param {string} [authorization]
      * @param {string} [origin]
@@ -4152,7 +5988,7 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       origin?: string,
       options?: AxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getUserId(
         id,
@@ -4179,6 +6015,67 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.optionAdmin(
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /department-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionDepartment(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionDepartment(options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /meeting_place-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionMeetingPlace(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionMeetingPlace(options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /progress-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionProgress(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.optionProgress(
         options
       )
       return createRequestFunction(
@@ -4279,6 +6176,72 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @summary /user/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionsDepartmentId(
+      id: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionsDepartmentId(id, options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /meeting_place/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionsMeetingPlaceId(
+      id: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionsMeetingPlaceId(id, options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /progress/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionsProgressId(
+      id: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionsProgressId(id, options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -4352,6 +6315,97 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
+     * post department
+     * @summary /department-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {DepartmentInputs} [departmentInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async postDepartment(
+      authorization?: string,
+      origin?: string,
+      departmentInputs?: DepartmentInputs,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Department>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.postDepartment(
+        authorization,
+        origin,
+        departmentInputs,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * post meeting place
+     * @summary /meeting_place-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {MeetingPlaceInputs} [meetingPlaceInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async postMeetingPlace(
+      authorization?: string,
+      origin?: string,
+      meetingPlaceInputs?: MeetingPlaceInputs,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeetingPlace>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.postMeetingPlace(
+          authorization,
+          origin,
+          meetingPlaceInputs,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * post progress
+     * @summary /progress-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {ProgressInputs} [progressInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async postProgress(
+      authorization?: string,
+      origin?: string,
+      progressInputs?: ProgressInputs,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Progress>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.postProgress(
+        authorization,
+        origin,
+        progressInputs,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
      * post user
      * @summary /user-POST
      * @param {string} [authorization]
@@ -4408,6 +6462,115 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         authorization,
         xHTTPMethodOverride,
         adminInputs,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * update department
+     * @summary /department/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {DepartmentInputs} [departmentInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async putDepartmentId(
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      departmentInputs?: DepartmentInputs,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Department>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.putDepartmentId(
+        id,
+        origin,
+        authorization,
+        xHTTPMethodOverride,
+        departmentInputs,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * update meeting place
+     * @summary /meeting_place/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {MeetingPlaceInputs} [meetingPlaceInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async putMeetingPlaceId(
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      meetingPlaceInputs?: MeetingPlaceInputs,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeetingPlace>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.putMeetingPlaceId(
+          id,
+          origin,
+          authorization,
+          xHTTPMethodOverride,
+          meetingPlaceInputs,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * update progress
+     * @summary /progress/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {ProgressInputs} [progressInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async putProgressId(
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      progressInputs?: ProgressInputs,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Progress>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.putProgressId(
+        id,
+        origin,
+        authorization,
+        xHTTPMethodOverride,
+        progressInputs,
         options
       )
       return createRequestFunction(
@@ -4525,6 +6688,69 @@ export const DefaultApiFactory = function (
         .then((request) => request(axios, basePath))
     },
     /**
+     * delete department
+     * @summary /department/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteDepartmentId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options?: any
+    ): AxiosPromise<object> {
+      return localVarFp
+        .deleteDepartmentId(id, authorization, origin, body, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * delete meeting place
+     * @summary /meeting_place/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteMeetingPlaceId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options?: any
+    ): AxiosPromise<object> {
+      return localVarFp
+        .deleteMeetingPlaceId(id, authorization, origin, body, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * delete progress
+     * @summary /progress/{id}-DELETE
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteProgressId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      body?: object,
+      options?: any
+    ): AxiosPromise<object> {
+      return localVarFp
+        .deleteProgressId(id, authorization, origin, body, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
      * delete meeting record
      * @summary /task/{id}-DELETE
      * @param {string} id
@@ -4624,6 +6850,137 @@ export const DefaultApiFactory = function (
         .then((request) => request(axios, basePath))
     },
     /**
+     * 部署一覧
+     * @summary /department-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {string} [departmentCode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDepartment(
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      departmentCode?: string,
+      options?: any
+    ): AxiosPromise<Array<Department>> {
+      return localVarFp
+        .getDepartment(
+          authorization,
+          origin,
+          name,
+          likely,
+          departmentCode,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * return department by id
+     * @summary /department/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDepartmentId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: any
+    ): AxiosPromise<Department> {
+      return localVarFp
+        .getDepartmentId(id, authorization, origin, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * 会議室一覧
+     * @summary /meeting_place-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMeetingPlace(
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      options?: any
+    ): AxiosPromise<Array<MeetingPlace>> {
+      return localVarFp
+        .getMeetingPlace(authorization, origin, name, likely, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * return meeting place by id
+     * @summary /meeting_place/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMeetingPlaceId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: any
+    ): AxiosPromise<MeetingPlace> {
+      return localVarFp
+        .getMeetingPlaceId(id, authorization, origin, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * 進捗度一覧
+     * @summary /progress-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [name]
+     * @param {string} [likely]
+     * @param {string} [value]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProgress(
+      authorization?: string,
+      origin?: string,
+      name?: string,
+      likely?: string,
+      value?: string,
+      options?: any
+    ): AxiosPromise<Array<Progress>> {
+      return localVarFp
+        .getProgress(authorization, origin, name, likely, value, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * return progress by id
+     * @summary /progress/{id}-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getProgressId(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      options?: any
+    ): AxiosPromise<Progress> {
+      return localVarFp
+        .getProgressId(id, authorization, origin, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
      *
      * @param {string} [authorization]
      * @param {string} [origin]
@@ -4676,7 +7033,7 @@ export const DefaultApiFactory = function (
       authorization?: string,
       origin?: string,
       options?: any
-    ): AxiosPromise<Array<User>> {
+    ): AxiosPromise<User> {
       return localVarFp
         .getUserId(id, authorization, origin, options)
         .then((request) => request(axios, basePath))
@@ -4690,6 +7047,39 @@ export const DefaultApiFactory = function (
     optionAdmin(options?: any): AxiosPromise<object> {
       return localVarFp
         .optionAdmin(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /department-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionDepartment(options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionDepartment(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /meeting_place-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionMeetingPlace(options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionMeetingPlace(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /progress-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionProgress(options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionProgress(options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -4740,6 +7130,42 @@ export const DefaultApiFactory = function (
     },
     /**
      *
+     * @summary /user/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsDepartmentId(id: string, options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionsDepartmentId(id, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /meeting_place/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsMeetingPlaceId(id: string, options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionsMeetingPlaceId(id, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /progress/{id}-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsProgressId(id: string, options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionsProgressId(id, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -4777,6 +7203,63 @@ export const DefaultApiFactory = function (
     ): AxiosPromise<Admin> {
       return localVarFp
         .postAdmin(authorization, origin, userInputs, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * post department
+     * @summary /department-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {DepartmentInputs} [departmentInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postDepartment(
+      authorization?: string,
+      origin?: string,
+      departmentInputs?: DepartmentInputs,
+      options?: any
+    ): AxiosPromise<Department> {
+      return localVarFp
+        .postDepartment(authorization, origin, departmentInputs, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * post meeting place
+     * @summary /meeting_place-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {MeetingPlaceInputs} [meetingPlaceInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postMeetingPlace(
+      authorization?: string,
+      origin?: string,
+      meetingPlaceInputs?: MeetingPlaceInputs,
+      options?: any
+    ): AxiosPromise<MeetingPlace> {
+      return localVarFp
+        .postMeetingPlace(authorization, origin, meetingPlaceInputs, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * post progress
+     * @summary /progress-POST
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {ProgressInputs} [progressInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postProgress(
+      authorization?: string,
+      origin?: string,
+      progressInputs?: ProgressInputs,
+      options?: any
+    ): AxiosPromise<Progress> {
+      return localVarFp
+        .postProgress(authorization, origin, progressInputs, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -4824,6 +7307,96 @@ export const DefaultApiFactory = function (
           authorization,
           xHTTPMethodOverride,
           adminInputs,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * update department
+     * @summary /department/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {DepartmentInputs} [departmentInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putDepartmentId(
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      departmentInputs?: DepartmentInputs,
+      options?: any
+    ): AxiosPromise<Department> {
+      return localVarFp
+        .putDepartmentId(
+          id,
+          origin,
+          authorization,
+          xHTTPMethodOverride,
+          departmentInputs,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * update meeting place
+     * @summary /meeting_place/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {MeetingPlaceInputs} [meetingPlaceInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putMeetingPlaceId(
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      meetingPlaceInputs?: MeetingPlaceInputs,
+      options?: any
+    ): AxiosPromise<MeetingPlace> {
+      return localVarFp
+        .putMeetingPlaceId(
+          id,
+          origin,
+          authorization,
+          xHTTPMethodOverride,
+          meetingPlaceInputs,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * update progress
+     * @summary /progress/{id}-PUT
+     * @param {string} id
+     * @param {string} [origin]
+     * @param {string} [authorization]
+     * @param {string} [xHTTPMethodOverride]
+     * @param {ProgressInputs} [progressInputs]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putProgressId(
+      id: string,
+      origin?: string,
+      authorization?: string,
+      xHTTPMethodOverride?: string,
+      progressInputs?: ProgressInputs,
+      options?: any
+    ): AxiosPromise<Progress> {
+      return localVarFp
+        .putProgressId(
+          id,
+          origin,
+          authorization,
+          xHTTPMethodOverride,
+          progressInputs,
           options
         )
         .then((request) => request(axios, basePath))
@@ -4918,6 +7491,75 @@ export class DefaultApi extends BaseAPI {
   ) {
     return DefaultApiFp(this.configuration)
       .deleteAdminId(id, authorization, origin, body, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * delete department
+   * @summary /department/{id}-DELETE
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {object} [body]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public deleteDepartmentId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    body?: object,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .deleteDepartmentId(id, authorization, origin, body, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * delete meeting place
+   * @summary /meeting_place/{id}-DELETE
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {object} [body]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public deleteMeetingPlaceId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    body?: object,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .deleteMeetingPlaceId(id, authorization, origin, body, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * delete progress
+   * @summary /progress/{id}-DELETE
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {object} [body]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public deleteProgressId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    body?: object,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .deleteProgressId(id, authorization, origin, body, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -5031,6 +7673,149 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
+   * 部署一覧
+   * @summary /department-GET
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {string} [name]
+   * @param {string} [likely]
+   * @param {string} [departmentCode]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getDepartment(
+    authorization?: string,
+    origin?: string,
+    name?: string,
+    likely?: string,
+    departmentCode?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getDepartment(
+        authorization,
+        origin,
+        name,
+        likely,
+        departmentCode,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * return department by id
+   * @summary /department/{id}-GET
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getDepartmentId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getDepartmentId(id, authorization, origin, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * 会議室一覧
+   * @summary /meeting_place-GET
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {string} [name]
+   * @param {string} [likely]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getMeetingPlace(
+    authorization?: string,
+    origin?: string,
+    name?: string,
+    likely?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getMeetingPlace(authorization, origin, name, likely, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * return meeting place by id
+   * @summary /meeting_place/{id}-GET
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getMeetingPlaceId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getMeetingPlaceId(id, authorization, origin, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * 進捗度一覧
+   * @summary /progress-GET
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {string} [name]
+   * @param {string} [likely]
+   * @param {string} [value]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getProgress(
+    authorization?: string,
+    origin?: string,
+    name?: string,
+    likely?: string,
+    value?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getProgress(authorization, origin, name, likely, value, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * return progress by id
+   * @summary /progress/{id}-GET
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getProgressId(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getProgressId(id, authorization, origin, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
    *
    * @param {string} [authorization]
    * @param {string} [origin]
@@ -5108,6 +7893,45 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
+   *
+   * @summary /department-OPTIONS
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionDepartment(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionDepartment(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /meeting_place-OPTIONS
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionMeetingPlace(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionMeetingPlace(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /progress-OPTIONS
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionProgress(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionProgress(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
    * preflight
    * @summary /task/{id}-OPTIONS
    * @param {string} id
@@ -5163,6 +7987,48 @@ export class DefaultApi extends BaseAPI {
 
   /**
    *
+   * @summary /user/{id}-OPTIONS
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionsDepartmentId(id: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionsDepartmentId(id, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /meeting_place/{id}-OPTIONS
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionsMeetingPlaceId(id: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionsMeetingPlaceId(id, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /progress/{id}-OPTIONS
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionsProgressId(id: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionsProgressId(id, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
@@ -5205,6 +8071,69 @@ export class DefaultApi extends BaseAPI {
   ) {
     return DefaultApiFp(this.configuration)
       .postAdmin(authorization, origin, userInputs, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * post department
+   * @summary /department-POST
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {DepartmentInputs} [departmentInputs]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public postDepartment(
+    authorization?: string,
+    origin?: string,
+    departmentInputs?: DepartmentInputs,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .postDepartment(authorization, origin, departmentInputs, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * post meeting place
+   * @summary /meeting_place-POST
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {MeetingPlaceInputs} [meetingPlaceInputs]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public postMeetingPlace(
+    authorization?: string,
+    origin?: string,
+    meetingPlaceInputs?: MeetingPlaceInputs,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .postMeetingPlace(authorization, origin, meetingPlaceInputs, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * post progress
+   * @summary /progress-POST
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {ProgressInputs} [progressInputs]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public postProgress(
+    authorization?: string,
+    origin?: string,
+    progressInputs?: ProgressInputs,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .postProgress(authorization, origin, progressInputs, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -5256,6 +8185,102 @@ export class DefaultApi extends BaseAPI {
         authorization,
         xHTTPMethodOverride,
         adminInputs,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * update department
+   * @summary /department/{id}-PUT
+   * @param {string} id
+   * @param {string} [origin]
+   * @param {string} [authorization]
+   * @param {string} [xHTTPMethodOverride]
+   * @param {DepartmentInputs} [departmentInputs]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public putDepartmentId(
+    id: string,
+    origin?: string,
+    authorization?: string,
+    xHTTPMethodOverride?: string,
+    departmentInputs?: DepartmentInputs,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .putDepartmentId(
+        id,
+        origin,
+        authorization,
+        xHTTPMethodOverride,
+        departmentInputs,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * update meeting place
+   * @summary /meeting_place/{id}-PUT
+   * @param {string} id
+   * @param {string} [origin]
+   * @param {string} [authorization]
+   * @param {string} [xHTTPMethodOverride]
+   * @param {MeetingPlaceInputs} [meetingPlaceInputs]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public putMeetingPlaceId(
+    id: string,
+    origin?: string,
+    authorization?: string,
+    xHTTPMethodOverride?: string,
+    meetingPlaceInputs?: MeetingPlaceInputs,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .putMeetingPlaceId(
+        id,
+        origin,
+        authorization,
+        xHTTPMethodOverride,
+        meetingPlaceInputs,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * update progress
+   * @summary /progress/{id}-PUT
+   * @param {string} id
+   * @param {string} [origin]
+   * @param {string} [authorization]
+   * @param {string} [xHTTPMethodOverride]
+   * @param {ProgressInputs} [progressInputs]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public putProgressId(
+    id: string,
+    origin?: string,
+    authorization?: string,
+    xHTTPMethodOverride?: string,
+    progressInputs?: ProgressInputs,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .putProgressId(
+        id,
+        origin,
+        authorization,
+        xHTTPMethodOverride,
+        progressInputs,
         options
       )
       .then((request) => request(this.axios, this.basePath))

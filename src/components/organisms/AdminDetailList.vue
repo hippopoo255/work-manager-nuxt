@@ -1,16 +1,22 @@
 <template>
-  <v-card v-if="admin" max-width="400" class="mx-auto">
-    <v-container>
-      <v-row dense>
-        <v-col cols="12">
-          <AuthenticatableCard :authenticatable="admin" :menus="menus" />
-        </v-col>
-        <v-col cols="12">
-          <!-- TODO: ActivityList -->
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+  <div class="l-authenticatable">
+    <AuthenticatableCard :authenticatable="admin" :menus="menus">
+      <template slot="authenticatable-content">
+        <div class="u-mt-8">
+          <v-row no-gutters>
+            <v-col cols="12" md="6">
+              <h3 class="c-title u-mb-4">アクティビティ</h3>
+              <ActivityList :activities="activities" :loading="loading" />
+            </v-col>
+            <v-col cols="12" md="6" class="pl-md-3 pt-6 pt-md-0">
+              <h3 class="c-title u-mb-4">アクティビティ</h3>
+              <ActivityList :activities="activities" :loading="loading" />
+            </v-col>
+          </v-row>
+        </div>
+      </template>
+    </AuthenticatableCard>
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,7 +28,7 @@ import {
   watch,
   useContext,
 } from '@nuxtjs/composition-api'
-import { useAdmin } from '@/hooks'
+import { useActivity, useAdmin } from '@/hooks'
 import { Admin } from '~/types/ts-axios'
 import { faceUrl } from '@/lib/util'
 
@@ -32,8 +38,9 @@ export default defineComponent({
     const { show } = useAdmin()
     const { store } = useContext()
     const route = useRoute()
-    const loading = ref(false)
+    const loading = ref(true)
     const admin = ref<Admin | null>(null)
+    const { activities, fetchActivities } = useActivity('admin')
     const isSignin = computed(() => store.getters['admin/isSignin'])
     const facePath = computed(() =>
       admin.value?.file_path ? faceUrl(admin.value?.file_path) : ''
@@ -62,16 +69,19 @@ export default defineComponent({
           await show(Number(param.id)).then((ad) => {
             admin.value = ad
           })
+          await fetchActivities(Number(param.id))
+          loading.value = false
         }
       },
       { immediate: true }
     )
     return {
+      activities,
+      admin,
       bgPath,
       facePath,
       loading,
       menus,
-      admin,
     }
   },
 })

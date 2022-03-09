@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2 class="c-page-title">{{ $t('page.title.blog.index') }}</h2>
+    <h2 class="c-page-title u-text-center">
+      {{ $t('page.title.blog.index') }}
+    </h2>
   </div>
 </template>
 
@@ -12,5 +14,3 @@ export default defineComponent({
   setup() {},
 })
 </script>
-
-<style scoped></style>

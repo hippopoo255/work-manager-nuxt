@@ -4,7 +4,7 @@
       {{ $t('page.title.user.index') }}
     </h2>
     <Loader v-if="loading" />
-    <CustomTable v-else :headers="headers" :items="users" />
+    <AuthenticatableTable v-else :headers="headers" :items="users" />
   </div>
 </template>
 

@@ -1,0 +1,7 @@
+.l-authenticatable {
+  margin: 0 -12px;
+
+  @include media('lg') {
+    margin: 0;
+  }
+}

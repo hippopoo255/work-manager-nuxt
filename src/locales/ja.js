@@ -25,6 +25,8 @@ export default {
         '管理者アカウントを保存しました。\n相手の方には初期設定のご案内メールが送信されます',
       user: 'ユーザーアカウントを保存しました。',
       profile: 'プロフィールを更新しました。',
+      save: 'データを保存しました',
+      delete: 'データを削除しました。',
     },
     error: {
       signin: 'サインインに失敗しました。',
@@ -56,8 +58,8 @@ export default {
     },
     admin: {
       id: '{id}',
-      index: '管理アカウント一覧',
-      create: '管理アカウント登録',
+      index: '管理者アカウント一覧',
+      create: '管理者アカウント登録',
     },
     blog: {
       index: 'ブログ一覧',
@@ -76,6 +78,15 @@ export default {
     },
     master: {
       index: 'マスター',
+      meeting_room: {
+        index: '会議室',
+      },
+      progress: {
+        index: '進捗度',
+      },
+      department: {
+        index: '部署',
+      },
     },
     organization: {
       index: '組織情報',
@@ -133,6 +144,7 @@ export default {
     },
     table: {
       header: {
+        actions: '操作',
         user: {
           index: {
             id: 'ID',
@@ -140,6 +152,44 @@ export default {
             full_name_kana: '氏名カナ',
             email: 'メールアドレス',
             email_verified_at: '検証完了日時',
+            createdBy: '作成者',
+            created_at: '作成日',
+          },
+        },
+        admin: {
+          index: {
+            id: 'ID',
+            full_name: '氏名',
+            full_name_kana: '氏名カナ',
+            email: 'メールアドレス',
+            email_verified_at: '検証完了日時',
+            createdBy: '作成者',
+            created_at: '作成日',
+          },
+        },
+        department: {
+          index: {
+            id: 'ID',
+            department_code: '部署コード',
+            name: '部署名',
+            color: 'カラー',
+            createdBy: '作成者',
+            created_at: '作成日',
+          },
+        },
+        progress: {
+          index: {
+            id: 'ID',
+            name: '部署名',
+            value: '順番',
+            createdBy: '作成者',
+            created_at: '作成日',
+          },
+        },
+        meeting_room: {
+          index: {
+            id: 'ID',
+            name: '会議室名',
             createdBy: '作成者',
             created_at: '作成日',
           },
@@ -170,6 +220,16 @@ export default {
     given_name: '名',
     given_name_kana: 'メイ',
     image: '画像',
+    department_code: '部署コード',
+    color: 'カラー',
+    name: {
+      department: '部署名',
+      progress: '進捗度の名前',
+      meeting_room: '会議室名',
+    },
+    value: {
+      progress: '優先値',
+    },
   },
   link: {
     password: {
@@ -179,10 +239,12 @@ export default {
   },
   placeholder: {
     email: 'sample@example.com',
+    department_code: '半角英数字',
   },
   status: {
     inviteAdmin: '管理システムに招待済み',
   },
+  confirm: '一度削除すると元に戻せません。削除してよろしいですか？',
   submit: {
     create: '登録',
     inviteAdmin: '管理システムに招待する',
@@ -205,9 +267,9 @@ export default {
     },
     title: {
       admin: {
-        index: '管理アカウント一覧',
-        create: '管理アカウント登録',
-        id: '管理アカウント詳細',
+        index: '管理者アカウント一覧',
+        create: '管理者アカウント登録',
+        id: '管理者アカウント詳細',
       },
       blog: {
         index: 'ブログ一覧',
@@ -219,6 +281,9 @@ export default {
       },
       master: {
         index: 'マスター',
+        meeting_room: '会議室マスター',
+        department: '部署マスター',
+        progress: 'タスク進捗度マスター',
       },
       organization: {
         index: '組織情報',

@@ -13,8 +13,13 @@ body {
 a {
   transition: $transitionBasis;
   text-decoration: none;
+
   &:hover {
     text-decoration: underline;
     opacity: $opacityBasis;
   }
+}
+
+ul {
+  list-style: none;
 }

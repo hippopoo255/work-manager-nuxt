@@ -2,3 +2,7 @@
 // import { DataTableHeader } from 'vuetify'
 export * from './user'
 export * from './admin'
+export * from './master'
+export * from './department'
+export * from './progress'
+export * from './meeting_room'

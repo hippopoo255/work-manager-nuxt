@@ -1,0 +1,40 @@
+.c-icon-panel {
+  &__inner {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    aspect-ratio: 1 / 1;
+  }
+  &__icon.v-icon {
+    &.theme--light,
+    &.theme--dark {
+      color: var(--v-fontColor-label, #eee);
+      font-size: $iconSizeXl;
+      @include colorModifierByResource('color');
+    }
+  }
+  &__name {
+    margin-top: 4px;
+    font-size: $fontSizeSm;
+    color: var(--v-fontColor-label, #eee);
+    opacity: 0.5;
+  }
+  &__link {
+    background: $white;
+    border-radius: $radiusBasis;
+    display: block;
+    transition: $transitionBasis;
+    box-shadow: $shadowDeep;
+    &.--disable-link {
+      pointer-events: none;
+    }
+    &:hover {
+      opacity: $opacityBasis;
+      text-decoration: none;
+      box-shadow: $shadowDeep2;
+      transform: translate3d(0, -4px, 0);
+    }
+  }
+}

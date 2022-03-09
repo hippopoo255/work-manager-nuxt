@@ -1,0 +1,43 @@
+// import { DataTableHeader } from 'vuetify'
+import { NuxtI18nInstance } from 'nuxt-i18n'
+
+export const departmentTableHeaders = {
+  index: (i18n: NuxtI18nInstance) => {
+    const t = i18n.t('layout.table.header.department.index')
+    const actions = i18n.t('layout.table.header.actions')
+
+    if (typeof t !== 'string') {
+      return [
+        {
+          text: t.id,
+          align: 'center',
+          value: 'id',
+          width: 70,
+        },
+        {
+          text: t.department_code,
+          align: 'right',
+          value: 'department_code',
+          width: 120,
+        },
+        {
+          text: t.name,
+          // sortable: false,
+          value: 'name',
+          width: 180,
+        },
+        { text: t.color, align: 'center', value: 'color', width: 70 },
+        { text: t.createdBy, value: 'created_by.full_name', width: 140 },
+        { text: t.created_at, value: 'created_at', width: 140 },
+        {
+          text: actions,
+          value: 'actions',
+          align: 'center',
+          sortable: false,
+          width: 80,
+        },
+      ]
+    }
+    return []
+  },
+}

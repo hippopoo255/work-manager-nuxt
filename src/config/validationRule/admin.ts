@@ -44,10 +44,10 @@ export const adminCreateRule = (i18n: NuxtI18nInstance) => ({
   ],
   // セイ: 必須, カタカナ, 最大128文字
   family_name_kana: [
-    (v: AdminInputs['family_name']) =>
+    (v: AdminInputs['family_name_kana']) =>
       !!v ||
       i18n.t('validation.required', {
-        attribute: i18n.t('attribute.family_name'),
+        attribute: i18n.t('attribute.family_name_kana'),
       }),
     (v: AdminInputs['family_name_kana']) =>
       strPatterns.katakana.test(v) ||

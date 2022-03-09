@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <v-app-bar :clipped-left="clipped" color="primary" fixed app>
+  <v-app-bar :clipped-left="clipped" color="primary" fixed app>
+    <v-container class="d-flex align-center">
       <!-- <v-btn icon @click.stop="$emit('menuClick')" class="d-block d-lg-none"> -->
+
       <v-btn v-if="isSignin" icon @click.stop="$emit('menuClick')">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -17,8 +18,8 @@
       <!-- <ToggleThemeButton /> -->
       <!-- <ToggleLocaleButton /> -->
       <AuthMenuAvatar v-if="isSignin" :admin="admin" class="ml-4" />
-    </v-app-bar>
-  </div>
+    </v-container>
+  </v-app-bar>
 </template>
 <script lang="ts">
 import {

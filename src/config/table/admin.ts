@@ -2,7 +2,7 @@
 import { NuxtI18nInstance } from 'nuxt-i18n'
 export const adminTableHeaders = {
   index: (i18n: NuxtI18nInstance) => {
-    const t = i18n.t('layout.table.header.user.index')
+    const t = i18n.t('layout.table.header.admin.index')
     if (typeof t !== 'string') {
       return [
         {

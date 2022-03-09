@@ -1,0 +1,43 @@
+.p-activity-bar {
+  box-shadow: $shadowBasis;
+  border-radius: $radiusBasis;
+  width: 100%;
+  // max-width: 600px;
+  margin: 0 auto;
+  &.--line {
+    $color: map-get($customColor, 'navy');
+    border-left: 4px solid $color;
+    @include colorModifierByActivity();
+  }
+  &.--tile {
+    border-radius: 0;
+  }
+  &__inner {
+    padding: 8px;
+  }
+  &__head {
+    padding: 0 0 4px;
+  }
+  &__date {
+    color: $darkGrey1;
+    font-size: $fontSizeXs;
+  }
+  &__title {
+    margin-left: 8px;
+    font-size: $fontSizeXs;
+  }
+  &__main {
+    font-weight: bold;
+  }
+  &__foot {
+  }
+
+  @include media('md') {
+    &__title {
+      font-size: $fontSizeSm;
+    }
+    &__date {
+      font-size: $fontSizeSm;
+    }
+  }
+}
