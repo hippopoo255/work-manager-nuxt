@@ -6,6 +6,7 @@ export default {
     show: '/user/{id}',
     update: '/user/{id}',
     destroy: '/user/{id}',
+    activity: '/user/{id}/activity',
   },
   admin: {
     index: '/admin',

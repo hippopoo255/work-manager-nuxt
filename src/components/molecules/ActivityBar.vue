@@ -39,6 +39,9 @@ export default defineComponent({
       if (what) {
         let title = props.activity.content.replace(regex, '$2$3')
         title = title.replace('にを', 'を')
+        if (!isAdminPage.value) {
+          title = replaceIfUserAction(title)
+        }
         return title
       } else {
         return ''
@@ -59,6 +62,8 @@ export default defineComponent({
     ])
 
     const to = computed(() => app.localePath(props.activity.action_type.link))
+    const replaceIfUserAction = (title: string) =>
+      title.replace(/(.+)が(.+)されました/g, '$1を$2しました')
 
     const isAdminPage = computed(() => {
       const isMypage = props.activity.action_type.link.match(/^\/mypage.+$/g)

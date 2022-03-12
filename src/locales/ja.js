@@ -236,6 +236,7 @@ export default {
       forgot: 'パスワードをお忘れの方',
     },
     profile: 'プロフィール',
+    moreLink: 'もっと見る',
   },
   placeholder: {
     email: 'sample@example.com',

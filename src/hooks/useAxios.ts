@@ -149,7 +149,6 @@ const useAxios = () => {
     const response = await httpClient(baseURL)
       .delete(path, mergedConfig(config))
       .catch((err: AxiosError) => getErrorResponse<T>(err))
-
     handleIfErrorStatus(response, defaultErrorHandler)
 
     return response.data

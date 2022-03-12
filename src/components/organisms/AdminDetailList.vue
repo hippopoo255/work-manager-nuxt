@@ -3,14 +3,15 @@
     <AuthenticatableCard :authenticatable="admin" :menus="menus">
       <template slot="authenticatable-content">
         <div class="u-mt-8">
-          <v-row no-gutters>
+          <v-row no-gutters justify="center">
             <v-col cols="12" md="6">
               <h3 class="c-title u-mb-4">アクティビティ</h3>
               <ActivityList :activities="activities" :loading="loading" />
-            </v-col>
-            <v-col cols="12" md="6" class="pl-md-3 pt-6 pt-md-0">
-              <h3 class="c-title u-mb-4">アクティビティ</h3>
-              <ActivityList :activities="activities" :loading="loading" />
+              <MoreLink
+                v-if="hasMore"
+                :loading="moreLoading"
+                @more="handleMore"
+              />
             </v-col>
           </v-row>
         </div>
@@ -39,8 +40,9 @@ export default defineComponent({
     const { store } = useContext()
     const route = useRoute()
     const loading = ref(true)
+    const moreLoading = ref(false)
     const admin = ref<Admin | null>(null)
-    const { activities, fetchActivities } = useActivity('admin')
+    const { activities, fetchActivities, hasMore } = useActivity('admin')
     const isSignin = computed(() => store.getters['admin/isSignin'])
     const facePath = computed(() =>
       admin.value?.file_path ? faceUrl(admin.value?.file_path) : ''
@@ -75,13 +77,23 @@ export default defineComponent({
       },
       { immediate: true }
     )
+
+    const handleMore = async () => {
+      moreLoading.value = true
+      const param = route.value.params
+      await fetchActivities(Number(param.id))
+      moreLoading.value = false
+    }
     return {
       activities,
       admin,
       bgPath,
       facePath,
+      handleMore,
+      hasMore,
       loading,
       menus,
+      moreLoading,
     }
   },
 })
