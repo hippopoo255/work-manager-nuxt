@@ -1,18 +1,22 @@
 <template>
   <div class="l-authenticatable">
-    <AuthenticatableCard v-if="user" :authenticatable="user" :menus="menus">
+    <AuthenticatableCard :authenticatable="user" :menus="menus">
       <template slot="authenticatable-content">
         <div class="mt-8 mt-md-12">
-          <v-row justify="center">
+          <v-row no-gutters justify="center">
             <v-col cols="12" md="6">
               <h3 class="c-title u-mb-4">アクティビティ</h3>
-              <ActivityList :activities="activityList" />
+              <ActivityList :activities="activities" :loading="loading" />
+              <MoreLink
+                v-if="hasMore"
+                :loading="moreLoading"
+                @more="handleMore"
+              />
             </v-col>
           </v-row>
         </div>
       </template>
     </AuthenticatableCard>
-    <Loader v-else />
   </div>
 </template>
 
@@ -25,10 +29,9 @@ import {
   watch,
   useContext,
 } from '@nuxtjs/composition-api'
-import { useAdmin, useUser } from '@/hooks'
+import { useAdmin, useUser, useActivity } from '@/hooks'
 import { User } from '~/types/ts-axios'
 import { faceUrl } from '~/lib/util'
-import { activities } from '@/mock'
 
 export default defineComponent({
   name: 'UserDetailList',
@@ -37,9 +40,10 @@ export default defineComponent({
     const { save } = useAdmin()
     const { store, i18n } = useContext()
     const route = useRoute()
-    const loading = ref(false)
+    const loading = ref(true)
+    const moreLoading = ref(false)
     const user = ref<User | null>(null)
-    const activityList = ref(activities)
+    const { activities, fetchActivities, hasMore } = useActivity()
     const isSignin = computed(() => store.getters['admin/isSignin'])
     const facePath = computed(() =>
       user.value?.file_path ? faceUrl(user.value?.file_path) : ''
@@ -94,18 +98,30 @@ export default defineComponent({
           await show(Number(param.id)).then((u) => {
             user.value = u
           })
+          await fetchActivities(Number(param.id))
+          loading.value = false
         }
       },
       { immediate: true }
     )
 
+    const handleMore = async () => {
+      moreLoading.value = true
+      const param = route.value.params
+      await fetchActivities(Number(param.id))
+      moreLoading.value = false
+    }
+
     return {
+      activities,
       bgPath,
       facePath,
+      handleMore,
+      hasMore,
       loading,
       menus,
+      moreLoading,
       user,
-      activityList,
     }
   },
 })

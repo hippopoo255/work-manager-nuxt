@@ -204,6 +204,7 @@ export default {
       forgot: 'Forget your password?',
     },
     profile: 'Profile',
+    moreLink: 'More',
   },
   placeholder: {
     email: 'sample@example.com',
