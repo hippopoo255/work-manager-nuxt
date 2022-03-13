@@ -1,6 +1,7 @@
 <template>
   <div class="text-center p-form">
     <h2 class="c-page-title">{{ $t('page.title.organization.index') }}</h2>
+    <OrganizationForm />
   </div>
 </template>
 

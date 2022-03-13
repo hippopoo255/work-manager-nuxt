@@ -3,6 +3,9 @@ export default {
     name: process.env.APP_NAME_EN,
     locale: 'Locale',
     theme: 'Theme',
+    activity: {
+      empty: 'Activity is empty',
+    },
   },
   tooltip: {
     theme: {
@@ -22,6 +25,7 @@ export default {
       verify:
         '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
       admin: '管理者アカウントを保存しました。',
+      organization: '組織情報を保存しました。',
       profile: 'プロフィールを更新しました。',
       delete: 'データを削除しました。',
     },
@@ -195,6 +199,15 @@ export default {
       progress: 'Progress name',
       meeting_room: 'Meeting room name',
     },
+    organization: {
+      name: 'Name',
+      name_kana: 'Name kana',
+      postal_code: 'Postal code',
+      pref_id: 'Prefecture',
+      city: 'City',
+      address: 'Address',
+      tel: 'Tel',
+    },
     value: {
       progress: 'priority',
     },
@@ -230,6 +243,7 @@ export default {
     update: 'Update',
     upload: 'Upload image',
     clearUpload: 'Clear image',
+    address: 'Enter address',
   },
   page: {
     index: {
