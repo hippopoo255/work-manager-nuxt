@@ -4,6 +4,8 @@ export const strPatterns = {
   alphaNumeric: /^[\w]+$/,
   email: /^[\w\-._]+@[\w\-._]+\.[A-Za-z]+$/,
   katakana: /^[ァ-ヴーｦ-ﾟ]+$/,
+  postal: /^[0-9]{5,7}$/,
+  tel: /^[0-9]{10,11}$/,
   confirm: (compare: string) =>
     new RegExp(`^${compare.replace(/\?/g, '\\?')}$`),
 }
@@ -14,6 +16,7 @@ export const length = {
   email: [8, 255],
   default: [2, 128],
   short: [2, 64],
+  long: [2, 255],
 }
 
 export const MAX_IMAGE_SIZE = 5000000 // 5MB

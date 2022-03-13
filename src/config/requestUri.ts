@@ -28,6 +28,12 @@ export default {
     update: '/progress/{id}',
     destroy: '/progress/{id}',
   },
+  prefecture: {
+    index: '/prefecture',
+  },
+  organization: {
+    update: '/organization/{id}',
+  },
   meeting_room: {
     index: '/meeting_place',
     create: '/meeting_place',

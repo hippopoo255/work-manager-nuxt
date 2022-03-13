@@ -81,11 +81,11 @@ export const menus = (i18n: NuxtI18nInstance) => [
         title: i18n.t('layout.sidebar.setting.index'),
         to: 'setting',
       },
-      // {
-      //   icon: 'mdi-domain',
-      //   title: i18n.t('layout.sidebar.setting.organization'),
-      //   to: 'organization',
-      // },
+      {
+        icon: 'mdi-domain',
+        title: i18n.t('layout.sidebar.setting.organization'),
+        to: 'organization',
+      },
       {
         title: i18n.t('layout.sidebar.setting.master'),
         to: 'master',

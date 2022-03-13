@@ -1773,37 +1773,37 @@ export interface Organization {
    * @type {string}
    * @memberof Organization
    */
-  name_kana?: string
+  name_kana: string
   /**
    * 優先値
    * @type {number}
    * @memberof Organization
    */
-  pref_id?: number
+  pref_id: number
   /**
    * 優先値
    * @type {number}
    * @memberof Organization
    */
-  postal_code?: number
+  postal_code: number
   /**
    * 優先度
    * @type {string}
    * @memberof Organization
    */
-  city?: string
+  city: string
   /**
    * 優先度
    * @type {string}
    * @memberof Organization
    */
-  address?: string
+  address: string
   /**
    * 優先度
    * @type {string}
    * @memberof Organization
    */
-  tel?: string
+  tel: string
   /**
    * 優先値
    * @type {number}
@@ -1852,7 +1852,7 @@ export interface OrganizationInputs {
    * @type {string}
    * @memberof OrganizationInputs
    */
-  postal_code: string
+  postal_code: number
   /**
    *
    * @type {number}
@@ -1882,7 +1882,7 @@ export interface OrganizationInputs {
    * @type {string}
    * @memberof OrganizationInputs
    */
-  password: string
+  password?: string
 }
 /**
  * パスワードリセットフォーム
@@ -3313,6 +3313,83 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
+     * return admin acitivity by id
+     * @summary /admin/{id}/activity-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [authenticatable]
+     * @param {string} [page]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getAdminActivity: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      authenticatable?: string,
+      page?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getAdminActivity', 'id', id)
+      const localVarPath = `/admin/{id}/activity`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authenticatable !== undefined) {
+        localVarQueryParameter['authenticatable'] = authenticatable
+      }
+
+      if (page !== undefined) {
+        localVarQueryParameter['page'] = page
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
      * return admin by id
      * @summary /admin/{id}-GET
      * @param {string} id
@@ -3972,6 +4049,83 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
+     * return user acitivity by id
+     * @summary /user/{id}/activity-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [authenticatable]
+     * @param {string} [page]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserActivity: async (
+      id: string,
+      authorization?: string,
+      origin?: string,
+      authenticatable?: string,
+      page?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getUserActivity', 'id', id)
+      const localVarPath = `/user/{id}/activity`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authenticatable !== undefined) {
+        localVarQueryParameter['authenticatable'] = authenticatable
+      }
+
+      if (page !== undefined) {
+        localVarQueryParameter['page'] = page
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
      * return user by id
      * @summary /user/{id}-GET
      * @param {string} id
@@ -4279,6 +4433,52 @@ export const DefaultApiAxiosParamCreator = function (
     },
     /**
      *
+     * @summary /user/{id}/activity-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsAdminActivity: async (
+      id: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('optionsAdminActivity', 'id', id)
+      const localVarPath = `/admin/{id}/activity`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
      * @summary /admin/{id}-OPTIONS
      * @param {string} id
      * @param {*} [options] Override http request option.
@@ -4509,6 +4709,52 @@ export const DefaultApiAxiosParamCreator = function (
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /user/{id}/activity-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsUserActivity: async (
+      id: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('optionsUserActivity', 'id', id)
+      const localVarPath = `/user/{id}/activity`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
       let baseOptions
@@ -5650,6 +5896,46 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
+     * return admin acitivity by id
+     * @summary /admin/{id}/activity-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [authenticatable]
+     * @param {string} [page]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getAdminActivity(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      authenticatable?: string,
+      page?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<Activity>>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getAdminActivity(
+          id,
+          authorization,
+          origin,
+          authenticatable,
+          page,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
      * return admin by id
      * @summary /admin/{id}-GET
      * @param {string} id
@@ -5974,6 +6260,45 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
+     * return user acitivity by id
+     * @summary /user/{id}/activity-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [authenticatable]
+     * @param {string} [page]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getUserActivity(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      authenticatable?: string,
+      page?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<Activity>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getUserActivity(
+        id,
+        authorization,
+        origin,
+        authenticatable,
+        page,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
      * return user by id
      * @summary /user/{id}-GET
      * @param {string} id
@@ -6132,6 +6457,28 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @summary /user/{id}/activity-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionsAdminActivity(
+      id: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionsAdminActivity(id, options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
      * @summary /admin/{id}-OPTIONS
      * @param {string} id
      * @param {*} [options] Override http request option.
@@ -6253,6 +6600,28 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       const localVarAxiosArgs = await localVarAxiosParamCreator.optionsRoot(
         options
       )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /user/{id}/activity-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionsUserActivity(
+      id: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionsUserActivity(id, options)
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
@@ -6814,6 +7183,36 @@ export const DefaultApiFactory = function (
         .then((request) => request(axios, basePath))
     },
     /**
+     * return admin acitivity by id
+     * @summary /admin/{id}/activity-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [authenticatable]
+     * @param {string} [page]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getAdminActivity(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      authenticatable?: string,
+      page?: string,
+      options?: any
+    ): AxiosPromise<Array<Activity>> {
+      return localVarFp
+        .getAdminActivity(
+          id,
+          authorization,
+          origin,
+          authenticatable,
+          page,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+    /**
      * return admin by id
      * @summary /admin/{id}-GET
      * @param {string} id
@@ -7020,6 +7419,36 @@ export const DefaultApiFactory = function (
         .then((request) => request(axios, basePath))
     },
     /**
+     * return user acitivity by id
+     * @summary /user/{id}/activity-GET
+     * @param {string} id
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [authenticatable]
+     * @param {string} [page]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserActivity(
+      id: string,
+      authorization?: string,
+      origin?: string,
+      authenticatable?: string,
+      page?: string,
+      options?: any
+    ): AxiosPromise<Array<Activity>> {
+      return localVarFp
+        .getUserActivity(
+          id,
+          authorization,
+          origin,
+          authenticatable,
+          page,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+    /**
      * return user by id
      * @summary /user/{id}-GET
      * @param {string} id
@@ -7107,6 +7536,18 @@ export const DefaultApiFactory = function (
     },
     /**
      *
+     * @summary /user/{id}/activity-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsAdminActivity(id: string, options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionsAdminActivity(id, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
      * @summary /admin/{id}-OPTIONS
      * @param {string} id
      * @param {*} [options] Override http request option.
@@ -7172,6 +7613,18 @@ export const DefaultApiFactory = function (
     optionsRoot(options?: any): AxiosPromise<object> {
       return localVarFp
         .optionsRoot(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /user/{id}/activity-OPTIONS
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionsUserActivity(id: string, options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionsUserActivity(id, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -7633,6 +8086,38 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
+   * return admin acitivity by id
+   * @summary /admin/{id}/activity-GET
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {string} [authenticatable]
+   * @param {string} [page]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getAdminActivity(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    authenticatable?: string,
+    page?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getAdminActivity(
+        id,
+        authorization,
+        origin,
+        authenticatable,
+        page,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
    * return admin by id
    * @summary /admin/{id}-GET
    * @param {string} id
@@ -7859,6 +8344,38 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
+   * return user acitivity by id
+   * @summary /user/{id}/activity-GET
+   * @param {string} id
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {string} [authenticatable]
+   * @param {string} [page]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getUserActivity(
+    id: string,
+    authorization?: string,
+    origin?: string,
+    authenticatable?: string,
+    page?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getUserActivity(
+        id,
+        authorization,
+        origin,
+        authenticatable,
+        page,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
    * return user by id
    * @summary /user/{id}-GET
    * @param {string} id
@@ -7960,6 +8477,20 @@ export class DefaultApi extends BaseAPI {
 
   /**
    *
+   * @summary /user/{id}/activity-OPTIONS
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionsAdminActivity(id: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionsAdminActivity(id, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
    * @summary /admin/{id}-OPTIONS
    * @param {string} id
    * @param {*} [options] Override http request option.
@@ -8036,6 +8567,20 @@ export class DefaultApi extends BaseAPI {
   public optionsRoot(options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .optionsRoot(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /user/{id}/activity-OPTIONS
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionsUserActivity(id: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionsUserActivity(id, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
