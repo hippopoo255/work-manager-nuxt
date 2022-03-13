@@ -12,6 +12,9 @@
                 :loading="moreLoading"
                 @more="handleMore"
               />
+              <p v-else-if="!activities.length">
+                {{ $t('app.activity.empty') }}
+              </p>
             </v-col>
           </v-row>
         </div>

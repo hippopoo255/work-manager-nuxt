@@ -3,6 +3,9 @@ export default {
     name: process.env.APP_NAME_JA,
     locale: '言語',
     theme: 'テーマ',
+    activity: {
+      empty: 'アクティビティはありません',
+    },
   },
   tooltip: {
     theme: {
