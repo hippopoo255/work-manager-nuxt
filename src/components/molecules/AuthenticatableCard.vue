@@ -72,10 +72,6 @@ export default defineComponent({
       type: [Object, null] as PropType<User | Admin | null>,
       default: null,
     },
-    activityCount: {
-      type: Number as PropType<number>,
-      default: 0,
-    },
     menus: {
       type: Array as PropType<Menu[]>,
       default: () => [],

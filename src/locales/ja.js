@@ -3,9 +3,6 @@ export default {
     name: process.env.APP_NAME_JA,
     locale: '言語',
     theme: 'テーマ',
-    activity: {
-      empty: 'アクティビティはありません',
-    },
   },
   tooltip: {
     theme: {
@@ -27,6 +24,7 @@ export default {
       admin:
         '管理者アカウントを保存しました。\n相手の方には初期設定のご案内メールが送信されます',
       user: 'ユーザーアカウントを保存しました。',
+      organization: '組織情報を保存しました。',
       profile: 'プロフィールを更新しました。',
       save: 'データを保存しました',
       delete: 'データを削除しました。',
@@ -233,6 +231,15 @@ export default {
     value: {
       progress: '優先値',
     },
+    organization: {
+      name: '組織名',
+      name_kana: '組織名カナ',
+      postal_code: '郵便番号',
+      pref_id: '都道府県',
+      city: '市区町村',
+      address: '住所',
+      tel: '電話番号',
+    },
   },
   link: {
     password: {
@@ -264,6 +271,7 @@ export default {
     changePassword: 'パスワード変更',
     upload: '画像をアップロード',
     clearUpload: '画像をクリア',
+    address: '住所検索',
   },
   page: {
     index: {

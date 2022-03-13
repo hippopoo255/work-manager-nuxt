@@ -34,4 +34,10 @@ export default {
     update: '/meeting_place/{id}',
     destroy: '/meeting_place/{id}',
   },
+  organization: {
+    update: '/organization/{id}',
+  },
+  prefecture: {
+    index: '/prefecture',
+  },
 } as { [k: string]: any }
