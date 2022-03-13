@@ -1,6 +1,10 @@
 <template>
   <div class="l-authenticatable">
-    <AuthenticatableCard :authenticatable="admin" :menus="menus">
+    <AuthenticatableCard
+      :authenticatable="admin"
+      :menus="menus"
+      :activity-count="activities.count"
+    >
       <template slot="authenticatable-content">
         <div class="u-mt-8">
           <v-row no-gutters justify="center">

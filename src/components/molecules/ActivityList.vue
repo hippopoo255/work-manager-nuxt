@@ -1,5 +1,8 @@
 <template>
   <Loader v-if="loading" />
+  <p v-else-if="!activities.length">
+    {{ $t('app.activity.empty') }}
+  </p>
   <ul v-else class="u-list --space-2">
     <li
       v-for="(activity, index) in activities"

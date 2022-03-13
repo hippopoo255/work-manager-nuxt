@@ -1,8 +1,6 @@
 <template>
-  <v-card
-    v-if="authenticatable !== null"
-    class="text-left p-authenticatable-card"
-  >
+  <Loader v-if="authenticatable === null" />
+  <v-card v-else class="text-left p-authenticatable-card">
     <div
       class="p-authenticatable-card__overlay"
       :class="modifierByDepartmentColor"
@@ -55,7 +53,6 @@
       <slot name="authenticatable-content" />
     </div>
   </v-card>
-  <Loader v-else />
 </template>
 
 <script lang="ts">
@@ -74,6 +71,10 @@ export default defineComponent({
     authenticatable: {
       type: [Object, null] as PropType<User | Admin | null>,
       default: null,
+    },
+    activityCount: {
+      type: Number as PropType<number>,
+      default: 0,
     },
     menus: {
       type: Array as PropType<Menu[]>,
