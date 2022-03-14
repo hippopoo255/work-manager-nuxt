@@ -26,19 +26,25 @@ export type Master = {
 
 export type Inputs = DepartmentInputs | MeetingPlaceInputs | ProgressInputs
 
-const useMaster = () => {
+const useMaster = (modelKey: keyof Master | null = null) => {
   const route = useRoute()
   const { i18n, store } = useContext()
   const { getRequest, postRequest, putRequest, deleteRequest } = useAxios()
   const loading = ref(true)
 
   const model: ComputedRef<keyof Master> = computed(() => {
+    if (modelKey !== null) {
+      return modelKey
+    }
+
     const routePath = route.value.path
+
     if (routePath) {
       const perSlashArray = routePath.split('/')
       return String(perSlashArray.pop()) as keyof Master
+    } else {
+      return 'department'
     }
-    return 'department'
   })
 
   const title = computed(() => i18n.t(`page.title.master.${model.value}`))

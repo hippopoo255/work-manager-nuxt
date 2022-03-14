@@ -32,14 +32,17 @@
                 {{ authenticatable.email }}
               </p>
             </div>
+            <v-divider class="my-3"></v-divider>
             <div v-for="(menu, index) in menus" :key="`menu_${index}`">
-              <v-divider class="my-3"></v-divider>
               <v-btn
                 depressed
                 tile
                 text
+                style="width: 100%"
+                large
                 :color="menu.color"
                 :disabled="menu.disabled"
+                class="justify-start"
                 @click="menu.handle"
                 >{{ menu.btnText }}</v-btn
               >

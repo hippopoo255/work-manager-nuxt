@@ -23,6 +23,7 @@
         <v-col class="d-flex align-center">
           <v-text-field
             v-model="postal_code"
+            type="number"
             :rules="rules.postal_code"
             :label="$t('attribute.organization.postal_code')"
             required

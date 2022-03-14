@@ -94,4 +94,12 @@ export const userCreateRule = (i18n: NuxtI18nInstance) => ({
         length: length.default[1],
       }),
   ],
+  department_id: [
+    (v: UserInputs['department_id']) =>
+      !v ||
+      strPatterns.alphaNumeric.test(String(v)) ||
+      i18n.t('validation.pattern', {
+        attribute: i18n.t('attribute.department_id'),
+      }),
+  ],
 })
