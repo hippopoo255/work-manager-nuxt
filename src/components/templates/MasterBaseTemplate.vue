@@ -67,7 +67,7 @@ export default defineComponent({
     }
 
     const handleDelete = async (id: number) => {
-      if (confirm(String(i18n.t('confirm')))) {
+      if (confirm(String(i18n.t('confirm.delete')))) {
         await destroy(id)
       }
     }

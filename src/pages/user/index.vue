@@ -4,7 +4,12 @@
       {{ $t('page.title.user.index') }}
     </h2>
     <Loader v-if="loading" />
-    <AuthenticatableTable v-else :headers="headers" :items="users" />
+    <AuthenticatableTable
+      v-else
+      :headers="headers"
+      :items="users"
+      @edit="handleEdit"
+    />
   </div>
 </template>
 
@@ -15,6 +20,7 @@ import {
   computed,
   useContext,
   watch,
+  useRouter,
 } from '@nuxtjs/composition-api'
 import { useUser } from '~/hooks'
 import { User } from '~/types/ts-axios'
@@ -24,7 +30,8 @@ export default defineComponent({
   name: 'UserIndex',
   setup() {
     const { index } = useUser()
-    const { i18n, store } = useContext()
+    const { app, i18n, store } = useContext()
+    const router = useRouter()
     const loading = ref(true)
 
     const users = ref<User[]>([])
@@ -46,10 +53,22 @@ export default defineComponent({
       { immediate: true }
     )
     const headers = computed(() => userTableHeaders.index(i18n))
+
+    const handleEdit = (id: number) => {
+      router.push(
+        app.localePath({
+          name: 'user-edit-id',
+          params: {
+            id: String(id),
+          },
+        })
+      )
+    }
     return {
       headers,
       loading,
       users,
+      handleEdit,
     }
   },
 })

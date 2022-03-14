@@ -14,6 +14,9 @@ export default {
     },
   },
   alert: {
+    modal: {
+      invite: 'このユーザは既に管理者として登録されています。',
+    },
     success: {
       signin: 'サインインに成功しました',
       signup:
@@ -52,6 +55,10 @@ export default {
         default: '検証に失敗しました',
       },
     },
+  },
+  confirm: {
+    delete: '一度削除すると元に戻せません。削除してよろしいですか？',
+    invite: 'このユーザーにメールが送信されます。管理システムに招待しますか？',
   },
   breadcrumb: {
     dashboard: 'ダッシュボード',
@@ -154,6 +161,7 @@ export default {
             id: 'ID',
             full_name: '氏名',
             full_name_kana: '氏名カナ',
+            department: '部署',
             email: 'メールアドレス',
             email_verified_at: '検証完了日時',
             createdBy: '作成者',
@@ -165,6 +173,7 @@ export default {
             id: 'ID',
             full_name: '氏名',
             full_name_kana: '氏名カナ',
+            department: '部署',
             email: 'メールアドレス',
             email_verified_at: '検証完了日時',
             createdBy: '作成者',
@@ -225,6 +234,7 @@ export default {
     given_name_kana: 'メイ',
     image: '画像',
     department_code: '部署コード',
+    department_id: '部署',
     color: 'カラー',
     name: {
       department: '部署名',
@@ -250,6 +260,9 @@ export default {
     },
     profile: 'プロフィール',
     moreLink: 'もっと見る',
+    edit: {
+      profile: 'プロフィールを編集する',
+    },
   },
   placeholder: {
     email: 'sample@example.com',
@@ -258,7 +271,6 @@ export default {
   status: {
     inviteAdmin: '管理システムに招待済み',
   },
-  confirm: '一度削除すると元に戻せません。削除してよろしいですか？',
   submit: {
     create: '登録',
     inviteAdmin: '管理システムに招待する',
@@ -285,6 +297,9 @@ export default {
         index: '管理者アカウント一覧',
         create: '管理者アカウント登録',
         id: '管理者アカウント詳細',
+        edit: '管理者アカウント更新',
+        activity: 'アクティビティ',
+        profile: 'プロフィール',
       },
       blog: {
         index: 'ブログ一覧',
@@ -316,6 +331,9 @@ export default {
         index: '一般アカウント一覧',
         create: '一般アカウント登録',
         id: '一般アカウント詳細',
+        edit: '一般アカウント更新',
+        activity: 'アクティビティ',
+        profile: 'プロフィール',
       },
       password: {
         forgot: 'パスワード再発行フォーム',

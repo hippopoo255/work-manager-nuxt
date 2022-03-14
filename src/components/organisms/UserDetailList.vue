@@ -5,7 +5,9 @@
         <div class="mt-8 mt-md-12">
           <v-row no-gutters justify="center">
             <v-col cols="12" md="6">
-              <h3 class="c-title u-mb-4">アクティビティ</h3>
+              <h3 class="c-title u-mb-4">
+                {{ $t('page.title.user.activity') }}
+              </h3>
               <ActivityList :activities="activities" :loading="loading" />
               <MoreLink
                 v-if="hasMore"
@@ -28,6 +30,7 @@ import {
   useRoute,
   watch,
   useContext,
+  useRouter,
 } from '@nuxtjs/composition-api'
 import { useAdmin, useUser, useActivity } from '@/hooks'
 import { User } from '~/types/ts-axios'
@@ -38,8 +41,9 @@ export default defineComponent({
   setup() {
     const { show } = useUser()
     const { save } = useAdmin()
-    const { store, i18n } = useContext()
+    const { app, store, i18n } = useContext()
     const route = useRoute()
+    const router = useRouter()
     const loading = ref(true)
     const moreLoading = ref(false)
     const user = ref<User | null>(null)
@@ -56,11 +60,11 @@ export default defineComponent({
 
     const handleAlert = async () => {
       if (user.value && user.value.is_invited) {
-        alert('このユーザは既に管理者として登録されています。')
+        alert(i18n.t('alert.modal.invite'))
         return false
       }
       if (
-        confirm('このユーザーにメールが送信されます。招待しますか？') &&
+        confirm(String(i18n.t('confirm.invite'))) &&
         user.value &&
         !user.value.is_invited
       ) {
@@ -80,12 +84,27 @@ export default defineComponent({
 
     const menus = computed(() => [
       {
+        btnText: i18n.t('link.edit.profile'),
+        handle: () => {
+          if (user.value) {
+            router.push(
+              app.localePath({
+                name: 'user-edit-id',
+                params: {
+                  id: String(user.value.id),
+                },
+              })
+            )
+          }
+        },
+      },
+      {
         btnText:
           user.value && user.value.is_invited
             ? i18n.t('status.inviteAdmin')
             : i18n.t('submit.inviteAdmin'),
         handle: () => handleAlert(),
-        color: 'primary',
+        // color: 'primary',
         disabled: loading.value || (user.value && user.value.is_invited),
       },
     ])

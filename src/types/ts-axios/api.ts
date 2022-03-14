@@ -2791,6 +2791,12 @@ export interface UserInputs {
    * @memberof UserInputs
    */
   email: string
+  /**
+   *
+   * @type {number}
+   * @memberof UserInputs
+   */
+  department_id?: number
 }
 
 /**

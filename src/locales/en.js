@@ -48,6 +48,11 @@ export default {
       },
     },
   },
+  confirm: {
+    invite: 'このユーザーにメールが送信されます。管理システムに招待しますか？',
+    delete:
+      'Once deleted, it cannot be restored. Are you sure you want to delete it?',
+  },
   breadcrumb: {
     dashboard: 'Dashboard',
     user: {
@@ -147,6 +152,7 @@ export default {
             id: 'ID',
             full_name: 'Name',
             full_name_kana: 'Name kana',
+            department: 'Department',
             email: 'Email',
             email_verified_at: 'Verified Date',
             createdBy: 'Created by',
@@ -159,6 +165,7 @@ export default {
             id: 'ID',
             full_name: 'Name',
             full_name_kana: 'Name kana',
+            department: 'Department',
             email: 'Email',
             email_verified_at: 'Verified Date',
             createdBy: 'Created by',
@@ -193,6 +200,7 @@ export default {
     given_name_kana: 'Given name kana',
     image: 'Image',
     department_code: 'Department code',
+    department_id: 'Department',
     color: 'Color',
     name: {
       department: 'Department name',
@@ -218,6 +226,9 @@ export default {
     },
     profile: 'Profile',
     moreLink: 'More',
+    edit: {
+      profile: 'Edit profile',
+    },
   },
   placeholder: {
     email: 'sample@example.com',
@@ -226,8 +237,6 @@ export default {
   status: {
     inviteAdmin: '管理システムに招待済み',
   },
-  confirm:
-    'Once deleted, it cannot be restored. Are you sure you want to delete it?',
   submit: {
     changePassword: 'Change password',
     create: 'Register',
@@ -254,6 +263,9 @@ export default {
         index: 'Admin List',
         create: 'Admin Registration',
         id: 'Admin Detail',
+        edit: 'Admin Edit',
+        activity: 'Activity',
+        profile: 'Profile',
       },
       blog: {
         index: 'Blog List',
@@ -265,6 +277,9 @@ export default {
       },
       master: {
         index: 'Master',
+        meeting_room: 'Meeting Room',
+        department: 'Department',
+        progress: 'Task Progress',
       },
       organization: {
         index: 'Organization',
@@ -281,6 +296,9 @@ export default {
         index: 'User List',
         create: 'User registration',
         id: 'User Detail',
+        edit: 'User Edit',
+        activity: 'Activity',
+        profile: 'Profile',
       },
       password: {
         forgot: 'Password regeneration',

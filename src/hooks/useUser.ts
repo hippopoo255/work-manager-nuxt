@@ -4,7 +4,7 @@ import { useAxios } from '@/hooks'
 import { requestUri } from '@/config'
 import { toStrLabel } from '@/lib/util'
 const useUser = () => {
-  const { postRequest, getRequest } = useAxios()
+  const { postRequest, getRequest, putRequest } = useAxios()
   const { store, i18n } = useContext()
 
   const index = async () => {
@@ -41,8 +41,19 @@ const useUser = () => {
     })
   }
 
-  const update = (data: UserInputs, id: number) => {
-    return { data, id }
+  const update = async (data: UserInputs, id: number) => {
+    return await putRequest<User, UserInputs>(
+      requestUri.user.update.replace('{id}', id),
+      data
+    ).then((user) => {
+      store.dispatch('status/updateResponse', {
+        status: 200,
+        message: {
+          success: i18n.t('alert.success.user'),
+        },
+      })
+      return user
+    })
   }
 
   const save = async (data: UserInputs, id?: number) => {
