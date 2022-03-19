@@ -1,0 +1,18 @@
+.l-master-form {
+  &__button.v-btn {
+    position: fixed;
+    z-index: 4;
+    bottom: 12px;
+    right: 50%;
+    transform: translate3d(50%, 0, 0);
+  }
+
+  @include media('lg') {
+    &__button.v-btn {
+      position: relative;
+      transform: none;
+      bottom: initial;
+      right: initial;
+    }
+  }
+}

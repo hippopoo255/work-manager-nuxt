@@ -33,7 +33,7 @@ export default defineComponent({
     const { app } = useContext()
     const title = computed(() => {
       const regex = new RegExp(
-        `^${props.activity.created_by.full_name}さん(が|から)(.+)「.+」([を|が].+)`
+        `^${props.activity.created_by.full_name}さん(が|から)(.*)「.+」([を|が|].+)`
       )
       const what = props.activity.content.match(/「.+」/g)
       if (what) {

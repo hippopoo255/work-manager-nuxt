@@ -1,0 +1,12 @@
+.u-fix {
+  position: fixed !important;
+  z-index: 4;
+  &.--bottom-12 {
+    bottom: 12px;
+  }
+
+  &.--center {
+    right: 50%;
+    transform: translate3d(50%, 0, 0);
+  }
+}

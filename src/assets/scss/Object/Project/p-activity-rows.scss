@@ -1,0 +1,25 @@
+.p-activity-rows {
+  &__row {
+    padding: 12px;
+    &:not(:first-of-type) {
+      border-top: 1px solid $lightGrey1;
+    }
+    &:nth-of-type(odd) {
+      background: $lightGrey3;
+    }
+  }
+  &__body {
+    margin-top: 8px;
+    font-size: $fontSizeXs;
+    line-height: 1.25;
+  }
+
+  @include media('sm') {
+    &__row {
+      padding: 20px;
+    }
+    &__body {
+      font-size: $fontSizeSm;
+    }
+  }
+}

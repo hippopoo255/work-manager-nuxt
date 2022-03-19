@@ -74,7 +74,7 @@ export default {
     },
     blog: {
       index: 'ブログ一覧',
-      report: 'ブログ通報',
+      report: 'ブログ報告',
       id: {
         index: '{id}',
         comment: {
@@ -85,7 +85,7 @@ export default {
     },
     chat: {
       index: 'チャット一覧',
-      report: 'チャット通報',
+      report: 'チャット報告',
     },
     master: {
       index: 'マスター',
@@ -140,11 +140,11 @@ export default {
       blog: {
         top: 'ブログ',
         index: '一覧',
-        report: '通報',
+        report: '報告',
       },
       chat: {
         top: 'チャット',
-        report: '通報',
+        report: '報告',
       },
       setting: {
         index: '一般',
@@ -261,7 +261,7 @@ export default {
     profile: 'プロフィール',
     moreLink: 'もっと見る',
     edit: {
-      profile: 'プロフィールを編集する',
+      profile: '基本情報を編集する',
     },
   },
   placeholder: {
@@ -303,11 +303,11 @@ export default {
       },
       blog: {
         index: 'ブログ一覧',
-        report: 'ブログ通報',
+        report: 'ブログ報告',
       },
       chat: {
         index: 'チャット一覧',
-        report: 'チャット通報',
+        report: 'チャット報告',
       },
       master: {
         index: 'マスター',

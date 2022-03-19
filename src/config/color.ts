@@ -1,10 +1,3 @@
-export const colorPairs = [
-  ['#385F73', '#CF863F'], // navy, orange
-  ['#A5BDC7', '#E94D42'], // grey, red
-  ['#F9C03C', '#A9593E'], // yellow, brown
-  ['#DBA991', '#4D6479'], // cafe, navy
-]
-
 export const colors = [
   { name: 'red', code: '#ec4444' },
   { name: 'bloodOrange', code: '#f9634b' },

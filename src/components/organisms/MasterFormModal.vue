@@ -1,6 +1,12 @@
 <template>
   <div class="l-master-form">
-    <v-btn color="pink" dark fab @click="handleAdd">
+    <v-btn
+      class="l-master-form__button"
+      color="pink"
+      dark
+      fab
+      @click="handleAdd"
+    >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
     <v-bottom-sheet v-model="show">
@@ -122,5 +128,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>

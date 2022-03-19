@@ -3317,6 +3317,64 @@ export const DefaultApiAxiosParamCreator = function (
       }
     },
     /**
+     * アクティビティ
+     * @summary /activity-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getActivity: async (
+      authorization?: string,
+      origin?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/activity`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
      * 会議の参加者を入力するドロップダウンリスト等に使用
      * @summary /admin-GET
      * @param {string} [authorization]
@@ -3511,6 +3569,134 @@ export const DefaultApiAxiosParamCreator = function (
         'Authorization',
         configuration
       )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * ブログチャート
+     * @summary /blog/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getBlogChart: async (
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/blog/chart`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (group !== undefined) {
+        localVarQueryParameter['group'] = group
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * チャットチャート
+     * @summary /chat/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChatChart: async (
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/chat/chart`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (group !== undefined) {
+        localVarQueryParameter['group'] = group
+      }
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -3838,6 +4024,70 @@ export const DefaultApiAxiosParamCreator = function (
         'Authorization',
         configuration
       )
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * 議事録チャート
+     * @summary /meeting_record/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMeetingRecordChart: async (
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/meeting_record/chart`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
+
+      if (group !== undefined) {
+        localVarQueryParameter['group'] = group
+      }
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -4330,6 +4580,45 @@ export const DefaultApiAxiosParamCreator = function (
     },
     /**
      *
+     * @summary /activity-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionActivity: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/activity`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
      * @summary /admin-OPTIONS
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4338,6 +4627,84 @@ export const DefaultApiAxiosParamCreator = function (
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/admin`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /blog/chart-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionBlogChart: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/blog/chart`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /chat/chart-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionChatChart: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/chat/chart`
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
       let baseOptions
@@ -4416,6 +4783,45 @@ export const DefaultApiAxiosParamCreator = function (
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/meeting_place`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /meeting_record-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionMeetingRecord: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/meeting_record/chart`
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
       let baseOptions
@@ -6198,6 +6604,36 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       )
     },
     /**
+     * アクティビティ
+     * @summary /activity-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getActivity(
+      authorization?: string,
+      origin?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<Activity>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getActivity(
+        authorization,
+        origin,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
      * 会議の参加者を入力するドロップダウンリスト等に使用
      * @summary /admin-GET
      * @param {string} [authorization]
@@ -6294,6 +6730,72 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         id,
         authorization,
         origin,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * ブログチャート
+     * @summary /blog/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getBlogChart(
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<ChatMessage>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getBlogChart(
+        authorization,
+        origin,
+        group,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * チャットチャート
+     * @summary /chat/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getChatChart(
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<ChatMessage>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getChatChart(
+        authorization,
+        origin,
+        group,
         options
       )
       return createRequestFunction(
@@ -6457,6 +6959,40 @@ export const DefaultApiFp = function (configuration?: Configuration) {
           id,
           authorization,
           origin,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * 議事録チャート
+     * @summary /meeting_record/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getMeetingRecordChart(
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<MeetingRecord>>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getMeetingRecordChart(
+          authorization,
+          origin,
+          group,
           options
         )
       return createRequestFunction(
@@ -6698,6 +7234,27 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @summary /activity-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionActivity(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.optionActivity(
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
      * @summary /admin-OPTIONS
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -6708,6 +7265,48 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.optionAdmin(
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /blog/chart-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionBlogChart(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.optionBlogChart(
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /chat/chart-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionChatChart(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.optionChatChart(
         options
       )
       return createRequestFunction(
@@ -6750,6 +7349,26 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.optionMeetingPlace(options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /meeting_record-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionMeetingRecord(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionMeetingRecord(options)
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
@@ -7628,6 +8247,23 @@ export const DefaultApiFactory = function (
         .then((request) => request(axios, basePath))
     },
     /**
+     * アクティビティ
+     * @summary /activity-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getActivity(
+      authorization?: string,
+      origin?: string,
+      options?: any
+    ): AxiosPromise<Array<Activity>> {
+      return localVarFp
+        .getActivity(authorization, origin, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
      * 会議の参加者を入力するドロップダウンリスト等に使用
      * @summary /admin-GET
      * @param {string} [authorization]
@@ -7697,6 +8333,44 @@ export const DefaultApiFactory = function (
     ): AxiosPromise<Array<Admin>> {
       return localVarFp
         .getAdminId(id, authorization, origin, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * ブログチャート
+     * @summary /blog/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getBlogChart(
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options?: any
+    ): AxiosPromise<Array<ChatMessage>> {
+      return localVarFp
+        .getBlogChart(authorization, origin, group, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * チャットチャート
+     * @summary /chat/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChatChart(
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options?: any
+    ): AxiosPromise<Array<ChatMessage>> {
+      return localVarFp
+        .getChatChart(authorization, origin, group, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -7803,6 +8477,25 @@ export const DefaultApiFactory = function (
     ): AxiosPromise<MeetingPlace> {
       return localVarFp
         .getMeetingPlaceId(id, authorization, origin, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * 議事録チャート
+     * @summary /meeting_record/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMeetingRecordChart(
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      options?: any
+    ): AxiosPromise<Array<MeetingRecord>> {
+      return localVarFp
+        .getMeetingRecordChart(authorization, origin, group, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -7954,6 +8647,17 @@ export const DefaultApiFactory = function (
     },
     /**
      *
+     * @summary /activity-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionActivity(options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionActivity(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
      * @summary /admin-OPTIONS
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7961,6 +8665,28 @@ export const DefaultApiFactory = function (
     optionAdmin(options?: any): AxiosPromise<object> {
       return localVarFp
         .optionAdmin(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /blog/chart-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionBlogChart(options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionBlogChart(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /chat/chart-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionChatChart(options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionChatChart(options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -7983,6 +8709,17 @@ export const DefaultApiFactory = function (
     optionMeetingPlace(options?: any): AxiosPromise<object> {
       return localVarFp
         .optionMeetingPlace(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /meeting_record-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionMeetingRecord(options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionMeetingRecord(options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -8622,6 +9359,25 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
+   * アクティビティ
+   * @summary /activity-GET
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getActivity(
+    authorization?: string,
+    origin?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getActivity(authorization, origin, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
    * 会議の参加者を入力するドロップダウンリスト等に使用
    * @summary /admin-GET
    * @param {string} [authorization]
@@ -8696,6 +9452,48 @@ export class DefaultApi extends BaseAPI {
   ) {
     return DefaultApiFp(this.configuration)
       .getAdminId(id, authorization, origin, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * ブログチャート
+   * @summary /blog/chart-GET
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {string} [group]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getBlogChart(
+    authorization?: string,
+    origin?: string,
+    group?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getBlogChart(authorization, origin, group, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * チャットチャート
+   * @summary /chat/chart-GET
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {string} [group]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getChatChart(
+    authorization?: string,
+    origin?: string,
+    group?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getChatChart(authorization, origin, group, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -8812,6 +9610,27 @@ export class DefaultApi extends BaseAPI {
   ) {
     return DefaultApiFp(this.configuration)
       .getMeetingPlaceId(id, authorization, origin, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * 議事録チャート
+   * @summary /meeting_record/chart-GET
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {string} [group]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getMeetingRecordChart(
+    authorization?: string,
+    origin?: string,
+    group?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getMeetingRecordChart(authorization, origin, group, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -8978,6 +9797,19 @@ export class DefaultApi extends BaseAPI {
 
   /**
    *
+   * @summary /activity-OPTIONS
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionActivity(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionActivity(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
    * @summary /admin-OPTIONS
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -8986,6 +9818,32 @@ export class DefaultApi extends BaseAPI {
   public optionAdmin(options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .optionAdmin(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /blog/chart-OPTIONS
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionBlogChart(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionBlogChart(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /chat/chart-OPTIONS
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionChatChart(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionChatChart(options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -9012,6 +9870,19 @@ export class DefaultApi extends BaseAPI {
   public optionMeetingPlace(options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .optionMeetingPlace(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /meeting_record-OPTIONS
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionMeetingRecord(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionMeetingRecord(options)
       .then((request) => request(this.axios, this.basePath))
   }
 

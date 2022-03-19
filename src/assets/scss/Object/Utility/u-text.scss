@@ -16,12 +16,22 @@
 .u-fs16 {
   font-size: 1.6rem;
 }
+.u-text-left {
+  text-align: left;
+}
 .u-text-center {
   text-align: center;
 }
 .u-text-right {
   text-align: right;
 }
+.u-text-sm {
+  font-size: $fontSizeSm;
+}
+.u-text-xs {
+  font-size: $fontSizeXs;
+}
+
 // font style
 .u-primaryLink {
   color: $primaryColor;

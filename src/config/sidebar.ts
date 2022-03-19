@@ -43,22 +43,22 @@ export const menus = (i18n: NuxtI18nInstance) => [
     ],
   },
   // ブログ
-  {
-    icon: 'mdi-post-outline',
-    title: i18n.t('layout.sidebar.blog.top'),
-    children: [
-      // {
-      //   icon: 'mdi-format-list-bulleted',
-      //   title: i18n.t('layout.sidebar.blog.index'),
-      //   to: 'blog',
-      // },
-      {
-        icon: 'mdi-alert',
-        title: i18n.t('layout.sidebar.blog.report'),
-        to: 'blog-report',
-      },
-    ],
-  },
+  // {
+  //   icon: 'mdi-post-outline',
+  //   title: i18n.t('layout.sidebar.blog.top'),
+  //   children: [
+  //     {
+  //       icon: 'mdi-format-list-bulleted',
+  //       title: i18n.t('layout.sidebar.blog.index'),
+  //       to: 'blog',
+  //     },
+  //     {
+  //       icon: 'mdi-alert',
+  //       title: i18n.t('layout.sidebar.blog.report'),
+  //       to: 'blog-report',
+  //     },
+  //   ],
+  // },
   // チャット
   {
     icon: 'mdi-chat-outline',
