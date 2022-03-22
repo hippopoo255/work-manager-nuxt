@@ -18,12 +18,18 @@
     </template>
     <template slot="form-bottom">
       <FormSubmitRow :loading="loading" :submit-value="$t('submit.signin')">
-        <v-col slot="else-rows" cols="12" class="mt-xs-4">
-          <NuxtLink :to="localePath('password-forgot')">{{
-            $t('link.password.forgot')
-          }}</NuxtLink>
+        <v-col
+          slot="else-rows"
+          cols="12"
+          class="mt-4 u-flex__center --sm-column"
+        >
+          <div class="u-pa-3">
+            <NuxtLink :to="localePath('password-forgot')">{{
+              $t('link.password.forgot')
+            }}</NuxtLink>
+          </div>
           <v-btn
-            class="ml-2"
+            class="ml-0 ml-sm-2"
             type="button"
             outlined
             color="primary"

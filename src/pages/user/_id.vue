@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h2 class="c-page-title">{{ $t('page.title.user.id') }}</h2> -->
     <UserDetailList />
   </div>
 </template>

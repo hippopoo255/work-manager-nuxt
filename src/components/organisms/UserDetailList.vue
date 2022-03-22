@@ -69,12 +69,15 @@ export default defineComponent({
         !user.value.is_invited
       ) {
         loading.value = true
+
         const inputs = {
           email: user.value?.email || '',
           family_name: user.value?.family_name,
           family_name_kana: user.value?.family_name_kana,
           given_name: user.value?.given_name,
           given_name_kana: user.value?.given_name_kana,
+          department_id: user.value?.department?.id,
+          organization_id: user.value?.organization_id,
         }
         await save(inputs).finally(() => {
           loading.value = false

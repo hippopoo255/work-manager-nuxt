@@ -16,9 +16,11 @@
       <v-list-item-content>
         <v-list-item-subtitle
           class="text--sub"
-          v-html="item.department.department_code"
+          v-html="item.department ? item.department.department_code : ''"
         ></v-list-item-subtitle>
-        <v-list-item-title v-html="item.department.name"></v-list-item-title>
+        <v-list-item-title
+          v-html="item.department ? item.department.name : ''"
+        ></v-list-item-title>
       </v-list-item-content>
     </template>
     <template #[`item.actions`]="{ item }">

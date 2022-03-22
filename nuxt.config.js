@@ -4,7 +4,7 @@ require('dotenv').config()
 
 export default {
   /// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
+  // ssr: false,
   // src directory
   srcDir: 'src/',
 
@@ -90,7 +90,6 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
     '@nuxtjs/composition-api/module',
-    '@nuxt/image',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -104,7 +103,7 @@ export default {
 
   webfontloader: {
     google: {
-      families: ['Noto+Sans+JP:400,500,700'],
+      families: ['Noto+Sans+JP:200,500,700'],
     },
   },
 

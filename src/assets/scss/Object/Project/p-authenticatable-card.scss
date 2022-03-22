@@ -5,7 +5,7 @@
     background: map-get($customColor, 'navy');
     color: $white;
     position: relative;
-    @include colorModifierByColorName('background');
+    @include colorModifierByColorName(('background'));
   }
   &__avatar {
     position: absolute;

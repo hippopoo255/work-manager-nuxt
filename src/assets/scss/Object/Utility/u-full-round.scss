@@ -1,5 +1,5 @@
 .u-full-round {
-  @include colorModifierByColorName('background');
+  @include colorModifierByColorName(('background'));
   display: inline-block;
   width: 24px;
   height: 24px;

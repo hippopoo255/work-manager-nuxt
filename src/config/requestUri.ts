@@ -1,5 +1,17 @@
 export default {
+  activity: {
+    index: '/activity',
+  },
   current: '/current',
+  blog: {
+    chart: '/blog/chart',
+  },
+  chat: {
+    chart: '/chat/chart',
+  },
+  minutes: {
+    chart: '/meeting_record/chart',
+  },
   user: {
     index: '/user',
     create: '/user',

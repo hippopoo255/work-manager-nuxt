@@ -61,7 +61,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Admin, User } from '~/types/ts-axios'
-import { getRandomColorPair, faceUrl } from '@/lib/util'
+import { faceUrl } from '@/lib/util'
 type Menu = {
   btnText: string
   handle: Function
@@ -78,10 +78,6 @@ export default defineComponent({
     menus: {
       type: Array as PropType<Menu[]>,
       default: () => [],
-    },
-    cardColor: {
-      type: Array as PropType<string[]>,
-      default: () => getRandomColorPair(),
     },
   },
   setup(props) {

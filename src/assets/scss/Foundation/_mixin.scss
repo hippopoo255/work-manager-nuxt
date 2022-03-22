@@ -4,26 +4,44 @@
   }
 }
 
-@mixin colorModifierByResource($prop: 'border-color') {
+@mixin colorModifierByResource(
+  $props: (
+    'border-color',
+  )
+) {
   @each $resourceName, $colorName in $resourceColor {
     &.--#{$resourceName} {
-      #{$prop}: map-get($customColor, $colorName);
+      @each $prop in $props {
+        #{$prop}: map-get($customColor, $colorName);
+      }
     }
   }
 }
 
-@mixin colorModifierByActivity($prop: 'border-color') {
+@mixin colorModifierByActivity(
+  $props: (
+    'border-color',
+  )
+) {
   @each $activityKey, $colorName in $activityColor {
     &.--#{$activityKey} {
-      #{$prop}: map-get($customColor, $colorName);
+      @each $prop in $props {
+        #{$prop}: map-get($customColor, $colorName);
+      }
     }
   }
 }
 
-@mixin colorModifierByColorName($prop: 'border-color') {
+@mixin colorModifierByColorName(
+  $props: (
+    'border-color',
+  )
+) {
   @each $colorName, $colorValue in $customColor {
     &.--#{$colorName} {
-      #{$prop}: $colorValue;
+      @each $prop in $props {
+        #{$prop}: $colorValue;
+      }
     }
   }
 }
