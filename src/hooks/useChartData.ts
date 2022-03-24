@@ -12,6 +12,7 @@ import {
   ChartApiResponse,
 } from '~/lib/chart-js'
 import { Activity } from '~/types/ts-axios'
+import { symbolByPath } from '@/lib/util'
 
 const useChartData = () => {
   const { getRequest } = useAxios()
@@ -22,9 +23,16 @@ const useChartData = () => {
   }
 
   const fetchChartData = async (
-    dataCategoryName: keyof DataCategories
+    dataCategoryName: keyof DataCategories,
+    queryAddition?: string
   ): Promise<void> => {
-    const res = await getRequest<ChartApiResponse>(path[dataCategoryName])
+    // eslint-disable-next-line no-extra-boolean-cast
+    const lastPath = !!queryAddition
+      ? path[dataCategoryName] +
+        symbolByPath(path[dataCategoryName]) +
+        queryAddition
+      : path[dataCategoryName]
+    const res = await getRequest<ChartApiResponse>(lastPath)
     const ref = chartRefs.value
     ref[dataCategoryName] = {
       // ['2022-01', '2022-02', '2022-03']

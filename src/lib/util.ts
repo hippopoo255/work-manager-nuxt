@@ -70,3 +70,5 @@ export function postTiming(createDate: Date) {
 }
 
 export const faceUrl = (path: string) => APP_STORAGE_URL + `/${path}`
+
+export const symbolByPath = (path: string) => (path.match(/\?/) ? '&' : '?')

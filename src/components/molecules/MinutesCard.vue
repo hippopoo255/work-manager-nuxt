@@ -12,11 +12,19 @@ import {
   defineComponent,
   useContext,
   watch,
+  PropType,
 } from '@nuxtjs/composition-api'
 import { useChartData } from '@/hooks'
 
 export default defineComponent({
-  setup() {
+  props: {
+    filteredUserId: {
+      type: [Number, String] as PropType<number>,
+      default: '',
+    },
+  },
+
+  setup(props, { emit }) {
     const { store } = useContext()
     const isSignin = computed(() => store.getters['admin/isSignin'])
     const { minutes, fetchChartData } = useChartData()
@@ -25,12 +33,41 @@ export default defineComponent({
       text: '議事録',
       icon: 'mdi-post-outline',
     })
+
+    const queryAddition = computed(() => {
+      if (props.filteredUserId) {
+        return `created_by_table=meeting_records&created_by=${String(
+          props.filteredUserId
+        )}`
+      } else {
+        return undefined
+      }
+    })
+
     watch(
       () => isSignin.value,
       async (isSignin) => {
         if (isSignin) {
-          await fetchChartData('minutes').then(() => {
+          await fetchChartData('minutes', queryAddition.value).then(() => {
             loading.value = false
+            if (minutes.value && minutes.value.datasets.length) {
+              const data = minutes.value.datasets[0].data
+              const count = data.reduce(
+                (previousValue: number, currentValue: number) => {
+                  return previousValue + currentValue
+                },
+                0
+              )
+              emit('fetched', {
+                count,
+                loading: loading.value,
+              })
+            } else {
+              emit('fetched', {
+                count: 0,
+                loading: loading.value,
+              })
+            }
           })
         }
       },

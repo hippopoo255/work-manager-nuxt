@@ -103,7 +103,7 @@ export default {
 
   webfontloader: {
     google: {
-      families: ['Noto+Sans+JP:200,500,700'],
+      families: ['Noto+Sans+JP:200,500,700', 'Roboto'],
     },
   },
 

@@ -9,6 +9,9 @@ export default {
   chat: {
     chart: '/chat/chart',
   },
+  chatReport: {
+    index: '/chat_report',
+  },
   minutes: {
     chart: '/meeting_record/chart',
   },

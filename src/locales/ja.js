@@ -123,6 +123,15 @@ export default {
       notification: '通知',
       changePassword: 'パスワード',
     },
+    userDetail: {
+      activity: 'アクティビティ',
+      base: '基本情報',
+      score: 'スコア',
+    },
+    adminDetail: {
+      activity: 'アクティビティ',
+      base: '基本情報',
+    },
   },
   layout: {
     sidebar: {
@@ -156,6 +165,18 @@ export default {
     table: {
       header: {
         actions: '操作',
+        chat_report: {
+          index: {
+            id: 'ID',
+            roomName: 'ルーム名',
+            messageId: '投稿ID',
+            messageBody: '投稿文',
+            writtenBy: '投稿者',
+            createdBy: '報告者',
+            reportCategory: '報告理由',
+            count: '報告件数',
+          },
+        },
         user: {
           index: {
             id: 'ID',

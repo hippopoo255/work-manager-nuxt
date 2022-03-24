@@ -869,6 +869,67 @@ export interface ChatMessageRead {
   updated_at: string
 }
 /**
+ * チャット通報
+ * @export
+ * @interface ChatReport
+ */
+export interface ChatReport {
+  /**
+   *
+   * @type {number}
+   * @memberof ChatReport
+   */
+  id: number
+  /**
+   *
+   * @type {number}
+   * @memberof ChatReport
+   */
+  chat_message_id: number
+  /**
+   *
+   * @type {number}
+   * @memberof ChatReport
+   */
+  report_category_id: number
+  /**
+   *
+   * @type {boolean}
+   * @memberof ChatReport
+   */
+  is_report: boolean
+  /**
+   *
+   * @type {ReportCategory}
+   * @memberof ChatReport
+   */
+  report_category?: ReportCategory
+  /**
+   *
+   * @type {User}
+   * @memberof ChatReport
+   */
+  created_by?: User
+  /**
+   *
+   * @type {ChatMessage}
+   * @memberof ChatReport
+   */
+  chat_message?: ChatMessage
+  /**
+   *
+   * @type {string}
+   * @memberof ChatReport
+   */
+  created_at: string
+  /**
+   *
+   * @type {string}
+   * @memberof ChatReport
+   */
+  updated_at: string
+}
+/**
  * チャットルーム
  * @export
  * @interface ChatRoom
@@ -2128,6 +2189,43 @@ export interface Reaction {
    *
    * @type {string}
    * @memberof Reaction
+   */
+  updated_at: string
+}
+/**
+ *
+ * @export
+ * @interface ReportCategory
+ */
+export interface ReportCategory {
+  /**
+   *
+   * @type {number}
+   * @memberof ReportCategory
+   */
+  id: number
+  /**
+   *
+   * @type {string}
+   * @memberof ReportCategory
+   */
+  name: string
+  /**
+   *
+   * @type {string}
+   * @memberof ReportCategory
+   */
+  code: string
+  /**
+   *
+   * @type {string}
+   * @memberof ReportCategory
+   */
+  created_at: string
+  /**
+   *
+   * @type {string}
+   * @memberof ReportCategory
    */
   updated_at: string
 }
@@ -3598,6 +3696,8 @@ export const DefaultApiAxiosParamCreator = function (
      * @param {string} [authorization]
      * @param {string} [origin]
      * @param {string} [group]
+     * @param {string} [createdByTable]
+     * @param {string} [createdBy]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -3605,6 +3705,8 @@ export const DefaultApiAxiosParamCreator = function (
       authorization?: string,
       origin?: string,
       group?: string,
+      createdByTable?: string,
+      createdBy?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/blog/chart`
@@ -3632,6 +3734,14 @@ export const DefaultApiAxiosParamCreator = function (
 
       if (group !== undefined) {
         localVarQueryParameter['group'] = group
+      }
+
+      if (createdByTable !== undefined) {
+        localVarQueryParameter['created_by_table'] = createdByTable
+      }
+
+      if (createdBy !== undefined) {
+        localVarQueryParameter['created_by'] = createdBy
       }
 
       if (authorization !== undefined && authorization !== null) {
@@ -3662,6 +3772,8 @@ export const DefaultApiAxiosParamCreator = function (
      * @param {string} [authorization]
      * @param {string} [origin]
      * @param {string} [group]
+     * @param {string} [createdByTable]
+     * @param {string} [createdBy]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -3669,6 +3781,8 @@ export const DefaultApiAxiosParamCreator = function (
       authorization?: string,
       origin?: string,
       group?: string,
+      createdByTable?: string,
+      createdBy?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/chat/chart`
@@ -3697,6 +3811,72 @@ export const DefaultApiAxiosParamCreator = function (
       if (group !== undefined) {
         localVarQueryParameter['group'] = group
       }
+
+      if (createdByTable !== undefined) {
+        localVarQueryParameter['created_by_table'] = createdByTable
+      }
+
+      if (createdBy !== undefined) {
+        localVarQueryParameter['created_by'] = createdBy
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter['Authorization'] = String(authorization)
+      }
+
+      if (origin !== undefined && origin !== null) {
+        localVarHeaderParameter['Origin'] = String(origin)
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * チャット報告
+     * @summary /chat_report-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChatReport: async (
+      authorization?: string,
+      origin?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/chat_report`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      // authentication job-support-admin-authorizer required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Authorization',
+        configuration
+      )
 
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter['Authorization'] = String(authorization)
@@ -4053,6 +4233,8 @@ export const DefaultApiAxiosParamCreator = function (
      * @param {string} [authorization]
      * @param {string} [origin]
      * @param {string} [group]
+     * @param {string} [createdByTable]
+     * @param {string} [createdBy]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -4060,6 +4242,8 @@ export const DefaultApiAxiosParamCreator = function (
       authorization?: string,
       origin?: string,
       group?: string,
+      createdByTable?: string,
+      createdBy?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/meeting_record/chart`
@@ -4087,6 +4271,14 @@ export const DefaultApiAxiosParamCreator = function (
 
       if (group !== undefined) {
         localVarQueryParameter['group'] = group
+      }
+
+      if (createdByTable !== undefined) {
+        localVarQueryParameter['created_by_table'] = createdByTable
+      }
+
+      if (createdBy !== undefined) {
+        localVarQueryParameter['created_by'] = createdBy
       }
 
       if (authorization !== undefined && authorization !== null) {
@@ -4736,6 +4928,45 @@ export const DefaultApiAxiosParamCreator = function (
     },
     /**
      *
+     * @summary /chat_report-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionChatReport: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/chat_report`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
      * @summary /department-OPTIONS
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4783,6 +5014,45 @@ export const DefaultApiAxiosParamCreator = function (
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/meeting_place`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'OPTIONS',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary /meeting_record-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionMeetingRecord: async (
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/meeting_record/chart`
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
       let baseOptions
@@ -6745,6 +7015,8 @@ export const DefaultApiFp = function (configuration?: Configuration) {
      * @param {string} [authorization]
      * @param {string} [origin]
      * @param {string} [group]
+     * @param {string} [createdByTable]
+     * @param {string} [createdBy]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -6752,6 +7024,8 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       authorization?: string,
       origin?: string,
       group?: string,
+      createdByTable?: string,
+      createdBy?: string,
       options?: AxiosRequestConfig
     ): Promise<
       (
@@ -6763,6 +7037,8 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         authorization,
         origin,
         group,
+        createdByTable,
+        createdBy,
         options
       )
       return createRequestFunction(
@@ -6778,6 +7054,8 @@ export const DefaultApiFp = function (configuration?: Configuration) {
      * @param {string} [authorization]
      * @param {string} [origin]
      * @param {string} [group]
+     * @param {string} [createdByTable]a
+     * @param {string} [createdBy]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -6785,6 +7063,8 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       authorization?: string,
       origin?: string,
       group?: string,
+      createdByTable?: string,
+      createdBy?: string,
       options?: AxiosRequestConfig
     ): Promise<
       (
@@ -6796,6 +7076,38 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         authorization,
         origin,
         group,
+        createdByTable,
+        createdBy,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * チャット報告
+     * @summary /chat_report-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getChatReport(
+      authorization?: string,
+      origin?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<Activity>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getChatReport(
+        authorization,
+        origin,
         options
       )
       return createRequestFunction(
@@ -6993,6 +7305,46 @@ export const DefaultApiFp = function (configuration?: Configuration) {
           authorization,
           origin,
           group,
+          options
+        )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     * 議事録チャート
+     * @summary /meeting_record/chart-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {string} [group]
+     * @param {string} [createdByTable]
+     * @param {string} [createdBy]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getMeetingRecordChart(
+      authorization?: string,
+      origin?: string,
+      group?: string,
+      createdByTable?: string,
+      createdBy?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<MeetingRecord>>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getMeetingRecordChart(
+          authorization,
+          origin,
+          group,
+          createdByTable,
+          createdBy,
           options
         )
       return createRequestFunction(
@@ -7318,6 +7670,26 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @summary /chat_report-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionChatReport(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionChatReport(options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
      * @summary /department-OPTIONS
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7349,6 +7721,26 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.optionMeetingPlace(options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+    /**
+     *
+     * @summary /meeting_record-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async optionMeetingRecord(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.optionMeetingRecord(options)
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
@@ -8341,6 +8733,8 @@ export const DefaultApiFactory = function (
      * @param {string} [authorization]
      * @param {string} [origin]
      * @param {string} [group]
+     * @param {string} [createdByTable]
+     * @param {string} [createdBy]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8348,10 +8742,19 @@ export const DefaultApiFactory = function (
       authorization?: string,
       origin?: string,
       group?: string,
+      createdByTable?: string,
+      createdBy?: string,
       options?: any
     ): AxiosPromise<Array<ChatMessage>> {
       return localVarFp
-        .getBlogChart(authorization, origin, group, options)
+        .getBlogChart(
+          authorization,
+          origin,
+          group,
+          createdByTable,
+          createdBy,
+          options
+        )
         .then((request) => request(axios, basePath))
     },
     /**
@@ -8360,6 +8763,8 @@ export const DefaultApiFactory = function (
      * @param {string} [authorization]
      * @param {string} [origin]
      * @param {string} [group]
+     * @param {string} [createdByTable]
+     * @param {string} [createdBy]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8367,10 +8772,36 @@ export const DefaultApiFactory = function (
       authorization?: string,
       origin?: string,
       group?: string,
+      createdByTable?: string,
+      createdBy?: string,
       options?: any
     ): AxiosPromise<Array<ChatMessage>> {
       return localVarFp
-        .getChatChart(authorization, origin, group, options)
+        .getChatChart(
+          authorization,
+          origin,
+          group,
+          createdByTable,
+          createdBy,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * チャット報告
+     * @summary /chat_report-GET
+     * @param {string} [authorization]
+     * @param {string} [origin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChatReport(
+      authorization?: string,
+      origin?: string,
+      options?: any
+    ): AxiosPromise<Array<Activity>> {
+      return localVarFp
+        .getChatReport(authorization, origin, options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -8485,6 +8916,8 @@ export const DefaultApiFactory = function (
      * @param {string} [authorization]
      * @param {string} [origin]
      * @param {string} [group]
+     * @param {string} [createdByTable]
+     * @param {string} [createdBy]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8492,10 +8925,19 @@ export const DefaultApiFactory = function (
       authorization?: string,
       origin?: string,
       group?: string,
+      createdByTable?: string,
+      createdBy?: string,
       options?: any
     ): AxiosPromise<Array<MeetingRecord>> {
       return localVarFp
-        .getMeetingRecordChart(authorization, origin, group, options)
+        .getMeetingRecordChart(
+          authorization,
+          origin,
+          group,
+          createdByTable,
+          createdBy,
+          options
+        )
         .then((request) => request(axios, basePath))
     },
     /**
@@ -8687,6 +9129,17 @@ export const DefaultApiFactory = function (
     optionChatChart(options?: any): AxiosPromise<object> {
       return localVarFp
         .optionChatChart(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary /chat_report-OPTIONS
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    optionChatReport(options?: any): AxiosPromise<object> {
+      return localVarFp
+        .optionChatReport(options)
         .then((request) => request(axios, basePath))
     },
     /**
@@ -9461,6 +9914,8 @@ export class DefaultApi extends BaseAPI {
    * @param {string} [authorization]
    * @param {string} [origin]
    * @param {string} [group]
+   * @param {string} [createdByTable]
+   * @param {string} [createdBy]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
@@ -9469,10 +9924,19 @@ export class DefaultApi extends BaseAPI {
     authorization?: string,
     origin?: string,
     group?: string,
+    createdByTable?: string,
+    createdBy?: string,
     options?: AxiosRequestConfig
   ) {
     return DefaultApiFp(this.configuration)
-      .getBlogChart(authorization, origin, group, options)
+      .getBlogChart(
+        authorization,
+        origin,
+        group,
+        createdByTable,
+        createdBy,
+        options
+      )
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -9482,6 +9946,8 @@ export class DefaultApi extends BaseAPI {
    * @param {string} [authorization]
    * @param {string} [origin]
    * @param {string} [group]
+   * @param {string} [createdByTable]
+   * @param {string} [createdBy]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
@@ -9490,10 +9956,38 @@ export class DefaultApi extends BaseAPI {
     authorization?: string,
     origin?: string,
     group?: string,
+    createdByTable?: string,
+    createdBy?: string,
     options?: AxiosRequestConfig
   ) {
     return DefaultApiFp(this.configuration)
-      .getChatChart(authorization, origin, group, options)
+      .getChatChart(
+        authorization,
+        origin,
+        group,
+        createdByTable,
+        createdBy,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * チャット報告
+   * @summary /chat_report-GET
+   * @param {string} [authorization]
+   * @param {string} [origin]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getChatReport(
+    authorization?: string,
+    origin?: string,
+    options?: AxiosRequestConfig
+  ) {
+    return DefaultApiFp(this.configuration)
+      .getChatReport(authorization, origin, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -9619,6 +10113,8 @@ export class DefaultApi extends BaseAPI {
    * @param {string} [authorization]
    * @param {string} [origin]
    * @param {string} [group]
+   * @param {string} [createdByTable]
+   * @param {string} [createdBy]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
@@ -9627,10 +10123,19 @@ export class DefaultApi extends BaseAPI {
     authorization?: string,
     origin?: string,
     group?: string,
+    createdByTable?: string,
+    createdBy?: string,
     options?: AxiosRequestConfig
   ) {
     return DefaultApiFp(this.configuration)
-      .getMeetingRecordChart(authorization, origin, group, options)
+      .getMeetingRecordChart(
+        authorization,
+        origin,
+        group,
+        createdByTable,
+        createdBy,
+        options
+      )
       .then((request) => request(this.axios, this.basePath))
   }
 
@@ -9844,6 +10349,19 @@ export class DefaultApi extends BaseAPI {
   public optionChatChart(options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .optionChatChart(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary /chat_report-OPTIONS
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public optionChatReport(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .optionChatReport(options)
       .then((request) => request(this.axios, this.basePath))
   }
 

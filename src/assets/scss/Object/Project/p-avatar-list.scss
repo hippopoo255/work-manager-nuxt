@@ -1,0 +1,20 @@
+$interval: 24px;
+// @mixin nthModifier() {
+//   @for $i from 1 to 1000 {
+//     &.--item-#{$i} {
+//       left: $interval * $i;
+//     }
+//   }
+// }
+.p-avatar-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 -4px -4px;
+  &__item {
+    padding: 0 4px;
+    margin-bottom: 4px;
+    // position: absolute;
+    // @include nthModifier();
+  }
+}

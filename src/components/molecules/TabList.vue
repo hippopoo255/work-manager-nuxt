@@ -1,5 +1,5 @@
 <template>
-  <v-tabs centered show-arrows>
+  <v-tabs centered show-arrows :fixed-tabs="fixedTabs">
     <!-- <v-tabs-slider></v-tabs-slider> -->
 
     <TabItem v-for="tab in tabs" :key="tab.id" :tab="tab" @click="tabClick" />
@@ -22,6 +22,10 @@ export default defineComponent({
     tabClick: {
       type: Function as PropType<Function>,
       required: true,
+    },
+    fixedTabs: {
+      type: Boolean as PropType<boolean>,
+      default: false,
     },
   },
   setup(_props) {

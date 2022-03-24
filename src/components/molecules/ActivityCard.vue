@@ -1,6 +1,7 @@
 <template>
   <DashboardCard :title="title" resource="activity" scroll no-title-space>
     <Loader v-if="loading" slot="card-content" absolute />
+    <p v-else-if="!activities.length" slot="card-content">データがありません</p>
     <ActivityRows v-else slot="card-content" :activities="activities" />
   </DashboardCard>
 </template>

@@ -2,6 +2,8 @@ export * from './sidebar'
 export * from './statusCode'
 export * from './cognito'
 export * from './color'
+export * from './tab'
+
 export { default as requestUri } from './requestUri'
 
 export const API_STAGE_URL = process.env.API_STAGE_URL || ''

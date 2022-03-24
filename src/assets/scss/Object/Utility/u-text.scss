@@ -39,15 +39,19 @@
     text-decoration: underline;
   }
 }
-//
-// .u-link {
-//   transition: $transitionBasis;
-//   &:hover {
-//     text-decoration: underline;
-//   }
-// }
 
-// .u-center {
-//   @include contentCenter();
-//   height: 100%;
-// }
+.u-count-num {
+  // font-family: 'Roboto';
+  // font-weight: 300;
+  // letter-spacing: -0.04em;
+}
+
+@mixin textColorByResource() {
+  @each $resourceName, $colorName in $resourceColor {
+    .u-text-#{$resourceName} {
+      color: map-get($customColor, $colorName);
+    }
+  }
+}
+
+@include textColorByResource();

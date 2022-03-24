@@ -3,6 +3,7 @@
   &__title {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 16px 16px 0;
     &.--no-space {
       margin: 0 16px;
@@ -22,6 +23,12 @@
     .p-dashboard-card__text {
       max-height: 400px;
       overflow-y: scroll;
+    }
+  }
+
+  @include media() {
+    &__title {
+      justify-content: flex-start;
     }
   }
 }

@@ -3,17 +3,20 @@
     <AuthenticatableCard :authenticatable="admin" :menus="menus">
       <template slot="authenticatable-content">
         <div class="u-mt-8">
-          <v-row no-gutters justify="center">
-            <v-col cols="12" md="6">
-              <h3 class="c-title u-mb-4">アクティビティ</h3>
-              <ActivityList :activities="activities" :loading="loading" />
-              <MoreLink
-                v-if="hasMore"
-                :loading="moreLoading"
-                @more="handleMore"
-              />
-            </v-col>
-          </v-row>
+          <div class="u-w-450-center">
+            <TabList :tabs="tabs" :tab-click="handleSwitch" fixed-tabs />
+          </div>
+          <div class="mt-6 mt-md-9">
+            <AuthenticatableProfile
+              v-show="currentTabId === 1"
+              :authenticatable="admin"
+              :loading="loading"
+            />
+            <ActivityContent
+              v-show="currentTabId === 2"
+              authenticatable="admin"
+            />
+          </div>
         </div>
       </template>
     </AuthenticatableCard>
@@ -29,20 +32,20 @@ import {
   watch,
   useContext,
 } from '@nuxtjs/composition-api'
-import { useActivity, useAdmin } from '@/hooks'
+import { useAdmin } from '@/hooks'
 import { Admin } from '~/types/ts-axios'
 import { faceUrl } from '@/lib/util'
+import { tabList, switchTab } from '@/config'
 
 export default defineComponent({
   name: 'AdminDetailList',
   setup() {
     const { show } = useAdmin()
-    const { store } = useContext()
+    const { store, i18n } = useContext()
     const route = useRoute()
     const loading = ref(true)
-    const moreLoading = ref(false)
     const admin = ref<Admin | null>(null)
-    const { activities, fetchActivities, hasMore } = useActivity('admin')
+
     const isSignin = computed(() => store.getters['admin/isSignin'])
     const facePath = computed(() =>
       admin.value?.file_path ? faceUrl(admin.value?.file_path) : ''
@@ -71,29 +74,28 @@ export default defineComponent({
           await show(Number(param.id)).then((ad) => {
             admin.value = ad
           })
-          await fetchActivities(Number(param.id))
           loading.value = false
         }
       },
       { immediate: true }
     )
 
-    const handleMore = async () => {
-      moreLoading.value = true
-      const param = route.value.params
-      await fetchActivities(Number(param.id))
-      moreLoading.value = false
+    // タブ切り替え
+    const tabs = tabList.adminDetail(i18n)
+    const currentTabId = ref(1)
+    const handleSwitch = (id?: number) => {
+      switchTab(currentTabId, id)
     }
+
     return {
-      activities,
       admin,
       bgPath,
       facePath,
-      handleMore,
-      hasMore,
       loading,
       menus,
-      moreLoading,
+      tabs,
+      handleSwitch,
+      currentTabId,
     }
   },
 })

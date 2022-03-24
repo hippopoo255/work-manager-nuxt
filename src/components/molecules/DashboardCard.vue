@@ -1,5 +1,5 @@
 <template>
-  <v-card class="p-dashboard-card mt-3" :class="{ '--scroll': scroll }">
+  <v-card class="p-dashboard-card" :class="{ '--scroll': scroll }">
     <v-card-title class="p-dashboard-card__title px-0" :class="titleClass">
       <v-icon
         color="inherit"

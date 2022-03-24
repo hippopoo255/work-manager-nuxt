@@ -28,7 +28,7 @@ export default Vue.extend({
     options: {
       type: Object,
       default: () => ({
-        ...options,
+        ...options.default(),
       }),
     },
   },

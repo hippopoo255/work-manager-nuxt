@@ -44,7 +44,10 @@ export default defineComponent({
         }
         return title
       } else {
-        return ''
+        const regex = new RegExp(
+          `^${props.activity.created_by.full_name}さん(が|から)`
+        )
+        return props.activity.content.replace(regex, '')
       }
     })
 
@@ -57,11 +60,13 @@ export default defineComponent({
         return ''
       }
     })
+
     const modifierByActivityKey = computed(() => [
       `--${props.activity.action_type.key}`,
     ])
 
     const to = computed(() => app.localePath(props.activity.action_type.link))
+
     const replaceIfUserAction = (title: string) =>
       title.replace(/(.+)が(.+)されました/g, '$1を$2しました')
 

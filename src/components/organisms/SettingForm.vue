@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <TabList :tabs="tabs" :tab-click="switchTab" />
+    <TabList :tabs="tabs" :tab-click="handleSwitch" />
     <!-- 一般 -->
     <CommonSettingForm v-if="currentTabId === 1" />
     <!-- 通知 -->
@@ -12,43 +12,27 @@
 
 <script lang="ts">
 import {
-  computed,
+  // computed,
   defineComponent,
   useContext,
   ref,
 } from '@nuxtjs/composition-api'
-
+import { tabList, switchTab } from '@/config'
 export default defineComponent({
   name: 'Settingform',
   setup() {
     const { i18n } = useContext()
 
-    const tabs = computed(() => [
-      {
-        id: 1,
-        text: i18n.t('tab.setting.common'),
-      },
-      // {
-      //   id: 2,
-      //   text: i18n.t('tab.setting.notification'),
-      // },
-      {
-        id: 3,
-        text: i18n.t('tab.setting.changePassword'),
-      },
-    ])
+    const tabs = tabList.setting(i18n)
 
     const currentTabId = ref(1)
 
-    const switchTab = (id?: number) => {
-      if (id) {
-        currentTabId.value = id
-      }
+    const handleSwitch = (id?: number) => {
+      switchTab(currentTabId, id)
     }
-
     return {
       currentTabId,
-      switchTab,
+      handleSwitch,
       tabs,
     }
   },
