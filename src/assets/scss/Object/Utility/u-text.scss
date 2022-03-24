@@ -16,12 +16,22 @@
 .u-fs16 {
   font-size: 1.6rem;
 }
+.u-text-left {
+  text-align: left;
+}
 .u-text-center {
   text-align: center;
 }
 .u-text-right {
   text-align: right;
 }
+.u-text-sm {
+  font-size: $fontSizeSm;
+}
+.u-text-xs {
+  font-size: $fontSizeXs;
+}
+
 // font style
 .u-primaryLink {
   color: $primaryColor;
@@ -29,15 +39,19 @@
     text-decoration: underline;
   }
 }
-//
-// .u-link {
-//   transition: $transitionBasis;
-//   &:hover {
-//     text-decoration: underline;
-//   }
-// }
 
-// .u-center {
-//   @include contentCenter();
-//   height: 100%;
-// }
+.u-count-num {
+  // font-family: 'Roboto';
+  // font-weight: 300;
+  // letter-spacing: -0.04em;
+}
+
+@mixin textColorByResource() {
+  @each $resourceName, $colorName in $resourceColor {
+    .u-text-#{$resourceName} {
+      color: map-get($customColor, $colorName);
+    }
+  }
+}
+
+@include textColorByResource();

@@ -74,7 +74,7 @@ export default {
     },
     blog: {
       index: 'ブログ一覧',
-      report: 'ブログ通報',
+      report: 'ブログ報告',
       id: {
         index: '{id}',
         comment: {
@@ -85,7 +85,7 @@ export default {
     },
     chat: {
       index: 'チャット一覧',
-      report: 'チャット通報',
+      report: 'チャット報告',
     },
     master: {
       index: 'マスター',
@@ -123,6 +123,15 @@ export default {
       notification: '通知',
       changePassword: 'パスワード',
     },
+    userDetail: {
+      activity: 'アクティビティ',
+      base: '基本情報',
+      score: 'スコア',
+    },
+    adminDetail: {
+      activity: 'アクティビティ',
+      base: '基本情報',
+    },
   },
   layout: {
     sidebar: {
@@ -140,11 +149,11 @@ export default {
       blog: {
         top: 'ブログ',
         index: '一覧',
-        report: '通報',
+        report: '報告',
       },
       chat: {
         top: 'チャット',
-        report: '通報',
+        report: '報告',
       },
       setting: {
         index: '一般',
@@ -156,6 +165,18 @@ export default {
     table: {
       header: {
         actions: '操作',
+        chat_report: {
+          index: {
+            id: 'ID',
+            roomName: 'ルーム名',
+            messageId: '投稿ID',
+            messageBody: '投稿文',
+            writtenBy: '投稿者',
+            createdBy: '報告者',
+            reportCategory: '報告理由',
+            count: '報告件数',
+          },
+        },
         user: {
           index: {
             id: 'ID',
@@ -261,7 +282,7 @@ export default {
     profile: 'プロフィール',
     moreLink: 'もっと見る',
     edit: {
-      profile: 'プロフィールを編集する',
+      profile: '基本情報を編集する',
     },
   },
   placeholder: {
@@ -303,11 +324,11 @@ export default {
       },
       blog: {
         index: 'ブログ一覧',
-        report: 'ブログ通報',
+        report: 'ブログ報告',
       },
       chat: {
         index: 'チャット一覧',
-        report: 'チャット通報',
+        report: 'チャット報告',
       },
       master: {
         index: 'マスター',

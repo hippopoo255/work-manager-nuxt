@@ -1,0 +1,34 @@
+.p-dashboard-card {
+  min-height: 300px;
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 16px 0;
+    &.--no-space {
+      margin: 0 16px;
+    }
+    @include colorModifierByResource(('color'));
+  }
+  &__title-icon.v-icon {
+    @include colorModifierByResource(('color'));
+  }
+  &__title-text {
+    line-height: 1;
+    margin-left: 8px;
+  }
+  &.--scroll {
+    max-height: 500px;
+    overflow-y: hidden;
+    .p-dashboard-card__text {
+      max-height: 400px;
+      overflow-y: scroll;
+    }
+  }
+
+  @include media() {
+    &__title {
+      justify-content: flex-start;
+    }
+  }
+}

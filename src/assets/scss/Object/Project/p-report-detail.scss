@@ -1,0 +1,29 @@
+.p-report-detail {
+  &__title {
+    $resourceColor: map-get($resourceColor, 'chat');
+    padding: 16px;
+    font-size: $titleSizeBasis;
+    text-align: center;
+    color: map-get($customColor, $resourceColor);
+    border-bottom: 1px solid $lightGrey1;
+  }
+  &__meta {
+    &-label {
+      display: inline-block;
+      width: 64px;
+    }
+    &-date {
+      margin-left: 2px;
+    }
+    font-size: $fontSizeSm;
+    color: var(--v-fontColor-basis);
+    // display: flex;
+    // align-items: flex-start;
+    // justify-content: flex-start;
+    padding: 24px;
+  }
+  &__report-list {
+    display: flex;
+    align-items: flex-start;
+  }
+}

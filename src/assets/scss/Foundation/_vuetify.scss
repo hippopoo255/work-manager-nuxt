@@ -2,8 +2,10 @@
   .theme--light {
     // vuetify
     --v-bgColor-basis: #f5f5f5;
+    --v-bgColor-sheet: #fafafa;
     --v-bgColor-drawer: #333;
     --v-bgColor-footer: #e5e5e5;
+    --v-bgColor-alternate: #f5f5f5;
     --v-fontColor-drawer: #fafafa;
     --v-fontColor-basis: #444;
     --v-fontColor-label: #444;
@@ -11,8 +13,10 @@
   .theme--dark {
     // vuetify
     --v-bgColor-basis: #444;
+    --v-bgColor-sheet: #1a1a1a;
     // --v-bgColor-drawer: #333;
     // --v-bgColor-footer: #e5e5e5;
+    --v-bgColor-alternate: #444;
     --v-fontColor-drawer: #fafafa;
     --v-fontColor-basis: #444;
     --v-fontColor-label: #fafafa;
@@ -32,6 +36,9 @@ Dark Mode
   &.v-application {
     text-transform: none !important;
     // color: var(--v-fontColor-basis, rgba(0, 0, 0, 0.87)) !important;
+  }
+  &.v-sheet {
+    background-color: var(--v-bgColor-sheet, #1a1a1a);
   }
 
   &.v-card {
@@ -61,6 +68,9 @@ Light Mode
   &.v-application,
   &.v-sheet {
     color: var(--v-fontColor-basis, rgba(0, 0, 0, 0.87)) !important;
+  }
+  &.v-sheet {
+    background-color: var(--v-bgColor-sheet, white);
   }
   &.v-application {
     background-color: var(--v-bgColor-basis, white);
@@ -96,7 +106,7 @@ Themeに依存しない指定
 ==================
 */
 .v-main__wrap {
-  margin: 32px 0;
+  margin: 12px 0;
 }
 
 // ヘッダー
@@ -179,4 +189,13 @@ Themeに依存しない指定
 .v-application ul,
 .v-application ol {
   padding-left: 0 !important;
+}
+
+.v-tab {
+  font-size: 0.75rem !important;
+  padding: 0 12px !important;
+  @include media() {
+    font-size: 0.875rem !important;
+    padding: 0 16px !important;
+  }
 }

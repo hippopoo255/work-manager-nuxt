@@ -1,5 +1,5 @@
 <template>
-  <v-row :justify="justify" class="mt-xs-4 mt-md-6">
+  <v-row :justify="justify" class="mt-4 mt-md-6">
     <v-col cols="12">
       <v-btn
         color="primary"

@@ -1,6 +1,8 @@
-@import '../../Foundation/function';
-
+// @import '../../Foundation/function';
 .c-page-title {
-  margin-top: 5%;
-  margin-bottom: spacing(8);
+  margin-top: 2.5%;
+  margin-bottom: spacing(3);
+  @include media('sm') {
+    margin-bottom: spacing(8);
+  }
 }

@@ -114,6 +114,15 @@ export default {
       notification: 'Notification',
       changePassword: 'Password',
     },
+    userDetail: {
+      activity: 'Activity',
+      base: 'Base',
+      score: 'Score',
+    },
+    adminDetail: {
+      activity: 'Activity',
+      base: 'Base',
+    },
   },
   layout: {
     sidebar: {

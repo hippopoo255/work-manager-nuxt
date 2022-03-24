@@ -3,19 +3,18 @@
     <AuthenticatableCard :authenticatable="user" :menus="menus">
       <template slot="authenticatable-content">
         <div class="mt-8 mt-md-12">
-          <v-row no-gutters justify="center">
-            <v-col cols="12" md="6">
-              <h3 class="c-title u-mb-4">
-                {{ $t('page.title.user.activity') }}
-              </h3>
-              <ActivityList :activities="activities" :loading="loading" />
-              <MoreLink
-                v-if="hasMore"
-                :loading="moreLoading"
-                @more="handleMore"
-              />
-            </v-col>
-          </v-row>
+          <div class="u-w-450-center">
+            <TabList :tabs="tabs" :tab-click="handleSwitch" fixed-tabs />
+          </div>
+          <div class="mt-6 mt-md-9">
+            <UserScore v-show="currentTabId === 1" :user="user" />
+            <AuthenticatableProfile
+              v-show="currentTabId === 2"
+              :authenticatable="user"
+              :loading="loading"
+            />
+            <ActivityContent v-show="currentTabId === 3" />
+          </div>
         </div>
       </template>
     </AuthenticatableCard>
@@ -32,9 +31,10 @@ import {
   useContext,
   useRouter,
 } from '@nuxtjs/composition-api'
-import { useAdmin, useUser, useActivity } from '@/hooks'
+import { useAdmin, useUser } from '@/hooks'
 import { User } from '~/types/ts-axios'
 import { faceUrl } from '~/lib/util'
+import { tabList, switchTab } from '@/config'
 
 export default defineComponent({
   name: 'UserDetailList',
@@ -44,10 +44,9 @@ export default defineComponent({
     const { app, store, i18n } = useContext()
     const route = useRoute()
     const router = useRouter()
-    const loading = ref(true)
-    const moreLoading = ref(false)
     const user = ref<User | null>(null)
-    const { activities, fetchActivities, hasMore } = useActivity()
+    const loading = ref(true)
+
     const isSignin = computed(() => store.getters['admin/isSignin'])
     const facePath = computed(() =>
       user.value?.file_path ? faceUrl(user.value?.file_path) : ''
@@ -69,12 +68,15 @@ export default defineComponent({
         !user.value.is_invited
       ) {
         loading.value = true
+
         const inputs = {
           email: user.value?.email || '',
           family_name: user.value?.family_name,
           family_name_kana: user.value?.family_name_kana,
           given_name: user.value?.given_name,
           given_name_kana: user.value?.given_name_kana,
+          department_id: user.value?.department?.id,
+          organization_id: user.value?.organization_id,
         }
         await save(inputs).finally(() => {
           loading.value = false
@@ -109,6 +111,13 @@ export default defineComponent({
       },
     ])
 
+    // タブ切り替え
+    const tabs = tabList.userDetail(i18n)
+    const currentTabId = ref(1)
+    const handleSwitch = (id?: number) => {
+      switchTab(currentTabId, id)
+    }
+
     watch(
       () => isSignin.value,
       async (isSignin) => {
@@ -117,31 +126,29 @@ export default defineComponent({
           await show(Number(param.id)).then((u) => {
             user.value = u
           })
-          await fetchActivities(Number(param.id))
+          // await fetchActivities(Number(param.id))
           loading.value = false
         }
       },
       { immediate: true }
     )
 
-    const handleMore = async () => {
-      moreLoading.value = true
-      const param = route.value.params
-      await fetchActivities(Number(param.id))
-      moreLoading.value = false
-    }
-
     return {
-      activities,
       bgPath,
       facePath,
-      handleMore,
-      hasMore,
       loading,
       menus,
-      moreLoading,
       user,
+      tabs,
+      handleSwitch,
+      currentTabId,
     }
   },
 })
 </script>
+<style lang="scss">
+.wrap {
+  max-width: 600px;
+  margin: 0 auto 36px;
+}
+</style>

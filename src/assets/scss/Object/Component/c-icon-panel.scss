@@ -6,13 +6,14 @@
     justify-content: center;
     flex-direction: column;
     aspect-ratio: 1 / 1;
+    background-color: var(--v-bgColor-sheet, white);
   }
   &__icon.v-icon {
     &.theme--light,
     &.theme--dark {
       color: var(--v-fontColor-label, #eee);
       font-size: $iconSizeXl;
-      @include colorModifierByResource('color');
+      @include colorModifierByResource(('color'));
     }
   }
   &__name {

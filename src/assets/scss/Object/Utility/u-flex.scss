@@ -1,11 +1,21 @@
 .u-flex {
-}
-.u-alignLeft {
-  text-align: left;
-}
-.u-alignCenter {
-  text-align: center;
-}
-.u-alignRight {
-  text-align: right;
+  display: flex;
+  &__center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.--sm-column {
+      flex-direction: column;
+      @include media('sm') {
+        flex-direction: row;
+      }
+    }
+  }
+
+  &.--justify-center {
+    justify-content: center;
+  }
+  &.--justify-end {
+    justify-content: center;
+  }
 }
