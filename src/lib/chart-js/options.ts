@@ -1,12 +1,27 @@
-// const stepSize = (min: number, max: number, isAverage: boolean = false) =>
-//   (min + max) / 10 < 1 && !isAverage ? 1 : (min + max) / 10
+const BASE_NUM = 10
+const MAX_NUM = 10
 
-export const horizontalBarOptions = () => {}
+const stepSize = (min: number, max: number, isAverage: boolean = false) =>
+  (min + max) / BASE_NUM < 1 && !isAverage ? 1 : (min + max) / BASE_NUM
+
+const getDigit = (num: number) => num.toString().length
+
+const getMax = (maxData?: number, isAverage: boolean = false) => {
+  if (isAverage) {
+    return MAX_NUM
+  }
+  if (maxData === undefined || maxData <= MAX_NUM) {
+    return MAX_NUM
+  }
+  const digit = getDigit(maxData)
+  const atLeast = BASE_NUM ** (digit - 1)
+  const topDigitNum = Math.floor(maxData / atLeast)
+  return atLeast * (topDigitNum + 1)
+}
 
 export default {
-  default: () => {
-    // default: (/*max?: number, isAverage: boolean = false*/) => {
-    // const m = max === undefined ? 5 : max
+  default: (maxData?: number, isAverage: boolean = false) => {
+    const max = getMax(maxData, isAverage)
 
     return {
       responsive: true,
@@ -15,36 +30,23 @@ export default {
         display: true,
       },
       scales: {
-        xAxes: [
-          {
-            ticks: {
-              // fontColor: 'rgba(254, 254, 254, 0)',
-              suggestedMin: 0,
-              barPercentage: 0.5,
-              // min: 0,
-              // max: m,
-              // stepSize: stepSize(0, m, isAverage),
-            },
-          },
-        ],
         yAxes: [
           {
             ticks: {
-              fontColor: 'rgba(254, 254, 254, 0)',
+              fontColor: 'rgba(0, 0, 0, 0.6)',
               suggestedMin: 0,
               barPercentage: 0.5,
-              // min: 0,
-              // max: m <= 10 && !isAverage ? 5 : m,
-              // stepSize: stepSize(0, m, isAverage),
+              min: 0,
+              max,
+              stepSize: stepSize(0, max, isAverage),
             },
           },
         ],
       },
     }
   },
-  horizontalBar: () => {
-    // horizontalBar: (max?: number, isAverage: boolean = false) => {
-    // const m = max === undefined ? 5 : max
+  horizontalBar: (maxData?: number, isAverage: boolean = false) => {
+    const max = getMax(maxData, isAverage)
     return {
       responsive: true,
       maintainAspectRatio: false,
@@ -55,24 +57,12 @@ export default {
         xAxes: [
           {
             ticks: {
-              fontColor: 'rgba(254, 254, 254, 0)',
+              fontColor: 'rgba(0, 0, 0, 0.6)',
               suggestedMin: 0,
               barPercentage: 0.5,
-              // min: 0,
-              // max: m,
-              // stepSize: stepSize(0, m, isAverage),
-            },
-          },
-        ],
-        yAxes: [
-          {
-            ticks: {
-              // fontColor: 'rgba(254, 254, 254, 0)',
-              suggestedMin: 0,
-              barPercentage: 0.5,
-              // min: 0,
-              // max: m <= 10 && !isAverage ? 5 : m,
-              // stepSize: stepSize(0, m, isAverage),
+              min: 0,
+              max,
+              stepSize: stepSize(0, max, isAverage),
             },
           },
         ],

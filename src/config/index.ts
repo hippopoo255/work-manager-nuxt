@@ -3,6 +3,7 @@ export * from './statusCode'
 export * from './cognito'
 export * from './color'
 export * from './tab'
+export * from './breadcrumb'
 
 export { default as requestUri } from './requestUri'
 
