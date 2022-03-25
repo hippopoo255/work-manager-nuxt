@@ -1,5 +1,4 @@
 export * from './color'
 export * from './type'
 export * from './chartData'
-export * from './options'
 export { default as options } from './options'

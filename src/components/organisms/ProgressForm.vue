@@ -5,7 +5,6 @@
       :rules="rules.name"
       :label="$t('attribute.name.progress')"
       :counter="$formCounter.default[1]"
-      autofocus
       required
     ></v-text-field>
     <v-text-field

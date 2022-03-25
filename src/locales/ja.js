@@ -66,6 +66,7 @@ export default {
       id: '{id}',
       index: '一般アカウント一覧',
       create: '一般アカウント登録',
+      edit: '更新',
     },
     admin: {
       id: '{id}',
@@ -102,7 +103,9 @@ export default {
     organization: {
       index: '組織情報',
     },
-    profile: 'プロフィール',
+    profile: {
+      index: 'プロフィール',
+    },
     setting: {
       index: '設定',
       common: '一般',

@@ -39,12 +39,6 @@ const useChatReport = () => {
           )
 
           activeChatReportId.value = chatReports.value[0].id
-
-          console.log(
-            chatReports.value.find(
-              (chatReport) => chatReport.id === activeChatReportId.value
-            )
-          )
         }
       }
     )
