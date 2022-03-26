@@ -28,7 +28,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { store } = useContext()
-    const isSignin = computed(() => store.getters['admin/isSignin'])
+    const admin = computed(() => store.getters['admin/currentAdmin'])
     const { chatPerPost, fetchChartData } = useChartData()
     const loading = ref(true)
     const title = ref({
@@ -46,9 +46,9 @@ export default defineComponent({
       }
     })
     watch(
-      () => isSignin.value,
-      async (isSignin) => {
-        if (isSignin) {
+      () => admin.value,
+      async (admin) => {
+        if (!!admin && !!admin.jwt) {
           // eslint-disable-next-line no-extra-boolean-cast
           await fetchChartData('chatPerPost', queryAddition.value).then(() => {
             loading.value = false

@@ -38,9 +38,13 @@ export default {
     error: {
       signin: 'サインインに失敗しました。',
       signup: 'サインアップに失敗しました。',
+      unauthorized: 'サインインしてください',
+      forbidden: '権限のない操作が行われました',
+      notfound: 'データがありません',
       cognito: {
         UserNotFoundException: 'アカウントが存在しません',
-        NotAuthorizedException: 'ユーザー名またはパスワードが違います',
+        NotAuthorizedException:
+          'ユーザー名またはパスワードが異なるか、無効化されています',
         UserNotConfirmedException: 'アカウントの検証が完了していません',
         UsernameExistsException: '同じ名前のユーザーが既に登録されています',
         CodeMismatchException: '検証コードに誤りがあります',
@@ -217,8 +221,8 @@ export default {
         progress: {
           index: {
             id: 'ID',
-            name: '部署名',
-            value: '順番',
+            name: '進捗度',
+            value: '達成値',
             createdBy: '作成者',
             created_at: '作成日',
           },
@@ -240,6 +244,8 @@ export default {
     confirmation: '{attribute}が一致しません',
     min: '{attribute}は{length}文字以上で指定してください',
     max: '{attribute}は{length}文字以下で指定してください',
+    minNum: '{attribute}は{length}以上で指定してください',
+    maxNum: '{attribute}は{length}以下で指定してください',
     imageSize: '{attribute}は{size}MB以下を指定してください',
   },
   attribute: {
@@ -294,6 +300,7 @@ export default {
   },
   status: {
     inviteAdmin: '管理システムに招待済み',
+    isDefault: '初期値',
   },
   submit: {
     create: '登録',
@@ -321,7 +328,7 @@ export default {
         index: '管理者アカウント一覧',
         create: '管理者アカウント登録',
         id: '管理者アカウント詳細',
-        edit: '管理者アカウント更新',
+        edit: '管理者アカウント編集',
         activity: 'アクティビティ',
         profile: 'プロフィール',
       },
@@ -355,7 +362,7 @@ export default {
         index: '一般アカウント一覧',
         create: '一般アカウント登録',
         id: '一般アカウント詳細',
-        edit: '一般アカウント更新',
+        edit: '一般アカウント編集',
         activity: 'アクティビティ',
         profile: 'プロフィール',
       },

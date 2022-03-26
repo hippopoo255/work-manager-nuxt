@@ -6,8 +6,17 @@
     class="elevation-1"
   >
     <template #[`item.actions`]="{ item }">
-      <v-icon small class="mr-2" @click="handleEdit(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="handleDelete(item)"> mdi-delete </v-icon>
+      <div v-if="item.is_default" class="d-flex align-center justify-center">
+        <span class="text-caption grey--text">{{
+          $t('status.isDefault')
+        }}</span>
+      </div>
+      <div v-else class="d-flex align-center justify-center">
+        <v-icon small class="mr-2" @click="handleEdit(item)">
+          mdi-pencil
+        </v-icon>
+        <v-icon small @click="handleDelete(item)"> mdi-delete </v-icon>
+      </div>
     </template>
     <template #[`item.color`]="{ item }">
       <span class="u-full-round" :class="bgColorClasss(item)"></span>

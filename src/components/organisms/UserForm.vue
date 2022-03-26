@@ -113,12 +113,14 @@ export default defineComponent({
     const department_id = ref(0)
     const loading = ref(false)
     const title = computed(() =>
-      id.value === undefined
-        ? i18n.t('page.title.user.create')
-        : i18n.t('page.title.user.edit')
+      id.value === undefined ? i18n.t('page.title.user.create') : username.value
     )
     const submitText = computed(() =>
       id.value === undefined ? i18n.t('submit.create') : i18n.t('submit.update')
+    )
+
+    const username = computed(() =>
+      props.user ? props.user.full_name : i18n.t('page.title.user.edit')
     )
 
     const searchDepartment = (item: any, queryText: string, itemText: string) =>

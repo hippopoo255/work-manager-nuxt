@@ -32,9 +32,13 @@ export default {
     error: {
       signin: 'サインインに失敗しました。',
       signup: 'サインアップに失敗しました。',
+      unauthorized: 'Please Sign in and Try again',
+      forbidden: 'Forbidden',
+      notfound: 'Not Found',
       cognito: {
         UserNotFoundException: 'アカウントが存在しません',
-        NotAuthorizedException: 'ユーザー名またはパスワードが違います',
+        NotAuthorizedException:
+          'ユーザー名またはパスワードが異なるか、無効化されています',
         UserNotConfirmedException: 'アカウントの検証が完了していません',
         UsernameExistsException: '同じ名前のユーザーが既に登録されています',
         CodeMismatchException: '検証コードに誤りがあります',
@@ -245,6 +249,7 @@ export default {
   },
   status: {
     inviteAdmin: '管理システムに招待済み',
+    isDefault: 'Default value',
   },
   submit: {
     changePassword: 'Change password',

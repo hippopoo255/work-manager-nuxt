@@ -18,7 +18,7 @@ import { useChartData } from '@/hooks'
 export default defineComponent({
   setup() {
     const { store } = useContext()
-    const isSignin = computed(() => store.getters['admin/isSignin'])
+    const admin = computed(() => store.getters['admin/currentAdmin'])
     const { chat, fetchChartData } = useChartData()
     const loading = ref(true)
     const title = ref({
@@ -26,9 +26,9 @@ export default defineComponent({
       icon: 'mdi-chat-outline',
     })
     watch(
-      () => isSignin.value,
-      async (isSignin) => {
-        if (isSignin) {
+      () => admin.value,
+      async (admin) => {
+        if (!!admin && !!admin.jwt) {
           await fetchChartData('chat').then(() => {
             loading.value = false
           })
