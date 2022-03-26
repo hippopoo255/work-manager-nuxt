@@ -26,7 +26,7 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const { store } = useContext()
-    const isSignin = computed(() => store.getters['admin/isSignin'])
+    const admin = computed(() => store.getters['admin/currentAdmin'])
     const { minutes, fetchChartData } = useChartData()
     const loading = ref(true)
     const title = ref({
@@ -45,9 +45,9 @@ export default defineComponent({
     })
 
     watch(
-      () => isSignin.value,
-      async (isSignin) => {
-        if (isSignin) {
+      () => admin.value,
+      async (admin) => {
+        if (!!admin && !!admin.jwt) {
           await fetchChartData('minutes', queryAddition.value).then(() => {
             loading.value = false
             if (minutes.value && minutes.value.datasets.length) {

@@ -10,11 +10,10 @@
     <v-text-field
       v-model="value"
       type="number"
-      min="0"
-      max="255"
+      :min="length.value.default[0]"
+      :max="length.value.default[1]"
       :rules="rules.value"
       :label="$t('attribute.value.progress')"
-      :counter="$formCounter.short[1]"
     ></v-text-field>
   </div>
 </template>
@@ -28,7 +27,7 @@ import {
   PropType,
   watch,
 } from '@nuxtjs/composition-api'
-import { departmentRule } from '@/config/validationRule'
+import { progressRule, length } from '@/config/validationRule'
 import { Progress } from '@/types/ts-axios'
 
 export default defineComponent({
@@ -42,7 +41,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { i18n } = useContext()
-    const rules = computed(() => departmentRule(i18n))
+    const rules = computed(() => progressRule(i18n))
     const value = ref(0)
     const name = ref('')
     const fetchFormData = () => {
@@ -74,7 +73,12 @@ export default defineComponent({
       { immediate: true }
     )
 
-    return { value, name, rules }
+    return {
+      value,
+      name,
+      rules,
+      length,
+    }
   },
 })
 </script>

@@ -37,7 +37,6 @@ export default defineComponent({
   setup() {
     const { store } = useContext()
     const admin = computed(() => store.getters['admin/currentAdmin'])
-
     return {
       admin,
     }

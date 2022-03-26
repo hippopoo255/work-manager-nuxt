@@ -1,20 +1,35 @@
 const BASE_NUM = 10
+const BASE_STEP = 5
 const MAX_NUM = 10
 
-const stepSize = (min: number, max: number, isAverage: boolean = false) =>
-  (min + max) / BASE_NUM < 1 && !isAverage ? 1 : (min + max) / BASE_NUM
+export const stepSize = (max: number, isAverage: boolean = false) => {
+  if (isAverage) {
+    return max / BASE_NUM
+  }
+  if (max <= MAX_NUM) {
+    return 1
+  }
+  let step = max / BASE_NUM
+  while (step % BASE_STEP) {
+    step++
+  }
+  return step
+}
 
 const getDigit = (num: number) => num.toString().length
 
-const getMax = (maxData?: number, isAverage: boolean = false) => {
+export const getMax = (maxData?: number, isAverage: boolean = false) => {
   if (isAverage) {
     return MAX_NUM
   }
   if (maxData === undefined || maxData <= MAX_NUM) {
     return MAX_NUM
   }
+  // データの最大値は何桁か
   const digit = getDigit(maxData)
+  // 10の(digit - 1)乗
   const atLeast = BASE_NUM ** (digit - 1)
+  // データ最大値の上1桁
   const topDigitNum = Math.floor(maxData / atLeast)
   return atLeast * (topDigitNum + 1)
 }
@@ -38,7 +53,7 @@ export default {
               barPercentage: 0.5,
               min: 0,
               max,
-              stepSize: stepSize(0, max, isAverage),
+              stepSize: stepSize(max, isAverage),
             },
           },
         ],
@@ -62,7 +77,7 @@ export default {
               barPercentage: 0.5,
               min: 0,
               max,
-              stepSize: stepSize(0, max, isAverage),
+              stepSize: stepSize(max, isAverage),
             },
           },
         ],

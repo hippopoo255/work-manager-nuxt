@@ -21,7 +21,7 @@ const mutations: MutationTree<AdminState> = {
 const getters: GetterTree<AdminState, AdminState> = {
   currentAdmin: (state: AdminStateProp) => state.admin,
   jwt: (state: AdminStateProp) =>
-    !state.admin ? '' : !state.admin.jwt ? '' : state.admin.jwt,
+    !state.admin || state.admin.jwt === undefined ? '' : state.admin.jwt,
   isSignin: (state: AdminStateProp) => state.admin !== '',
 }
 

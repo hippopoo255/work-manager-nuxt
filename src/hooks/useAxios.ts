@@ -16,10 +16,9 @@ import {
 } from '@/config'
 
 const useAxios = () => {
-  const { app, store } = useContext()
+  const { app, store, i18n } = useContext()
   const router = useRouter()
   const jwt = computed(() => store.getters['admin/jwt'])
-
   const mergedConfig = (config?: AxiosRequestConfig) => {
     return {
       ...config,
@@ -47,7 +46,7 @@ const useAxios = () => {
         status = {
           status: err.status,
           message: {
-            unauthorized: err.data.message,
+            unauthorized: i18n.t('alert.error.unauthorized'),
           },
         }
         store.dispatch('status/updateResponse', status)
@@ -57,7 +56,7 @@ const useAxios = () => {
         status = {
           status: err.status,
           message: {
-            forbidden: err.data.message,
+            forbidden: i18n.t('alert.error.forbidden'),
           },
         }
         store.dispatch('status/updateResponse', status)
@@ -67,7 +66,7 @@ const useAxios = () => {
         status = {
           status: err.status,
           message: {
-            notfound: err.data.message,
+            notfound: i18n.t('alert.error.notfound'),
           },
         }
         store.dispatch('status/updateResponse', status)

@@ -67,11 +67,22 @@ export const progressRule = (i18n: NuxtI18nInstance) => ({
   // 値: 任意, 最大64文字
   value: [
     (v: ProgressInputs['value']) =>
-      !v ||
-      v.length <= length.short[1] ||
-      i18n.t('validation.max', {
+      !!v ||
+      i18n.t('validation.required', {
         attribute: i18n.t('attribute.value.progress'),
-        length: length.short[1],
+      }),
+    (v: ProgressInputs['value']) =>
+      Number(v) >= length.value.default[0] ||
+      i18n.t('validation.minNum', {
+        attribute: i18n.t('attribute.value.progress'),
+        length: length.value.default[0],
+      }),
+    (v: ProgressInputs['value']) =>
+      !v ||
+      Number(v) <= length.value.default[1] ||
+      i18n.t('validation.maxNum', {
+        attribute: i18n.t('attribute.value.progress'),
+        length: length.value.default[1],
       }),
   ],
 })

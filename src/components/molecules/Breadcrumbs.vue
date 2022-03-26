@@ -1,5 +1,5 @@
 <template>
-  <v-breadcrumbs :items="breadcrumbs" class="px-0">
+  <v-breadcrumbs v-if="breadcrumbs" :items="breadcrumbs" class="px-0">
     <template #item="{ item }">
       <li>
         <nuxt-link
@@ -42,6 +42,9 @@ export default defineComponent({
       const pathname = getPathWithoutLocaleSuffix()
       const list = breadcrumbData(i18n, app.localePath, params)
       const items = list[pathname]
+      if (!items) {
+        return []
+      }
       if (pathname !== 'dashboard') {
         items.unshift({
           text: i18n.t('breadcrumb.dashboard'),

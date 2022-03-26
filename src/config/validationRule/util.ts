@@ -17,6 +17,9 @@ export const length = {
   default: [2, 128],
   short: [2, 64],
   long: [2, 255],
+  value: {
+    default: [0, 255],
+  },
 }
 
 export const MAX_IMAGE_SIZE = 5000000 // 5MB

@@ -2129,6 +2129,12 @@ export interface Progress {
    * @memberof Progress
    */
   created_by: User
+  /**
+   *
+   * @type {boolean}
+   * @memberof Progress
+   */
+  is_default?: boolean
 }
 /**
  * 進捗度投稿フォーム
