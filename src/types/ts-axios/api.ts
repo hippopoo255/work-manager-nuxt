@@ -1070,6 +1070,12 @@ export interface Department {
    * @memberof Department
    */
   created_by: User
+  /**
+   *
+   * @type {number}
+   * @memberof Department
+   */
+  member_count: number
 }
 /**
  * 部署投稿フォーム
@@ -2135,6 +2141,12 @@ export interface Progress {
    * @memberof Progress
    */
   is_default?: boolean
+  /**
+   *
+   * @type {number}
+   * @memberof Progress
+   */
+  task_count: number
 }
 /**
  * 進捗度投稿フォーム

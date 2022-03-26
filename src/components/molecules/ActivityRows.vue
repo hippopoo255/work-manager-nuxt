@@ -7,11 +7,21 @@
     >
       <div class="d-flex justify-space-between">
         <div class="d-flex align-center">
-          <v-avatar color="info" size="20" class="mr-1">
+          <v-avatar
+            :color="handleIconColor(activity.action_type.is_admin)"
+            size="20"
+            class="mr-1"
+          >
             <v-icon color="white" small>mdi-account</v-icon>
           </v-avatar>
           <nuxt-link
-            :to="localePath(`/user/${activity.created_by.id}`)"
+            :to="
+              localePath(
+                `/${authenticatableName(activity.action_type.is_admin)}/${
+                  activity.created_by.id
+                }`
+              )
+            "
             class="u-text-xs"
             >{{ activity.created_by.full_name }}</nuxt-link
           >
@@ -39,8 +49,13 @@ export default defineComponent({
     },
   },
   setup() {
+    const handleIconColor = (isAdmin: number) => (isAdmin ? 'info' : 'orange')
+    const authenticatableName = (isAdmin: number) =>
+      isAdmin ? 'admin' : 'user'
     return {
       postTiming,
+      handleIconColor,
+      authenticatableName,
     }
   },
 })

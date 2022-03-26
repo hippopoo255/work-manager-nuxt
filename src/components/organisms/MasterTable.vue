@@ -12,10 +12,38 @@
         }}</span>
       </div>
       <div v-else class="d-flex align-center justify-center">
-        <v-icon small class="mr-2" @click="handleEdit(item)">
-          mdi-pencil
-        </v-icon>
-        <v-icon small @click="handleDelete(item)"> mdi-delete </v-icon>
+        <v-tooltip left>
+          <template #activator="{ on, attrs }">
+            <v-icon
+              small
+              class="mr-2"
+              v-bind="attrs"
+              v-on="on"
+              @click="handleEdit(item)"
+            >
+              mdi-pencil
+            </v-icon>
+          </template>
+          <span class="text-caption">{{ $t('tooltip.edit') }}</span>
+        </v-tooltip>
+        <v-tooltip left>
+          <template #activator="{ on, attrs }">
+            <v-icon
+              small
+              :color="colorByCount(item)"
+              v-bind="attrs"
+              v-on="on"
+              @click="handleDelete(item)"
+            >
+              mdi-delete
+            </v-icon>
+          </template>
+          <span class="text-caption">{{
+            hasChildren(item)
+              ? $t('tooltip.trash.hasChildren')
+              : $t('submit.delete')
+          }}</span>
+        </v-tooltip>
       </div>
     </template>
     <template #[`item.color`]="{ item }">
@@ -53,7 +81,10 @@ export default defineComponent({
       emit('edit', item.id)
     }
 
-    const handleDelete = (item: Progress | Department | MeetingPlace) => {
+    const handleDelete = (item: Progress & Department & MeetingPlace) => {
+      if (hasChildren(item)) {
+        return false
+      }
       emit('delete', item.id)
     }
 
@@ -64,9 +95,17 @@ export default defineComponent({
         return [`--${item.color}`]
       }
     }
+    const hasChildren = (item: Progress & Department & MeetingPlace) =>
+      !!(item.task_count || item.member_count)
+
+    const colorByCount = (item: Progress & Department & MeetingPlace) => {
+      return hasChildren(item) ? 'grey lighten-1' : ''
+    }
 
     return {
       bgColorClasss,
+      colorByCount,
+      hasChildren,
       handleEdit,
       handleDelete,
     }

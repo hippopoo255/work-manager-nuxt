@@ -12,6 +12,10 @@ export default {
       toLight: 'Switch on Light mode',
       toDark: 'Switch on Dark mode',
     },
+    edit: 'Edit',
+    trash: {
+      disabled: "Can't delete",
+    },
   },
   alert: {
     success: {
@@ -257,6 +261,7 @@ export default {
     inviteAdmin: 'Invite as an Admin',
     resetPassword: 'Send',
     save: 'Save',
+    delete: 'Delete',
     sendVerificationCode: 'Send verification code',
     signin: 'Sign in',
     signout: 'Sign out',

@@ -3123,7 +3123,7 @@ components:
           description: 優先度
           type: string
         value:
-          description: 優先値
+          description: 達成値
           type: integer
           format: int64
         created_at:

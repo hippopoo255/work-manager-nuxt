@@ -12,6 +12,11 @@ export default {
       toLight: 'ライトモードにする',
       toDark: 'ダークモードにする',
     },
+    edit: '編集',
+    trash: {
+      disabled: '削除できません',
+      hasChildren: '関連付いたリソースが存在するため削除できません',
+    },
   },
   alert: {
     modal: {
@@ -272,7 +277,7 @@ export default {
       meeting_room: '会議室名',
     },
     value: {
-      progress: '優先値',
+      progress: '達成値',
     },
     organization: {
       name: '組織名',
@@ -307,6 +312,7 @@ export default {
     inviteAdmin: '管理システムに招待する',
     resetPassword: '送信',
     save: '保存',
+    delete: '削除',
     sendVerificationCode: '検証コードを送信する',
     signin: 'サインイン',
     signout: 'サインアウト',
