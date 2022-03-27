@@ -25,12 +25,12 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    const { store } = useContext()
+    const { store, i18n } = useContext()
     const admin = computed(() => store.getters['admin/currentAdmin'])
     const { minutes, fetchChartData } = useChartData()
     const loading = ref(true)
     const title = ref({
-      text: '議事録',
+      text: i18n.t('card.title.minutes'),
       icon: 'mdi-post-outline',
     })
 

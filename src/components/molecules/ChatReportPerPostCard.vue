@@ -27,15 +27,14 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const { store } = useContext()
+    const { store, i18n } = useContext()
     const admin = computed(() => store.getters['admin/currentAdmin'])
     const { chatPerPost, fetchChartData } = useChartData()
     const loading = ref(true)
     const title = ref({
-      text: '書き込みごとの報告件数',
+      text: i18n.t('card.title.chatPerPost'),
       icon: 'mdi-chat-outline',
     })
-
     const queryAddition = computed(() => {
       if (props.filteredUserId) {
         return `created_by_table=chat_messages&created_by=${String(

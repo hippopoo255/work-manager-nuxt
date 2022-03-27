@@ -17,12 +17,12 @@ import { useChartData } from '@/hooks'
 
 export default defineComponent({
   setup() {
-    const { store } = useContext()
+    const { store, i18n } = useContext()
     const admin = computed(() => store.getters['admin/currentAdmin'])
     const { chat, fetchChartData } = useChartData()
     const loading = ref(true)
     const title = ref({
-      text: 'チャット',
+      text: i18n.t('card.title.chat'),
       icon: 'mdi-chat-outline',
     })
     watch(

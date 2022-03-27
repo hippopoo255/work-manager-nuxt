@@ -72,15 +72,15 @@ export default {
   breadcrumb: {
     dashboard: 'ダッシュボード',
     user: {
-      id: '{id}',
-      index: '一般アカウント一覧',
       create: '一般アカウント登録',
       edit: '更新',
+      id: '{id}',
+      index: '一般アカウント一覧',
     },
     admin: {
+      create: '管理者アカウント登録',
       id: '{id}',
       index: '管理者アカウント一覧',
-      create: '管理者アカウント登録',
     },
     blog: {
       index: 'ブログ一覧',
@@ -143,6 +143,31 @@ export default {
     adminDetail: {
       activity: 'アクティビティ',
       base: '基本情報',
+    },
+  },
+  unit: {
+    default: '件',
+  },
+  card: {
+    title: {
+      activity: 'アクティビティ',
+      minutes: '議事録',
+      chat: 'チャット',
+      chatPerPost: '書き込みごとの報告件数',
+      chatPerUser: 'ユーザー別累計',
+      reportCount: '報告を受けた件数',
+      minutesCount: '議事録の作成件数',
+      sub: {
+        chat: '（チャット）',
+      },
+    },
+  },
+  chart: {
+    label: {
+      minutes: '作成件数',
+      chat: '報告件数',
+      chatPerPost: '報告された件数',
+      chatPerUser: '報告された件数',
     },
   },
   layout: {
@@ -254,9 +279,9 @@ export default {
     imageSize: '{attribute}は{size}MB以下を指定してください',
   },
   attribute: {
+    both: 'ログインIDまたはメールアドレス',
     email: 'メールアドレス',
     login_id: 'ログインID',
-    both: 'ログインIDまたはメールアドレス',
     old_password: '現在のパスワード',
     password: 'パスワード',
     password_confirmation: 'パスワード（確認）',
@@ -308,11 +333,14 @@ export default {
     isDefault: '初期値',
   },
   submit: {
+    address: '住所検索',
+    changePassword: 'パスワード変更',
+    clearUpload: '画像をクリア',
     create: '登録',
+    delete: '削除',
     inviteAdmin: '管理システムに招待する',
     resetPassword: '送信',
     save: '保存',
-    delete: '削除',
     sendVerificationCode: '検証コードを送信する',
     signin: 'サインイン',
     signout: 'サインアウト',
@@ -320,10 +348,7 @@ export default {
     theme: 'ダークモードにする',
     testSignin: 'デモユーザとして試す',
     update: '更新',
-    changePassword: 'パスワード変更',
     upload: '画像をアップロード',
-    clearUpload: '画像をクリア',
-    address: '住所検索',
   },
   page: {
     index: {

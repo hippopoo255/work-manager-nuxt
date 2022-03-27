@@ -17,13 +17,13 @@ import { useChartData } from '@/hooks'
 
 export default defineComponent({
   setup() {
-    const { store } = useContext()
+    const { store, i18n } = useContext()
     const admin = computed(() => store.getters['admin/currentAdmin'])
     const { chatPerUser, fetchChartData } = useChartData()
 
     const loading = ref(true)
     const title = ref({
-      text: 'ユーザー別累計',
+      text: i18n.t('card.title.chatPerUser'),
       icon: 'mdi-account-multiple-outline',
     })
 
