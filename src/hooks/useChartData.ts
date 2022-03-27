@@ -1,4 +1,4 @@
-import { ref, Ref } from '@nuxtjs/composition-api'
+import { ref, Ref, useContext } from '@nuxtjs/composition-api'
 import { requestUri } from '@/config'
 import { useAxios } from '@/hooks'
 import {
@@ -16,6 +16,7 @@ import { symbolByPath } from '@/lib/util'
 
 const useChartData = () => {
   const { getRequest } = useAxios()
+  const { i18n } = useContext()
 
   const fetchActivityList = async (): Promise<void> => {
     const res = await getRequest<Activity[]>(requestUri.activity.index)
@@ -34,10 +35,11 @@ const useChartData = () => {
       : path[dataCategoryName]
     const res = await getRequest<ChartApiResponse>(lastPath)
     const ref = chartRefs.value
+    const dCategories = dataCategories(i18n)
     ref[dataCategoryName] = {
       // ['2022-01', '2022-02', '2022-03']
       labels: res.labels,
-      datasets: dataCategories[dataCategoryName].map(
+      datasets: dCategories[dataCategoryName].map(
         (dataCategory: DataCategory) => ({
           label: dataCategory.label,
           // [100,200,300]

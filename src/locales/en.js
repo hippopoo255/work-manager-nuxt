@@ -15,63 +15,68 @@ export default {
     edit: 'Edit',
     trash: {
       disabled: "Can't delete",
+      hasChildren: 'Related resources exist',
     },
   },
   alert: {
     success: {
-      signin: 'インデックスページです',
+      signin: 'You have successfully signed in.',
       signup:
-        'ご入力いただいたメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
+        'We have Sent the verification code to the email address you entered.\nAfter a few seconds, the current page will change and you will be asked to enter your new password and verification code.',
       forgotPassword:
-        'ご入力いただいたメールアドレスに検証用コードを送信しました。\n数秒後に画面が切り替わりますので、検証コードと新しいパスワードを入力してください。',
+        'We have Sent the verification code to the email address you entered.\nAfter a few seconds, the current page will change and you will be asked to enter your new password and verification code.',
       resetPassword:
-        '再設定に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
+        'You have successfully reseted password.\nAfter a few seconds, you will be redirected to the login screen.',
       verify:
-        '検証に成功しました。数秒後ログイン画面に移動しますので、ログインをお試しください',
-      admin: '管理者アカウントを保存しました。',
-      organization: '組織情報を保存しました。',
-      profile: 'プロフィールを更新しました。',
-      delete: 'データを削除しました。',
+        'You have succeeded the verification.\nAfter a few seconds, you will be redirected to the login screen.',
+      admin: 'Admin account successfully saved.',
+      user: 'User account successfully saved.',
+      organization: 'Organization successfully saved.',
+      profile: 'Profile successfully saved.',
+      save: 'The data successfully saved.',
+      delete: 'The data successfully deleted.',
     },
     error: {
-      signin: 'サインインに失敗しました。',
-      signup: 'サインアップに失敗しました。',
+      signin: 'Sign in failed.',
+      signup: 'Sign up failed.',
       unauthorized: 'Please Sign in and Try again',
       forbidden: 'Forbidden',
       notfound: 'Not Found',
       cognito: {
-        UserNotFoundException: 'アカウントが存在しません',
+        UserNotFoundException: "The account doesn't exist.",
         NotAuthorizedException:
-          'ユーザー名またはパスワードが異なるか、無効化されています',
-        UserNotConfirmedException: 'アカウントの検証が完了していません',
-        UsernameExistsException: '同じ名前のユーザーが既に登録されています',
-        CodeMismatchException: '検証コードに誤りがあります',
-        InvalidParameterException: '入力項目が正しくありません',
-        InvalidPasswordException: 'パスワードの形式が正しくありません',
+          'Username or password is different, or your account has been disabled.',
+        UserNotConfirmedException:
+          'Account verification has not yet been completed.',
+        UsernameExistsException: 'The same username already exists.',
+        CodeMismatchException: 'Invalid verification code.',
+        InvalidParameterException: 'Invalid attributes you have entered.',
+        InvalidPasswordException: 'Password format does not match.',
         LimitExceededException:
-          'パスワードが試行回数を超えました。しばらくしてからもう一度お試しください',
-        ExpiredCodeException:
-          '既に検証済みのアカウントか、有効期限切れの可能性があります',
-        default: '検証に失敗しました',
+          'Password has exceeded the number of attempts. Please try again in a few minutes.',
+        ExpiredCodeException: 'Account may already be verified or expired',
+        default: 'Verification failed.',
       },
     },
   },
   confirm: {
-    invite: 'このユーザーにメールが送信されます。管理システムに招待しますか？',
     delete:
       'Once deleted, it cannot be restored. Are you sure you want to delete it?',
+    invite:
+      'An invitation email will be sent to this user. Would you like to be invited to the management system?',
   },
   breadcrumb: {
     dashboard: 'Dashboard',
     user: {
+      create: 'User registration',
+      edit: 'User edit',
       id: '{id}',
       index: 'User List',
-      create: 'User registration',
     },
     admin: {
-      index: 'Admin List',
       create: 'Admin registration',
       id: '{id}',
+      index: 'Admin List',
     },
     blog: {
       index: 'Blogs',
@@ -101,7 +106,9 @@ export default {
     organization: {
       index: 'Organization',
     },
-    profile: 'Profile',
+    profile: {
+      index: 'Profile',
+    },
     setting: {
       index: 'Setting',
       common: 'Common',
@@ -130,6 +137,33 @@ export default {
     adminDetail: {
       activity: 'Activity',
       base: 'Base',
+    },
+  },
+  unit: {
+    default: 'records',
+  },
+  card: {
+    title: {
+      activity: 'Activity',
+      minutes: 'Minutes',
+      chat: 'Chat',
+      chatPerPost: 'Report per post',
+      chatPerUser: 'Report per user',
+      reportCount: 'Reported count',
+      minutesCount: 'Minutes count',
+      sub: {
+        chat: '（chat）',
+      },
+    },
+  },
+  chart: {
+    label: {
+      blog: 'Report count',
+      blogPerPost: 'Reported count',
+      minutes: 'Post count',
+      chat: 'Report count',
+      chatPerPost: 'Reported count',
+      chatPerUser: 'Reported count',
     },
   },
   layout: {
@@ -164,6 +198,18 @@ export default {
     table: {
       header: {
         actions: 'Actions',
+        chat_report: {
+          index: {
+            id: 'ID',
+            roomName: 'Chat room',
+            messageId: 'Message ID',
+            messageBody: 'Body',
+            writtenBy: 'Written by',
+            createdBy: 'Reported by',
+            reportCategory: 'Reason',
+            count: 'Count',
+          },
+        },
         user: {
           index: {
             id: 'ID',
@@ -190,6 +236,33 @@ export default {
             created_at: 'Created at',
           },
         },
+        department: {
+          index: {
+            id: 'ID',
+            department_code: 'Department code',
+            name: 'Department name',
+            color: 'Color',
+            createdBy: 'Created by',
+            created_at: 'Created at',
+          },
+        },
+        progress: {
+          index: {
+            id: 'ID',
+            name: 'Name',
+            value: 'Value',
+            createdBy: 'Created by',
+            created_at: 'Created at',
+          },
+        },
+        meeting_room: {
+          index: {
+            id: 'ID',
+            name: 'Name',
+            createdBy: 'Created by',
+            created_at: 'Created at',
+          },
+        },
       },
     },
   },
@@ -197,14 +270,16 @@ export default {
     required: '{attribute} is required.',
     pattern: '{attribute} is invalid format.',
     confirmation: '{attribute} is not match with confimation attribute.',
-    min: '{attribute} is at least {length} chars.',
-    max: '{attribute} is equal or less than {length} chars',
+    min: '{attribute} must be at least {length} chars.',
+    max: '{attribute} must be equal or less than {length} chars',
+    minNum: '{attribute} must be at least {length}',
+    maxNum: '{attribute} must be equal or less than {length}',
     imageSize: '{attribute} size should be less than {size} MB',
   },
   attribute: {
+    both: 'Login ID or Email',
     email: 'Email',
     login_id: 'Login ID',
-    both: 'Login ID or Email',
     old_password: 'Current password',
     password: 'Password',
     password_confirmation: 'Password（confirm）',
@@ -224,6 +299,9 @@ export default {
       progress: 'Progress name',
       meeting_room: 'Meeting room name',
     },
+    value: {
+      progress: 'Progress value',
+    },
     organization: {
       name: 'Name',
       name_kana: 'Name kana',
@@ -232,9 +310,6 @@ export default {
       city: 'City',
       address: 'Address',
       tel: 'Tel',
-    },
-    value: {
-      progress: 'priority',
     },
   },
   link: {
@@ -252,16 +327,18 @@ export default {
     department_code: 'Alper numeric',
   },
   status: {
-    inviteAdmin: '管理システムに招待済み',
+    inviteAdmin: 'Already invited',
     isDefault: 'Default value',
   },
   submit: {
+    address: 'Enter address',
     changePassword: 'Change password',
+    clearUpload: 'Clear image',
     create: 'Register',
+    delete: 'Delete',
     inviteAdmin: 'Invite as an Admin',
     resetPassword: 'Send',
     save: 'Save',
-    delete: 'Delete',
     sendVerificationCode: 'Send verification code',
     signin: 'Sign in',
     signout: 'Sign out',
@@ -270,8 +347,6 @@ export default {
     testSignin: 'Sign in as a Demo user',
     update: 'Update',
     upload: 'Upload image',
-    clearUpload: 'Clear image',
-    address: 'Enter address',
   },
   page: {
     index: {
@@ -303,6 +378,7 @@ export default {
       organization: {
         index: 'Organization',
       },
+      profile: 'プロフィール',
       setting: {
         index: 'Setting',
         common: 'Common',

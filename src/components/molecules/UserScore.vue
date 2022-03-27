@@ -6,7 +6,8 @@
           <v-col cols="12">
             <BlankCard title-center>
               <div slot="card-title" class="aggregate__title">
-                報告を受けた件数（チャット）
+                {{ $t('card.title.reportCount') }}
+                {{ $t('card.title.sub.chat') }}
               </div>
               <Loader
                 v-if="chatLoading"
@@ -17,7 +18,7 @@
                 <span class="aggregate__count u-text-chat u-count-num">{{
                   totalCount
                 }}</span>
-                <span class="aggregate__unit">件</span>
+                <span class="aggregate__unit">{{ $t('unit.default') }}</span>
               </div>
             </BlankCard>
           </v-col>
@@ -35,7 +36,7 @@
           <v-col cols="12">
             <BlankCard title-center>
               <div slot="card-title" class="aggregate__title">
-                議事録の作成数
+                {{ $t('card.title.minutesCount') }}
               </div>
               <Loader
                 v-if="minutesLoading"
@@ -46,7 +47,7 @@
                 <span class="aggregate__count u-text-minutes u-count-num">{{
                   minutesTotalCount
                 }}</span>
-                <span class="aggregate__unit">件</span>
+                <span class="aggregate__unit">{{ $t('unit.default') }}</span>
               </div>
             </BlankCard>
           </v-col>

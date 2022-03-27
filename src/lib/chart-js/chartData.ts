@@ -1,52 +1,55 @@
+import { NuxtI18nInstance } from 'nuxt-i18n'
 import * as types from './type'
 import { requestUri } from '~/config'
 
-export const dataCategories: types.DataCategories = {
+export const dataCategories: (
+  i18n: NuxtI18nInstance
+) => types.DataCategories = (i18n: NuxtI18nInstance) => ({
   blog: [
     {
-      label: '報告件数',
+      label: String(i18n.t('chart.label.blog')),
       name: 'report',
     },
     {
-      label: '投稿件数',
+      label: String(i18n.t('chart.label.blogPerPost')),
       name: 'posts',
     },
   ],
   blogPerUser: [
     {
-      label: '報告された件数',
+      label: String(i18n.t('chart.label.chatPerPost')),
       name: 'report',
     },
     {
-      label: '投稿件数',
+      label: String(i18n.t('chart.label.chatPerUser')),
       name: 'like',
     },
   ],
   chat: [
     {
-      label: '報告件数',
+      label: String(i18n.t('chart.label.chat')),
       name: 'report',
     },
   ],
   chatPerPost: [
     {
-      label: '報告された件数',
+      label: String(i18n.t('chart.label.chatPerPost')),
       name: 'report',
     },
   ],
   chatPerUser: [
     {
-      label: '報告された件数',
+      label: String(i18n.t('chart.label.chatPerUser')),
       name: 'report',
     },
   ],
   minutes: [
     {
-      label: '作成件数',
+      label: String(i18n.t('chart.label.minutes')),
       name: 'minutes',
     },
   ],
-}
+})
 
 export const path: types.ChartApiPaths = {
   blog: requestUri.blog.chart,

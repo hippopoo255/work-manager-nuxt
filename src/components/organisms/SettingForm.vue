@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import {
-  // computed,
+  computed,
   defineComponent,
   useContext,
   ref,
@@ -23,7 +23,7 @@ export default defineComponent({
   setup() {
     const { i18n } = useContext()
 
-    const tabs = tabList.setting(i18n)
+    const tabs = computed(() => tabList.setting(i18n))
 
     const currentTabId = ref(1)
 

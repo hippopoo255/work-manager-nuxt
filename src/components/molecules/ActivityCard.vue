@@ -18,12 +18,12 @@ import { useChartData } from '@/hooks'
 
 export default defineComponent({
   setup() {
-    const { store } = useContext()
+    const { store, i18n } = useContext()
     const admin = computed(() => store.getters['admin/currentAdmin'])
     const { activities, fetchActivityList } = useChartData()
     const loading = ref(true)
     const title = ref({
-      text: 'アクティビティ',
+      text: i18n.t('card.title.activity'),
       icon: 'mdi-post-outline',
     })
     watch(
