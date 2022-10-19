@@ -28,7 +28,7 @@ export default {
     titleTemplate: '%s - ジョブサポ管理画面',
     title: 'ジョブサポ管理画面',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
