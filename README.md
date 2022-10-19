@@ -1,4 +1,4 @@
-# job-support-nuxt
+# work-manager-nuxt
 
 ## Build Setup
 
